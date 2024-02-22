@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/dp1">
+
+    <ImageView
+        android:id="@+id/ivCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:textAppearance="?attr/textAppearanceBody1"
+        tools:src="@drawable/ic_checkbox_false_15dp"
+        android:contentDescription="Checked" />
+
+    <TextView
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:background="@android:color/transparent"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_regular"
+        android:maxLines="1"
+        android:paddingHorizontal="8dp"
+        android:textAppearance="?attr/textAppearanceBody1"
+        android:textColor="@color/neutral500every"
+        android:textSize="@dimen/sp14"
+        app:layout_constraintHorizontal_bias="0"
+        tools:text="@string/searchThreeDotLabel" />
+
+</LinearLayout>
+

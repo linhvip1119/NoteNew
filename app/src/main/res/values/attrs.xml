@@ -1,0 +1,16 @@
+<resources>
+    <declare-styleable name="AppWidgetAttrs">
+        <attr name="appWidgetPadding" format="dimension" />
+        <attr name="appWidgetInnerRadius" format="dimension" />
+        <attr name="appWidgetRadius" format="dimension" />
+    </declare-styleable>
+    <dimen name="banner_height">50dp</dimen>
+
+    <declare-styleable name="CommonCodeInput">
+        <attr name="codeDigits" format="enum">
+            <enum name="four" value="4" />
+            <enum name="six" value="6" />
+        </attr>
+        <attr name="inputMask" format="boolean" />
+    </declare-styleable>
+</resources>

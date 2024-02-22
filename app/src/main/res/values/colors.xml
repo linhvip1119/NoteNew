@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
+
+    <color name="redOption">#C72525</color>
+    <color name="redOption50">#50C72525</color>
+    <color name="redBody">#FFE0E0</color>
+
+    <color name="blueOption">#047BD8</color>
+    <color name="blueOption50">#50047BD8</color>
+    <color name="blueBody">#C7E7FF</color>
+
+    <color name="primaryOption">#672EB8</color>
+    <color name="primary50">#50672EB8</color>
+    <color name="primaryBody">#ECDFFF</color>
+
+    <color name="orangeOption">#D86800</color>
+    <color name="orangeOption50">#50D86800</color>
+    <color name="orangeBody">#FFE1C6</color>
+
+    <color name="greenOption">#1F8E38</color>
+    <color name="greenOption50">#501F8E38</color>
+    <color name="greenBody">#E1FFE7</color>
+
+    <color name="grayOption">#919191</color>
+    <color name="grayOption50">#50919191</color>
+    <color name="grayBody">#FBFBFB</color>
+
+    <color name="blinkOption">#CA2B77</color>
+    <color name="blinkOption50">#50CA2B77</color>
+    <color name="blinkBody">#FFDBEC</color>
+
+    <color name="neutral500">#121212</color>
+    <color name="neutral500every">#121212</color>
+    <color name="colorSubEvery">#60121212</color>
+    <color name="neutral50038">#38121212</color>
+    <color name="neutral50060">#60121212</color>
+    <color name="neutral400">#545454</color>
+    <color name="neutral300">#A8A8A8</color>
+    <color name="neutral200">#D9D9D9</color>
+    <color name="neutral100">#EFECEC</color>
+    <color name="neutral50">#EFECEC</color>
+    <color name="neutral0">#FFFFFF</color>
+    <color name="neutral038">#38FFFFFF</color>
+    <color name="colorBlank">#00000000</color>
+    <color name="colorBottomBarDisable">#121212</color>
+    <color name="colorBottomBarEnable">#6200EE</color>
+
+    <color name="blackEvery">#121212</color>
+    <color name="colorDisableUndo">#A8A8A8</color>
+    <color name="colorSubtitleIAP">#7A7A7A</color>
+
+    //new color
+    <color name="grayNew">#1D1D1D</color>
+    <color name="bgDialog">#FFFFFF</color>
+    <color name="bgEditNoteDark">#2C2C2C</color>
+    <color name="bgSelectedIap">#B00E0E</color>
+    <color name="bgTextColorIap">#FFCD4F</color>
+
+    <color name="bgBottomTab">#FFFFFF</color>
+    <color name="bgShadowBottomTab">#E6E3E3</color>
+</resources>

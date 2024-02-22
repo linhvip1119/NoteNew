@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llItem"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:background="@color/primaryBody">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:background="@color/orangeBody">
+
+            <LinearLayout
+                android:id="@+id/lnAdsBanner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1dp">
+
+                <FrameLayout
+                    android:id="@+id/flAdsBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/clTopBarMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:background="@color/greenOption50">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivVComplete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp8"
+                    android:paddingVertical="@dimen/dp2"
+                    android:src="@drawable/ic_ok" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp8"
+                    android:src="@drawable/ic_three_dot" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivLock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp4"
+                    android:visibility="gone"
+                    tools:src="@drawable/ic_lock_edit_custom" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivTypeBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp4"
+                    android:layout_toStartOf="@+id/ivMenu"
+                    tools:src="@drawable/ic_new_blink" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBackground"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp4"
+                    android:layout_toStartOf="@+id/ivTypeBox"
+                    tools:src="@drawable/ic_bg" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/ivBackground"
+                    android:layout_toEndOf="@+id/ivVComplete"
+                    android:gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivUndo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dp2"
+                        app:srcCompat="@drawable/ic_undo" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivRedo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dp2"
+                        app:srcCompat="@drawable/ic_redo" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp12"
+        android:orientation="vertical"
+        app:layout_anchor="@id/app_bar"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etTittle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapSentences"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:paddingHorizontal="@dimen/dp16"
+                    android:singleLine="true"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textColor="@color/neutral500"
+                    android:textColorHint="@color/neutral50060"
+                    android:textSize="@dimen/sp20"
+                    tools:text="@string/loginSuccessLabel" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="top"
+                    android:minHeight="180dp"
+                    android:overScrollMode="always"
+                    android:paddingHorizontal="@dimen/dp16"
+                    android:textColor="@color/neutral500"
+                    android:textSize="@dimen/sp14"
+                    tools:text="@string/textDemo"
+                    tools:visibility="gone" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:id="@+id/clMakeList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/dp10"
+            android:paddingBottom="@dimen/dp6"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCheckList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp8"
+                android:background="@android:color/transparent"
+                android:gravity="top"
+                android:overScrollMode="never"
+                android:paddingBottom="@dimen/dp35"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="30"
+                tools:listitem="@layout/recycler_list_item" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAddItem"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/dp6"
+                android:drawablePadding="@dimen/dp4"
+                android:gravity="center"
+                android:padding="@dimen/dp4"
+                android:text="@string/add"
+                android:textColor="@color/neutral500"
+                app:drawableStartCompat="@drawable/ic_add" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,224 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Baseappandroid" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/blueOption</item>
+        <item name="colorPrimaryVariant">@color/blueOption</item>
+        <item name="colorOnPrimary">@color/blueOption</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/blueOption</item>
+        <item name="colorSecondaryVariant">@color/blueOption</item>
+        <item name="colorOnSecondary">@color/blueOption</item>
+        <item name="colorPrimaryDark">@color/blueOption</item>
+        <item name="colorAccent">@color/blueOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/blueOption</item>
+    </style>
+
+    <style name="Theme.Baseappandroid" parent="Base.Theme.Baseappandroid" />
+
+    <style name="BrandedSwitch.control" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">?attr/colorPrimary</item>
+        <item name="colorSwitchThumbNormal">@color/neutral100</item>
+        <item name="android:colorForeground">@color/neutral400</item>
+    </style>
+
+    <style name="DatePickerTheme_Dark" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">?attr/colorPrimary</item>
+        <item name="android:datePickerStyle">@style/MyDatePickerStyleDark</item>
+        <item name="buttonBarStyle">@style/mybuttonbar</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="colorOnSurface">@color/neutral400</item>
+        <item name="android:colorBackground">?attr/colorPrimary</item>
+        <item name="android:textColor">@color/neutral500</item>
+    </style>
+
+    <style name="mybuttonbar" parent="Widget.AppCompat.ButtonBar.AlertDialog">
+        <item name="android:background">@color/neutral500</item>
+    </style>
+
+    <style name="ThemeOverlay.AppTheme.BottomNavigationView" parent="@style/ThemeOverlay.MaterialComponents">
+        <item name="elevationOverlayEnabled">true</item>
+        <item name="itemIconTint">@color/custom_color_bottom_nav</item>
+        <item name="tabIconTint">@color/custom_color_bottom_nav</item>
+        <item name="colorSurface">@color/custom_color_bottom_nav</item>
+    </style>
+
+    <style name="MyDatePickerStyleDark" parent="@android:style/Widget.Material.DatePicker">
+        <item name="android:textColor">@color/neutral500</item>
+        <item name="android:titleTextColor">@color/neutral500</item>
+        <item name="android:color">@color/neutral500</item>
+        <item name="android:textColorPrimary">@color/neutral500</item>
+        <item name="android:textColorHint">@color/neutral500</item>
+        <item name="android:background">#545454</item>
+    </style>
+
+    <style name="MyPopupOtherStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/neutral500</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!-- Used for the background -->
+        <item name="android:background">@drawable/bg_view_reminder</item>
+    </style>
+
+    <style name="BasePopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginStart">@dimen/dp4</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/neutral50038</item>
+        <item name="android:textSize">@dimen/sp16</item>
+        <item name="android:checkedTextViewStyle">@font/poppins_semi_bold</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="BasePopupOptionMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginStart">@dimen/dp4</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/neutral500</item>
+        <item name="android:textSize">@dimen/sp16</item>
+        <item name="android:checkedTextViewStyle">@font/poppins_semi_bold</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="Theme.Baseappandroid.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+        <!-- Radius of the outer bound of widgets to make the rounded corners -->
+        <item name="appWidgetRadius">16dp</item>
+        <!--
+        Radius of the inner view's bound of widgets to make the rounded corners.
+        It needs to be 8dp or less than the value of appWidgetRadius
+        -->
+        <item name="appWidgetInnerRadius">8dp</item>
+    </style>
+
+    <style name="Theme.Baseappandroid.AppWidgetContainer" parent="Theme.Baseappandroid.AppWidgetContainerParent">
+        <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
+        <item name="appWidgetPadding">16dp</item>
+    </style>
+
+    <attr name="themeColor" format="color" />
+    //custom theme
+
+    <style name="coolPrimaryNav" parent="Theme.MaterialComponents.Light">
+        <item name="themeColor">@color/primaryOption</item>
+        <item name="colorPrimary">@color/primaryOption</item>
+        <item name="colorPrimaryVariant">?attr/themeColor</item>
+        <item name="colorOnPrimary">@color/primaryOption</item>
+        <item name="colorSecondary">?attr/themeColor</item>
+        <item name="colorPrimaryDark">@color/primaryOption</item>
+        <item name="colorAccent">@color/primaryOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <item name="colorSecondaryVariant">@color/primaryOption</item>
+        <item name="colorOnSecondary">@color/primaryOption</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="coolGreenNav" parent="Theme.MaterialComponents.Light">
+        <item name="themeColor">@color/greenOption</item>
+        <item name="colorPrimary">@color/greenOption</item>
+        <item name="colorPrimaryVariant">?attr/themeColor</item>
+        <item name="colorOnPrimary">@color/greenOption</item>
+        <item name="colorSecondary">?attr/themeColor</item>
+        <item name="colorPrimaryDark">@color/greenOption</item>
+        <item name="colorAccent">@color/greenOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <item name="colorSecondaryVariant">@color/greenOption</item>
+        <item name="colorOnSecondary">@color/greenOption</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="coolOrangeNav" parent="Theme.MaterialComponents.Light">
+        <item name="themeColor">@color/orangeOption</item>
+        <item name="colorPrimary">@color/orangeOption</item>
+        <item name="colorPrimaryVariant">?attr/themeColor</item>
+        <item name="colorOnPrimary">@color/orangeOption</item>
+        <item name="colorSecondary">?attr/themeColor</item>
+        <item name="colorPrimaryDark">@color/orangeOption</item>
+        <item name="colorAccent">@color/orangeOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <item name="colorSecondaryVariant">@color/orangeOption</item>
+        <item name="colorOnSecondary">@color/orangeOption</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="coolBlueNav" parent="Theme.MaterialComponents.Light">
+        <item name="themeColor">@color/blueOption</item>
+        <item name="colorPrimary">@color/blueOption</item>
+        <item name="colorPrimaryVariant">?attr/themeColor</item>
+        <item name="colorOnPrimary">@color/blueOption</item>
+        <item name="colorPrimaryDark">@color/blueOption</item>
+        <item name="colorAccent">@color/blueOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <item name="colorSecondary">?attr/themeColor</item>
+        <item name="colorSecondaryVariant">@color/blueOption</item>
+        <item name="colorOnSecondary">@color/blueOption</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="coolRedNav" parent="Theme.MaterialComponents.Light">
+        <item name="themeColor">@color/redOption</item>
+        <item name="colorPrimary">@color/redOption</item>
+        <item name="colorPrimaryVariant">?attr/themeColor</item>
+        <item name="colorOnPrimary">@color/redOption</item>
+        <item name="colorSecondary">?attr/themeColor</item>
+        <item name="colorSecondaryVariant">@color/redOption</item>
+        <item name="colorOnSecondary">@color/redOption</item>
+        <item name="colorPrimaryDark">@color/redOption</item>
+        <item name="colorAccent">@color/redOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <item name="android:statusBarColor">?attr/themeColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="Theme.Baseappandroid.AdAttribution">
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:text">@string/ad_attribution</item>
+    </style>
+
+    <string name="ad_attribution" translatable="false">AD</string>
+
+    <style name="fontSelected">
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/neutral500</item>
+    </style>
+
+    <style name="CodeInputBox" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:textColor">@color/neutral500</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:inputType">numberPassword</item>
+        <item name="android:textSize">50sp</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:focusable">false</item>
+    </style>
+
+    <style name="MyEditTextTheme">
+        <item name="colorControlNormal">#008FFF</item>
+        <item name="colorControlActivated">#008FFF</item>
+        <item name="colorControlHighlight">#008FFF</item>
+    </style>
+
+    <style name="MyEditEmail">
+        <item name="colorControlNormal">@color/neutral500</item>
+        <item name="colorControlActivated">@color/neutral500</item>
+        <item name="colorControlHighlight">@color/neutral500</item>
+    </style>
+
+</resources>

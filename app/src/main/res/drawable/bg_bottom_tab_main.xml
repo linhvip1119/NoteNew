@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Drop Shadow Stack -->
+    <item>
+        <shape>
+            <corners android:topLeftRadius="@dimen/dp16"
+                android:topRightRadius="@dimen/dp16"/>
+
+            <padding
+                android:bottom="0dp"
+                android:left="0dp"
+                android:right="0dp"
+                android:top="2dp" />
+
+            <solid android:color="@color/bgShadowBottomTab" />
+        </shape>
+    </item>
+
+    <!-- Background -->
+    <item>
+        <shape>
+            <solid android:color="@color/bgBottomTab" />
+
+            <corners android:topLeftRadius="@dimen/dp16"
+                android:topRightRadius="@dimen/dp16" />
+        </shape>
+    </item>
+
+</layer-list>

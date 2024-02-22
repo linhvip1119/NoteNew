@@ -1,0 +1,86 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Baseappandroid" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+
+    <attr name="themeColor" format="color" />
+    //custom theme
+
+    <style name="coolPrimaryNav" parent="Theme.MaterialComponents.Light">
+        <item name="themeColor">@color/primaryOption</item>
+        <item name="colorPrimary">@color/primaryOption</item>
+        <item name="colorPrimaryVariant">?attr/themeColor</item>
+        <item name="colorOnPrimary">@color/primaryOption</item>
+        <item name="colorSecondary">?attr/themeColor</item>
+        <item name="colorPrimaryDark">@color/primaryOption</item>
+        <item name="colorAccent">@color/primaryOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <item name="colorSecondaryVariant">@color/primaryOption</item>
+        <item name="colorOnSecondary">@color/primaryOption</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="coolGreenNav" parent="Theme.MaterialComponents.Light">
+        <item name="themeColor">@color/greenOption</item>
+        <item name="colorPrimary">@color/greenOption</item>
+        <item name="colorPrimaryVariant">?attr/themeColor</item>
+        <item name="colorOnPrimary">@color/greenOption</item>
+        <item name="colorSecondary">?attr/themeColor</item>
+        <item name="colorPrimaryDark">@color/greenOption</item>
+        <item name="colorAccent">@color/greenOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <item name="colorSecondaryVariant">@color/greenOption</item>
+        <item name="colorOnSecondary">@color/greenOption</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="coolOrangeNav" parent="Theme.MaterialComponents.Light">
+        <item name="themeColor">@color/orangeOption</item>
+        <item name="colorPrimary">@color/orangeOption</item>
+        <item name="colorPrimaryVariant">?attr/themeColor</item>
+        <item name="colorOnPrimary">@color/orangeOption</item>
+        <item name="colorSecondary">?attr/themeColor</item>
+        <item name="colorPrimaryDark">@color/orangeOption</item>
+        <item name="colorAccent">@color/orangeOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <item name="colorSecondaryVariant">@color/orangeOption</item>
+        <item name="colorOnSecondary">@color/orangeOption</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="coolBlueNav" parent="Theme.MaterialComponents.Light">
+        <item name="themeColor">@color/blueOption</item>
+        <item name="colorPrimary">@color/blueOption</item>
+        <item name="colorPrimaryVariant">?attr/themeColor</item>
+        <item name="colorOnPrimary">@color/blueOption</item>
+        <item name="colorPrimaryDark">@color/blueOption</item>
+        <item name="colorAccent">@color/blueOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <item name="colorSecondary">?attr/themeColor</item>
+        <item name="colorSecondaryVariant">@color/blueOption</item>
+        <item name="colorOnSecondary">@color/blueOption</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/themeColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="coolRedNav" parent="Theme.MaterialComponents.Light">
+        <item name="themeColor">@color/redOption</item>
+        <item name="colorPrimary">@color/redOption</item>
+        <item name="colorPrimaryVariant">?attr/themeColor</item>
+        <item name="colorOnPrimary">@color/redOption</item>
+        <item name="colorSecondary">?attr/themeColor</item>
+        <item name="colorSecondaryVariant">@color/redOption</item>
+        <item name="colorOnSecondary">@color/redOption</item>
+        <item name="colorPrimaryDark">@color/redOption</item>
+        <item name="colorAccent">@color/redOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <item name="android:statusBarColor">?attr/themeColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+</resources>

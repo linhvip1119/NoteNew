@@ -1,0 +1,251 @@
+<resources>
+    <string name="app_name">iNote</string>
+    <string name="app_client_id">650417639284-r2kcf9hmhgo2q7d1lvph3h0ch04e0vvo.apps.googleusercontent.com</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textLabel">Text</string>
+    <string name="checklistLabel">Checklist</string>
+    <string name="calendarLabel">Calendar</string>
+    <string name="settingLabel">Setting</string>
+    <string name="noteLabel">iNote</string>
+    <string name="emptyDataLabel">Create your first note</string>
+    <string name="emptyDataSearch">No item have found!</string>
+    <string name="emptyDataContent">Any notes to add? Add your first note by\ntapping on add button</string>
+    <string name="searchThreeDotLabel">Search...</string>
+    <string name="headingLabel">Heading</string>
+    <string name="personLabel">Personal</string>
+    <string name="workLabel">Work</string>
+    <string name="otherLabel">Other</string>
+    <string name="allNotesLabel">All Notes</string>
+    <string name="filterLabel">Filter</string>
+    <string name="editLabel">Edit</string>
+    <string name="doneLabel">Done</string>
+    <string name="modifiedTimeLabel">Modified Time</string>
+    <string name="createTime">Create Time</string>
+    <string name="reminderTime">Reminder Time</string>
+    <string name="color">Color</string>
+    <string name="selectLabel">Select</string>
+    <string name="viewLabel">View</string>
+    <string name="rateUsLabel">Rate Us</string>
+    <string name="selectedLabel">Selected</string>
+    <string name="archiveLabel">Archive</string>
+    <string name="deleteLabel">Delete</string>
+    <string name="extendLabel">Extend</string>
+    <string name="undoLabel">Undo</string>
+    <string name="noteArchiveLabel">Note Archive</string>
+    <string name="noteDeletedLabel">Note deleted</string>
+    <string name="colorChangeLabel">Color Change</string>
+    <string name="pinnedToTheTopLabel">Pinned to the top</string>
+    <string name="unPinnedFromTheTop">Unpinned from the top</string>
+    <string name="reminder">Reminder</string>
+    <string name="date">Date</string>
+    <string name="repeat">Repeat</string>
+    <string name="alarm">Alarm</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="noteHasBeenReminded">Note has been reminded</string>
+    <string name="tipsMessage">Tips Message</string>
+    <string name="yoursChangeHaveNotBeen">Reminders may not be in time if you turn it off.</string>
+    <string name="backLabel">Back</string>
+    <string name="continueLabel">Continue</string>
+    <string name="doesNotRepeat">Does not Repeat</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="custom">Custom</string>
+    <string name="repeatDaily">Repeat daily</string>
+    <string name="every">Every</string>
+    <string name="repeatWeekly">Repeat weekly</string>
+    <string name="repeatMonthly">Repeat monthly</string>
+    <string name="days">day(s)</string>
+    <string name="weeks">week(s)</string>
+    <string name="months">month(s)</string>
+    <string name="listLabel">List</string>
+    <string name="grid">Grid</string>
+    <string name="details">Details</string>
+    <string name="addToHome">Add to Home</string>
+    <string name="share">Share</string>
+    <string name="add">Add</string>
+    <string name="comingSoon">Coming Soon ...</string>
+    <string name="swapText">Swap Text</string>
+    <string name="recycleBin">Recycle Bin</string>
+    <string name="feedbackOrSuggestion">Feedback or Suggestion</string>
+    <string name="settings">Settings</string>
+    <string name="yourPersonal">Your personal preference</string>
+    <string name="widget">Widget</string>
+    <string name="widgets">Widgets</string>
+    <string name="stickyNotes">Sticky notes/ Quick access toolbar</string>
+    <string name="all">All</string>
+    <string name="unArchiveLabel">Unarchive</string>
+    <string name="restore">Restore</string>
+    <string name="noteUnArchiveLabel">Note unarchive!</string>
+    <string name="general">General</string>
+    <string name="darkMode">Dark Mode</string>
+    <string name="defaultColor">Default Color</string>
+    <string name="languageOption">Language Options</string>
+    <string name="englishLabel">English</string>
+    <string name="notificationBar">Notification Bar</string>
+    <string name="others">Others</string>
+    <string name="privacyPolicy">Privacy Policy</string>
+    <string name="version">Version %s</string>
+    <string name="tip">Tip</string>
+    <string name="reminderNotBeInTime">Reminders may not be in time if you turn it off.</string>
+    <string name="selectawidgetandaddittothehomescreen">Select a widget and add it to the home screen.</string>
+    <string name="addToHomeScreen">ADD TO HOME SCREEN</string>
+    <string name="addToWaitingScreen">Add to the Waiting screen?</string>
+    <string name="touchAndHoldWidgets">Touch and hold widgets or add to the waiting screen.</string>
+    <string name="noteTools">Note Tools</string>
+    <string name="noteSticky">Note Sticky</string>
+    <string name="selectANote">Select a note</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="noteHasNotBeenReminded">Note hasn\'t been reminded</string>
+    <string name="noteUnDeleted">Notes restored.</string>
+    <string name="softByLabel">Sort by</string>
+    <string name="textDemo">Sử dụng RelativeLayout trong Android\n\nxuanthulab.net\nhttps://xuanthulab.net › Java › Android Java\nRelativeLayout là layout mà các View con được xác định vị trí bởi các mối ... Vị trí của View con trong RelativeLayout có thể thiết lập bằng cách chỉ ra mối ...\n‎RelativeLayout · ‎Ví trí mặc định của View con · ‎android:gravity và android...\n\nTìm hiểu về RelativeLayout trong Android - Team Việt Dev\n\nteamvietdev.com\nhttps://teamvietdev.com › tim-hieu-ve-relativelayout-tr...\n5 ngày trước — Theo mặc định các view con được vẽ ở phía trên cùng bên trái của Layout. Vì vậy cần xác định vị trí của mỗi view bằng cách sử dụng các thuộc ...\n</string>
+    <string name="trashLabel">Trash</string>
+    <string name="applyLabel">Apply</string>
+    <string name="saveUploadedToYourDrive"><![CDATA[Saved & Uploaded to your Drive]]></string>
+    <string name="accountLabel">Account</string>
+    <string name="loginLabel">Login</string>
+    <string name="advancedLabel">Advanced</string>
+    <string name="logoutLabel">Log Out</string>
+    <string name="notesSyncedSuccessfully">%s notes synced successfully</string>
+    <string name="widgetsLabel">Widgets</string>
+    <string name="themeColorLabel">Theme Color</string>
+    <string name="languageLabel">Language</string>
+    <string name="selectAllLabel">Select all</string>
+    <string name="unSelectAll">Unselect All</string>
+    <string name="yourDeletedNote">Your deleted notes will appear here</string>
+    <string name="yourArchiveNote">Your archived notes will appear here</string>
+    <string name="areYouSureDelete">Are you sure to permanently delete item?</string>
+    <string name="logout">Log out</string>
+    <string name="areYouSureLogout">Are you sure you want to logout?</string>
+    <string name="signInAndSync">Sign in and Sync your data</string>
+    <string name="loginSuccessLabel">Login success!</string>
+    <string name="doYouLikeiNote">Do you like iNote?</string>
+    <string name="tellMeYourInconvenience">Please tell us your inconvenience...\n</string>
+    <string name="submitLabel">Submit</string>
+    <string name="rating">Rating</string>
+    <string name="bestRatingUs">Best rating for us</string>
+    <string name="install_a_browser"><![CDATA[Install a browser to open this link<]]></string>
+    <string name="sync">Sync</string>
+    <string name="message_google_sign_in_failed">Google Sign In failed</string>
+    <string name="dontBotherRemembering">Don’t Bother Remembering</string>
+    <string name="loading">Loading</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="loginAndBackUpDataGg"><![CDATA[Log in & Backup data in Google Drive]]></string>
+    <string name="lightModeDarkMode"><![CDATA[Light mode & Dark mode]]></string>
+    <string name="setReminderForYou">Set reminders for you all the time</string>
+    <string name="createInAppShortCut">Create in-app shortcut widget!</string>
+    <string name="changeColorLabel">Change Color</string>
+    <string name="soft">Sort</string>
+    <string name="note">Note</string>
+    <string name="invalid_backup">Invalid backup</string>
+    <string name="imported_backup">Imported backup</string>
+    <string name="synced_successfully">Synced Successfully</string>
+    <string name="notes_synced_successfully">Notes Synced Successfully</string>
+    <string name="processing">Processing</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="last_sync">Last sync:</string>
+    <string name="permanentDelete">Permanent Delete</string>
+    <string name="nowYouCanSync">Now you can sync and back up your data!</string>
+    <string name="loginSyncNow"><![CDATA[Login & Sync Now]]></string>
+    <string name="weTryEvery">We try every day to bring better iNote for you!</string>
+    <string name="ifYouLike">If you like iNote, can you give us a 5-star?</string>
+    <string name="ifJustTake">It just takes a few seconds, but it will be a really big encouragement for us!</string>
+    <string name="thankYouSupport">Thank you for your support!</string>
+    <string name="rateLabel">Rate</string>
+    <string name="canYouPleaseTell">Can you please tell us what \nwe can do better to improve \nyour experience? \nJust few small words but really important to us!</string>
+    <string name="feedback">Feedback</string>
+    <string name="spanishKey" translatable="false">es</string>
+    <string name="espanol" translatable="false">Español</string>
+    <string name="frenchKey" translatable="false">fr</string>
+    <string name="francais" translatable="false">Français</string>
+    <string name="koreanKey" translatable="false">ko</string>
+    <string name="koreanText" translatable="false">한국어</string>
+    <string name="japanKey" translatable="false">ja</string>
+    <string name="japanText" translatable="false">日本語</string>
+    <string name="portugueseKey" translatable="false">pt</string>
+    <string name="portugueseText" translatable="false">Português</string>
+    <string name="russian" translatable="false">ru</string>
+    <string name="russianText" translatable="false">Русский</string>
+    <string name="germanKey" translatable="false">de</string>
+    <string name="germanText" translatable="false">Deutsch</string>
+    <string name="turkishKey" translatable="false">tr</string>
+    <string name="turkishText" translatable="false">Turkish</string>
+    <string name="indoKey" translatable="false">in</string>
+    <string name="indoText" translatable="false">Indonesia</string>
+    <string name="thaiKey" translatable="false">th</string>
+    <string name="thaiText" translatable="false">тайский</string>
+    <string name="english" translatable="false">English</string>
+    <string name="englishKey" translatable="false">en</string>
+    <string name="none">None</string>
+    <string name="set_password">Set Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="set_new_password">Set New Password</string>
+    <string name="please_enter_4_digit_password">Please enter 4-digit password</string>
+    <string name="confirm">Confirm</string>
+    <string name="forgot_password"><u>Forgot password?</u></string>
+    <string name="please_enter_password_again">Please enter password again</string>
+    <string name="wrong_password">Wrong password!</string>
+    <string name="set_protect_email">Set Protect Email</string>
+    <string name="add_an_email_to_help_you_reset">Add an email to help you reset the password if you forget it.</string>
+    <string name="enter_email">Enter email</string>
+    <string name="confirm_email">Confirm email</string>
+    <string name="emails_are_not_the_same">Emails are not the same!</string>
+    <string name="done">Done</string>
+    <string name="set_password_complete">Set Password Completed!</string>
+    <string name="change_password_completed">Change Password Completed!</string>
+    <string name="verify_it_you">Verify It’s You</string>
+    <string name="wrong_email">Wrong email!</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="wrong_otp">Wrong OTP!</string>
+    <string name="lock">Lock</string>
+    <string name="un_lock">UnLock</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="no_network_connection">No network connection</string>
+    <string name="enter_current_password">Enter Current Password</string>
+    <string name="an_otp_has_been_sent">An OTP has been sent to your email. Please check and enter OTP we have sent to reset password.</string>
+    <string name="please_enter_the_protect_email">Please enter the protect email you had set to verify it’s you</string>
+    <string name="text_subtitle_iap">Payment will be charged to your Google Play account at confirmation of payment. Subscription will automatically renew at the beginning of each billing cycle.\nCancel anytime.</string>
+    <string name="text_buy_now">Buy Now</string>
+    <string name="text_remove_all_ads_iap">Enjoy Lifetime benefit with No Ads &amp; Smooth Note-taking Experience</string>
+    <string name="text_remove_all_ads">Remove All ADS</string>
+    <string name="unlock_all_features">Unlock All Features</string>
+    <string name="able_to_lock_notes_for_safety_amp_enjoy_soon_to_be_released_new_features"><![CDATA[Able to LOCK NOTES for safety &\nEnjoy Soon-to-be-released New features]]></string>
+    <string name="unPinLabel">Unpin</string>
+    <string name="pin">Pin</string>
+    <string name="setNoteLock">Set Note Lock</string>
+    <string name="weRecommendYouSetLock">Set Lock for note now to protect your privacy</string>
+    <string name="setNow">Set Now</string>
+    <string name="later">Later</string>
+    <string name="monthly">Monthly</string>
+    <string name="yearly">Yearly</string>
+    <string name="limitedOffer">Limited Offer</string>
+    <string name="perYear">per/year</string>
+    <string name="premium">Premium</string>
+    <string name="getPremium">Get Premium</string>
+    <string name="noAdsVip">No Ads. VIP Features. 100% experience</string>
+    <string name="fullAccessToAllFeature"><![CDATA[Full Access to all features & No Ads]]></string>
+    <string name="secureNotes">Secure Notes for Privacy</string>
+    <string name="lockNow">Lock Now</string>
+    <string name="hot_50_off">Hot 50% OFF</string>
+    <string name="start_free_7_day_trial">Start Free 7-day Trial</string>
+    <string name="subscribed">Subscribed</string>
+    <string name="downgrade">Downgrade</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="updating...">Updating...</string>
+    <string name="monthly_membership">MONTHLY MEMBERSHIP</string>
+    <string name="yearly_membership">YEARLY MEMBERSHIP</string>
+    <string name="payment_will_be_charged">Payment will be charged to your Google Play account at the time of payment confirmation. Subscription will automatically renew at the beginning of each billing cycle. Cancel anytime.</string>
+    <string name="hk1_interstitial_default">hk1_interstitial_default</string>
+    <string name="applovin_hk1_interstitial_default">applovin_hk1_interstitial_default</string>
+    <string name="hk1_banner_default">hk1_banner_default</string>
+    <string name="applovin_hk1_native_default">hk1_banner_default</string>
+    <string name="hk1_banner_collapsible_default">hk1_banner_collapsible_default</string>
+    <string name="hk1_native_default">hk1_native_default</string>
+    <string name="hk1_app_open_default">hk1_app_open_default</string>
+    <string name="applovin_hk1_app_open_default">hk1_app_open_default</string>
+    <string name="hk1">hk1</string>
+</resources>
