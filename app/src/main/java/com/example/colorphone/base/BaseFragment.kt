@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.example.colorphone.R
 import com.example.colorphone.ui.main.viewmodel.TextNoteViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -23,7 +25,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : Fragment
     val binding get() = _binding
 
     val viewModelTextNote: TextNoteViewModel by viewModels()
-
+    private val navBuilder = NavOptions.Builder()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,8 +48,15 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : Fragment
 //                return viewPreview
 //            }
 //        }
-
+        navBuilder.setEnterAnim(android.R.anim.fade_in).setExitAnim(android.R.anim.fade_out)
+                .setPopEnterAnim(android.R.anim.fade_in)
+                .setPopExitAnim(android.R.anim.fade_out)
+        navController = findNavController()
         return binding.root
+    }
+
+    fun navigationWithAnim(des: Int, bundle: Bundle? = null) {
+        navController?.navigate(des, bundle, navBuilder.build())
     }
 
     abstract fun init(view: View)

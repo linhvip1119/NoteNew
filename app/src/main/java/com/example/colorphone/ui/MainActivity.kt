@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                 TypeColorNote.B_GREEN.name -> 1
                 TypeColorNote.A_ORANGE.name -> 2
                 TypeColorNote.D_RED.name -> 3
-                TypeColorNote.C_BLUE.name -> 4
+                TypeColorNote.BLUE.name -> 4
                 else -> 0
             }
         }

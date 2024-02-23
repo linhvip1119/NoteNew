@@ -2,7 +2,7 @@ package com.example.colorphone.util
 
 enum class TypeColorNote {
     F_PRIMARY, DEFAULT,
-    D_RED, B_GREEN, A_ORANGE, GRAY, C_BLUE, BLINK
+    D_RED, B_GREEN, A_ORANGE, GRAY, BLUE, BLINK
 }
 
 enum class TypeItem { TEXT, CHECK_LIST }

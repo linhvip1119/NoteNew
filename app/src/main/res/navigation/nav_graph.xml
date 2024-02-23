@@ -9,6 +9,16 @@
         android:id="@+id/mainFragment"
         android:name="com.example.colorphone.ui.main.MainFragment"
         android:label="main fragment"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.colorphone.ui.edit.BaseEditNote"
+        android:label="edit fragment"
+        tools:layout="@layout/fragment_edit_note" />
 
 </navigation>

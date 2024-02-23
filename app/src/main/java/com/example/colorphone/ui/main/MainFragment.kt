@@ -2,19 +2,21 @@ package com.example.colorphone.ui.main
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentMainBinding
 import com.example.colorphone.model.ColorItem
+import com.example.colorphone.model.NoteModel
 import com.example.colorphone.model.NoteType
 import com.example.colorphone.ui.bottomDialogColor.viewmodel.BottomSheetViewModel
 import com.example.colorphone.ui.main.adapter.DashBoardPagerAdapter
 import com.example.colorphone.util.Const
+import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
 import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.hideKeyboard
@@ -149,11 +151,27 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             binding.ivAllBox.setOnClickAnim {
 //                showBottomSheet(false, TEXT_SCREEN)
             }
+            ivFloatButton.setOnClickAnim {
+                navigateToCreateNote()
+            }
         }
         activity?.onBackPressedDispatcher?.addCallback(this, true) {
             activity?.hideKeyboard()
             activity?.finish()
         }
+    }
+
+    private fun navigateToCreateNote() {
+//        val type = if (currentType == TypeColorNote.DEFAULT.name) TypeColorNote.A_ORANGE.name else currentType
+        val currentType = if (binding.vp2.currentItem == 0) Const.TYPE_NOTE else Const.TYPE_CHECKLIST
+        navigationWithAnim(
+            R.id.editFragment,
+            bundleOf(
+//                TextFragment.ARG_CREATE_NOTE to isCreateNote,
+//                BaseListFragment.CURRENT_TYPE to type,
+                TYPE_ITEM_EDIT to currentType
+            )
+        )
     }
 
     override fun onSubscribeObserver(view: View) {
@@ -168,6 +186,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             tvNote.text = if (isSelectNote) getString(R.string.note) else ""
             tvChecklist.isSelected = !isSelectNote
             tvChecklist.text = if (!isSelectNote) getString(R.string.checklistLabel) else ""
+            binding.vp2.currentItem = if (isSelectNote) 0 else 1
         }
     }
 
@@ -205,7 +224,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                 ),
                 ColorItem(
                     tittle = getString(R.string.personLabel),
-                    color = TypeColorNote.C_BLUE.name
+                    color = TypeColorNote.BLUE.name
                 ),
                 ColorItem(
                     tittle = getString(R.string.workLabel),

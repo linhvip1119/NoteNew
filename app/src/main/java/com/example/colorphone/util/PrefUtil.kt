@@ -26,7 +26,7 @@ constructor(
         }
 
     var themeColor: String
-        get() = sharedPreferences.getString("themeColor", TypeColorNote.C_BLUE.name) ?: TypeColorNote.C_BLUE.name
+        get() = sharedPreferences.getString("themeColor", TypeColorNote.BLUE.name) ?: TypeColorNote.BLUE.name
         set(value) {
             editor.putString("themeColor", value).commit()
         }

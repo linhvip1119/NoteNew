@@ -82,7 +82,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/dp4"
                     android:layout_toStartOf="@+id/ivTypeBox"
-                    tools:src="@drawable/ic_bg" />
+                    android:src="@drawable/ic_bg" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
@@ -127,19 +127,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/etTittle"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/dp0"
                     android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/ivReadMode"
+                    android:layout_alignBottom="@+id/ivReadMode"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toStartOf="@+id/ivReadMode"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
                     android:fontFamily="@font/poppins_semi_bold"
+                    android:gravity="center_vertical"
                     android:imeOptions="actionNext"
+                    android:includeFontPadding="false"
                     android:inputType="textCapSentences"
                     android:maxLines="1"
                     android:minLines="1"
@@ -151,10 +157,23 @@
                     android:textSize="@dimen/sp20"
                     tools:text="@string/loginSuccessLabel" />
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivReadMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/dp10"
+                    android:padding="@dimen/dp12"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/ic_read_mode"
+                    tools:background="@drawable/ic_option_blink" />
+
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/etContent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_below="@+id/ivReadMode"
                     android:layout_marginTop="@dimen/dp8"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/poppins_regular"
@@ -165,9 +184,9 @@
                     android:textColor="@color/neutral500"
                     android:textSize="@dimen/sp14"
                     tools:text="@string/textDemo"
-                    tools:visibility="gone" />
+                    tools:visibility="visible" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
 
         <RelativeLayout
@@ -177,7 +196,7 @@
             android:paddingHorizontal="@dimen/dp10"
             android:paddingBottom="@dimen/dp6"
             android:visibility="gone"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCheckList"
@@ -189,15 +208,15 @@
                 android:overScrollMode="never"
                 android:paddingBottom="@dimen/dp35"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="30"
+                tools:itemCount="3"
                 tools:listitem="@layout/recycler_list_item" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvAddItem"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
+                android:layout_alignBottom="@+id/rvCheckList"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
                 android:layout_marginTop="@dimen/dp6"
                 android:drawablePadding="@dimen/dp4"
                 android:gravity="center"

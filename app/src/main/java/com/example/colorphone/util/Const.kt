@@ -17,4 +17,9 @@ object Const {
     const val FORMAT_DATE_UPDATE = "yyyy-MM-dd HH:mm"
 
     var currentType: String? = TypeColorNote.DEFAULT.name
+
+    //key bundle
+    const val KEY_RELOAD_DATA_TEXT = "KEY_RELOAD_DATA_TEXT"
+    const val KEY_ID_DATA_NOTE = "KEY_ID_DATA_NOTE"
+    const val TYPE_ITEM_EDIT = "TYPE_ITEM_EDIT"
 }

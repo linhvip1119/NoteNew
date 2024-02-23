@@ -263,7 +263,7 @@ fun getKeyEventByColor(color: String, isEdit: Boolean = false): String? {
         TypeColorNote.F_PRIMARY.name -> if (isEdit) "ChangeColor_EditPurple_Click" else "ChangeColor_Purple_Click"
         TypeColorNote.D_RED.name -> if (isEdit) "ChangeColor_EditRed_Click" else "ChangeColor_Red_Click"
         TypeColorNote.GRAY.name -> if (isEdit) "ChangeColor_EditBlack_Click" else "ChangeColor_Black_Click"
-        TypeColorNote.C_BLUE.name -> if (isEdit) "ChangeColor_EditGray_Click" else "ChangeColor_Gray_Click"
+        TypeColorNote.BLUE.name -> if (isEdit) "ChangeColor_EditGray_Click" else "ChangeColor_Gray_Click"
         else -> null
     }
 }
@@ -547,7 +547,7 @@ fun View.setBgItemNote(isDarkMode: Boolean, nameColor: String) {
 
             TypeColorNote.D_RED.name -> setBackgroundResource(R.drawable.bg_item_selected_red)
 
-            TypeColorNote.C_BLUE.name -> setBackgroundResource(R.drawable.bg_item_selected_blue)
+            TypeColorNote.BLUE.name -> setBackgroundResource(R.drawable.bg_item_selected_blue)
 
             TypeColorNote.GRAY.name -> setBackgroundResource(R.drawable.bg_item_selected_gray)
 
@@ -580,7 +580,7 @@ fun mapIdColorWidget(
             R.drawable.bg_note_red, R.drawable.ic_bookmark_red
         )
 
-        TypeColorNote.C_BLUE.name -> idColor?.invoke(
+        TypeColorNote.BLUE.name -> idColor?.invoke(
             R.drawable.bg_note_blue, R.drawable.ic_bookmark_blue
         )
 

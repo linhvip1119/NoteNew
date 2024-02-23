@@ -1,7 +1,6 @@
 package com.example.colorphone.ui.main.listNote
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.core.os.bundleOf
@@ -15,13 +14,14 @@ import com.example.colorphone.databinding.FragmentBaseListBinding
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.ui.main.listNote.adapter.TextAdapter
 import com.example.colorphone.util.Const
+import com.example.colorphone.util.Const.KEY_ID_DATA_NOTE
+import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
 import com.example.colorphone.util.Const.currentType
 import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.TypeView
 import com.example.colorphone.util.hideKeyboard
-import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.setPreventDoubleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -172,7 +172,7 @@ class BaseListFragment(type: String) : BaseFragment<FragmentBaseListBinding>(Fra
     private fun onFilterChanged(filterQuery: String): List<NoteModel> {
         val filteredList = ArrayList<NoteModel>()
         for (currentSport in mListLocal ?: listOf()) {
-            if (currentSport.title?.lowercase(Locale.getDefault())
+            if (currentSport.title.lowercase(Locale.getDefault())
                             ?.contains(filterQuery) == true || currentSport.content?.lowercase(Locale.getDefault())
                             ?.contains(filterQuery) == true
             ) {
@@ -192,5 +192,16 @@ class BaseListFragment(type: String) : BaseFragment<FragmentBaseListBinding>(Fra
 
     private fun getListSortType(list: List<NoteModel>?): List<NoteModel>? {
         return if (currentType == TypeColorNote.DEFAULT.name) list else list?.filter { data -> data.typeColor == currentType }
+    }
+
+    private fun navigateToEdit(idNote: Int? = null, currentType: String?) {
+        val type =
+            if (currentType == TypeColorNote.DEFAULT.name) TypeColorNote.A_ORANGE.name else currentType
+        navigationWithAnim(
+            R.id.editFragment, bundleOf(
+                KEY_ID_DATA_NOTE to idNote,
+                TYPE_ITEM_EDIT to if (isNoteType) Const.TYPE_NOTE else Const.TYPE_CHECKLIST,
+            )
+        )
     }
 }
