@@ -3,23 +3,17 @@ package com.example.colorphone.ui.main.listNote
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentBaseListBinding
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.ui.main.listNote.adapter.TextAdapter
-import com.example.colorphone.util.Const
-import com.example.colorphone.util.Const.KEY_ID_DATA_NOTE
-import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
 import com.example.colorphone.util.Const.currentType
 import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.TypeColorNote
-import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.TypeView
 import com.example.colorphone.util.hideKeyboard
 import com.wecan.inote.util.setPreventDoubleClick
@@ -30,22 +24,14 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
-class BaseListFragment(type: String) : BaseFragment<FragmentBaseListBinding>(FragmentBaseListBinding::inflate) {
+abstract class BaseListNote() : BaseFragment<FragmentBaseListBinding>(FragmentBaseListBinding::inflate) {
 
     @Inject
     lateinit var prefUtil: PrefUtil
 
-    private lateinit var mAdapterText: TextAdapter
-
-    private var isNoteType = type == Const.TYPE_NOTE
+    lateinit var mAdapterText: TextAdapter
 
     private var mListLocal: List<NoteModel>? = null
-
-    companion object {
-        fun newInstance(type: String): BaseListFragment {
-            return BaseListFragment(type)
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,18 +43,16 @@ class BaseListFragment(type: String) : BaseFragment<FragmentBaseListBinding>(Fra
         setTypeRecyclerView()
         setUpRecyclerView(prefUtil.typeView)
         onListener()
+        onFragmentListener()
         loadData()
     }
 
-    private fun initAdapter() {
+    open fun initAdapter() {
         mAdapterText = TextAdapter()
         mAdapterText.isDarkTheme = prefUtil.isDarkMode
-        mAdapterText.typeItem = if (isNoteType) TypeItem.TEXT.name else TypeItem.CHECK_LIST.name
     }
 
-    private fun loadData() {
-        viewModelTextNote.getListTextNote(if (isNoteType) TypeItem.TEXT.name else TypeItem.CHECK_LIST.name, prefUtil.sortType)
-    }
+    open fun loadData() {}
 
     private fun onListener() {
         binding.apply {
@@ -91,25 +75,24 @@ class BaseListFragment(type: String) : BaseFragment<FragmentBaseListBinding>(Fra
         }
 
         mAdapterText.mOnClickItem = {
-//                navigateToEditNote(false, it, it.typeColor)
+            navigateToEdit(it.ids)
         }
     }
 
     private fun onFragmentListener() {
-//        activity?.supportFragmentManager?.setFragmentResultListener(
-//            KEY_BOTTOM_TO_TEXT_SCREEN, viewLifecycleOwner
-//        ) { _, bundle ->
-//            bundle.getString(NoteBottomSheetDialog.KEY_STATUS_TYPE)?.let {
-//                typeNoteShareVM.setCurrentTypeNote(it)
-//                mapIdColor(nameColor = it, isGetIcon = true) { icon, _, _, _, _ ->
-//                    binding.ivAllBox.setImageResource(icon)
-//                }
-//            }
+//        getFragmentListener(KEY_FILTER_COLOR_NOTE) {
 //            mListLocal = getListSortType(viewModelTextNote.textNoteLiveData.value)
 //            mAdapterText.submitList(mListLocal)
 //            clearFocusEditText()
 //            toggleRecyclerView(mListLocal ?: listOf())
 //        }
+    }
+
+    private fun clearFocusEditText() {
+        binding.edtSearch.apply {
+            text?.clear()
+        }
+        activity?.hideKeyboard()
     }
 
     private fun setTypeRecyclerView() {
@@ -188,20 +171,19 @@ class BaseListFragment(type: String) : BaseFragment<FragmentBaseListBinding>(Fra
             val query = binding.edtSearch.text.toString().lowercase(Locale.getDefault())
             filterWithQuery(query, false)
         }
+        shareViewModel.filterColorLiveData.observe(viewLifecycleOwner) {
+            currentType = it
+            mListLocal = getListSortType(viewModelTextNote.textNoteLiveData.value)
+            mAdapterText.submitList(mListLocal)
+            mAdapterText.notifyDataSetChanged()
+            clearFocusEditText()
+            toggleRecyclerView(mListLocal ?: listOf())
+        }
     }
 
     private fun getListSortType(list: List<NoteModel>?): List<NoteModel>? {
         return if (currentType == TypeColorNote.DEFAULT.name) list else list?.filter { data -> data.typeColor == currentType }
     }
 
-    private fun navigateToEdit(idNote: Int? = null, currentType: String?) {
-        val type =
-            if (currentType == TypeColorNote.DEFAULT.name) TypeColorNote.A_ORANGE.name else currentType
-        navigationWithAnim(
-            R.id.editFragment, bundleOf(
-                KEY_ID_DATA_NOTE to idNote,
-                TYPE_ITEM_EDIT to if (isNoteType) Const.TYPE_NOTE else Const.TYPE_CHECKLIST,
-            )
-        )
-    }
+    open fun navigateToEdit(idNote: Int? = null) {}
 }

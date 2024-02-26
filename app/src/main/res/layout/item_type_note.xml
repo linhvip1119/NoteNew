@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/dp8">
+
+    <LinearLayout
+        android:id="@+id/llItemType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/bg_item_all_notes">
+
+        <ImageView
+            android:id="@+id/ivDrag"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:padding="@dimen/dp4"
+            android:src="@drawable/ic_drag"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/ivBoxView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="@dimen/dp10"
+            tools:src="@drawable/ic_none_notes" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_tittle"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginEnd="24dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/poppins_regular"
+            android:inputType="textMultiLine"
+            android:textColor="@color/neutral500"
+            android:textSize="@dimen/sp16"
+            tools:text="Personal" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewItem"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:alpha="0.3"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="@+id/llItemType" />
+</androidx.constraintlayout.widget.ConstraintLayout>

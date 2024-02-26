@@ -2,7 +2,9 @@ package com.example.colorphone.ui.main
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -13,10 +15,13 @@ import com.example.colorphone.databinding.FragmentMainBinding
 import com.example.colorphone.model.ColorItem
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.model.NoteType
+import com.example.colorphone.ui.MainActivity
 import com.example.colorphone.ui.bottomDialogColor.viewmodel.BottomSheetViewModel
 import com.example.colorphone.ui.main.adapter.DashBoardPagerAdapter
+import com.example.colorphone.ui.main.viewmodel.ListShareViewModel
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
+import com.example.colorphone.util.Const.currentType
 import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.hideKeyboard
@@ -42,8 +47,19 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private val listCountRate = arrayListOf(1, 7, 21, 45)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return if (!isInitialization) {
+            isInitialization = true
+//            updateApp()
+            super.onCreateView(inflater, container, savedInstanceState)
+        } else {
+            context?.theme?.applyStyle(MainActivity.themesList[MainActivity.themeIndex], true)
+            binding.root
+        }
     }
 
     override fun init(view: View) {
@@ -58,7 +74,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         // binding.ivDown.gone()
         showHideSortMenu(false)
         showHideViewMenu(false)
-        Const.currentType?.let {
+        currentType?.let {
             mapIdColor(it, true) { idColor: Int, _: Int, _: Int, _: Int, _ ->
                 binding.ivAllBox.setImageResource(idColor)
             }
@@ -149,8 +165,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             }
 
             binding.ivAllBox.setOnClickAnim {
-//                showBottomSheet(false, TEXT_SCREEN)
+                showBottomSheet(true, currentType, Const.TEXT_SCREEN) {
+                    mapIdColor(nameColor = it, isGetIcon = true) { icon, _, _, _, _ ->
+                        binding.ivAllBox.setImageResource(icon)
+                    }
+                    shareViewModel.setFilterColor(it)
+//                    putFragmentListener(Const.KEY_FILTER_COLOR_NOTE)
+                }
             }
+
             ivFloatButton.setOnClickAnim {
                 navigateToCreateNote()
             }

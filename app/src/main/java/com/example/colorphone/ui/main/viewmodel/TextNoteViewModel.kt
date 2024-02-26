@@ -43,8 +43,8 @@ class TextNoteViewModel @Inject constructor(
                         is DataState.Success -> {
                             Log.d("TAGBNVNVN", "x1mmm")
                             listNote = it.data.setSortData(typeSort)
-                                .filter { it.isArchive == false && it.isDelete == false }
-                                .toMutableList()
+                                    .filter { it.isArchive == false && it.isDelete == false }
+                                    .toMutableList()
 //                            textNoteLiveData.postValue(
 //                                it.data.setSortData(typeSort)
 //                                    .filter { it.isArchive == false && it.isDelete == false })
@@ -101,7 +101,7 @@ class TextNoteViewModel @Inject constructor(
                         is DataState.Success -> {
                             firstItemLD.postValue(
                                 it.data.setSortData()
-                                    .first { it.isArchive == false && it.isDelete == false }
+                                        .first { it.isArchive == false && it.isDelete == false }
                             )
                         }
 
@@ -250,9 +250,9 @@ class TextNoteViewModel @Inject constructor(
         }
     }
 
-    fun sendMail(otp:String,mail:String){
+    fun sendMail(otp: String, mail: String) {
         viewModelScope.launch {
-            mailNoteRepository.sendmail(otp,mail)
+            mailNoteRepository.sendmail(otp, mail)
         }
     }
 }

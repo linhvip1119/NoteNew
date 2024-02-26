@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:background="@color/neutral0"
-    tools:context=".ui.main.listNote.BaseListFragment">
+    tools:context=".ui.main.listNote.BaseListNote">
 
     <RelativeLayout
         android:id="@+id/clSearch"
@@ -57,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/clSearch"
         android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="@dimen/dp8"
         android:layout_marginBottom="8dp"
         android:clipToPadding="false" />
 

@@ -3,16 +3,19 @@ package com.example.colorphone.base
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
-import com.example.colorphone.R
+import com.example.colorphone.ui.bottomDialogColor.ui.NoteBottomSheetDialog
+import com.example.colorphone.ui.main.viewmodel.ListShareViewModel
 import com.example.colorphone.ui.main.viewmodel.TextNoteViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -25,6 +28,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : Fragment
     val binding get() = _binding
 
     val viewModelTextNote: TextNoteViewModel by viewModels()
+    val shareViewModel: ListShareViewModel by activityViewModels()
     private val navBuilder = NavOptions.Builder()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,6 +63,16 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : Fragment
         navController?.navigate(des, bundle, navBuilder.build())
     }
 
+    fun putFragmentListener(key: String, bundle: Bundle = bundleOf()) {
+        activity?.supportFragmentManager?.setFragmentResult(key, bundle)
+    }
+
+    fun getFragmentListener(key: String, callback: (Bundle) -> Unit) {
+        activity?.supportFragmentManager?.setFragmentResultListener(key, viewLifecycleOwner) { _, result ->
+            callback(result)
+        }
+    }
+
     abstract fun init(view: View)
     abstract fun onSubscribeObserver(view: View)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,5 +85,20 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : Fragment
         val mWifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
         val mMobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
         return mWifi!!.isConnected || mMobile!!.isConnected
+    }
+
+    fun showBottomSheet(
+        showDefaultColor: Boolean = true,
+        currentColor: String? = null,
+        fromScreen: String,
+        colorClick: (String) -> Unit
+    ) {
+        val addPhotoBottomDialogFragment: NoteBottomSheetDialog =
+            NoteBottomSheetDialog.newInstance(showDefaultColor, currentColor, fromScreen, colorClick)
+        activity?.supportFragmentManager?.let {
+            addPhotoBottomDialogFragment.show(
+                it, "TAG"
+            )
+        }
     }
 }

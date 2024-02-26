@@ -7,5 +7,5 @@
 
     <stroke
         android:width="@dimen/dp2"
-        android:color="@color/custom_color_item_red" />
+        android:color="@color/custom_color_item_gray" />
 </shape>

@@ -248,4 +248,5 @@
     <string name="hk1_app_open_default">hk1_app_open_default</string>
     <string name="applovin_hk1_app_open_default">hk1_app_open_default</string>
     <string name="hk1">hk1</string>
+    <string name="label">Label</string>
 </resources>

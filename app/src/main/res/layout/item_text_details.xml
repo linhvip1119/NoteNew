@@ -67,9 +67,9 @@
             android:id="@+id/ivReminderTime"
             android:layout_width="@dimen/dp14"
             android:layout_height="@dimen/dp14"
-            android:layout_below="@+id/llCheckList"
             android:layout_alignParentStart="true"
             android:layout_centerHorizontal="true"
+            android:layout_alignTop="@+id/tvDate"
             android:layout_centerVertical="true"
             android:padding="@dimen/dp2"
             android:scaleType="fitXY"
@@ -79,15 +79,15 @@
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/ivReminderTime"
             android:layout_alignParentEnd="true"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/dp2"
             android:fontFamily="@font/poppins_regular"
             android:gravity="end"
+            android:layout_below="@+id/llCheckList"
             android:textColor="@color/colorSubEvery"
             android:textSize="@dimen/sp9"
-            tools:text="@string/advancedLabel" />
+            tools:text="00:99:88" />
 
     </RelativeLayout>
 

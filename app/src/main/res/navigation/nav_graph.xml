@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/editFragment"
-        android:name="com.example.colorphone.ui.edit.BaseEditNote"
+        android:name="com.example.colorphone.ui.edit.EditNoteScreen"
         android:label="edit fragment"
         tools:layout="@layout/fragment_edit_note" />
 

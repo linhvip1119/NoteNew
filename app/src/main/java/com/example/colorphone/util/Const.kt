@@ -8,6 +8,12 @@ object Const {
     const val TYPE_NOTE = "TYPE_NOTE"
     const val TYPE_CHECKLIST = "TYPE_CHECKLIST"
 
+    const val EDIT_NOTE_SCREEN = "BASE_EDIT_NOTE_SCREEN"
+    const val TEXT_SCREEN = "TEXT_SCREEN"
+    const val CHECK_LIST_SCREEN = "CHECK_LIST_SCREEN"
+    const val SELECTED_SCREEN = "SELECTED_SCREEN"
+    const val SETTING_SCREEN = "SETTING_SCREEN"
+
     //config
     const val APPLICATION_ID = "iNote.note.notepad.stickynote"
 
@@ -22,4 +28,7 @@ object Const {
     const val KEY_RELOAD_DATA_TEXT = "KEY_RELOAD_DATA_TEXT"
     const val KEY_ID_DATA_NOTE = "KEY_ID_DATA_NOTE"
     const val TYPE_ITEM_EDIT = "TYPE_ITEM_EDIT"
+
+    //key fragment listener
+    const val KEY_FILTER_COLOR_NOTE = "KEY_FILTER_COLOR_NOTE"
 }
