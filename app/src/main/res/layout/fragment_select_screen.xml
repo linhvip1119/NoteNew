@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/neutral0"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dp8">
+
+    <RelativeLayout
+        android:id="@+id/clTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp48"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/dp14"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:drawableStart="@drawable/ic_back"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/neutral500"
+            android:textSize="@dimen/sp20"
+            tools:text="@string/selectedLabel" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivReminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp4"
+            android:src="@drawable/ic_reminder_new"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPinned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/ivReminder"
+            android:src="@drawable/ic_pin_48dp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivSelectAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_select_all_on"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/clSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp16"
+        android:background="@drawable/bg_layout_search"
+        app:layout_constraintTop_toBottomOf="@+id/clTopBar">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp4"
+            android:padding="@dimen/dp8"
+            android:src="@drawable/ic_search" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/ivCloseSearch"
+            android:layout_toEndOf="@+id/ivSearch"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center_vertical"
+            android:hint="@string/searchThreeDotLabel"
+            android:minHeight="@dimen/dp48"
+            android:paddingHorizontal="@dimen/dp8"
+            android:paddingTop="1dp"
+            android:textColor="@color/neutral500"
+            android:textColorHint="@color/neutral300"
+            android:textSize="@dimen/sp14" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCloseSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp4"
+            android:padding="@dimen/dp6"
+            android:src="@drawable/ic_close_search" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0"
+        app:layout_constraintBottom_toTopOf="@+id/llBottomSelected"
+        app:layout_constraintTop_toBottomOf="@+id/clSearch"
+        tools:background="@color/neutral0"
+        tools:context=".ui.main.listNote.ListNoteScreen">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="@dimen/dp8"
+            android:layout_marginTop="8dp"
+            android:clipToPadding="false" />
+
+        <RelativeLayout
+            android:id="@+id/clNoData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivNoData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:padding="@dimen/dp6"
+                android:src="@drawable/ic_empty_image"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvEmptyData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivNoData"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:gravity="center"
+                android:text="@string/emptyDataLabel"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp16"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvEmptyContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvEmptyData"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp1"
+                android:alpha="0.6"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="@string/emptyDataContent"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp14"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivSearchNoData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:padding="@dimen/dp6"
+                android:src="@drawable/ic_search_empty" />
+
+            <TextView
+                android:id="@+id/tvEmptySearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivSearchNoData"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp24"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:gravity="center"
+                android:text="@string/emptyDataSearch"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp16" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llBottomSelected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bottom_bar_select"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/dp16"
+        android:weightSum="4"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ivArchive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_archive"
+            android:drawablePadding="@dimen/dp2"
+            android:drawableTint="@android:color/white"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="@string/archiveLabel"
+            android:textColor="@android:color/white" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:alpha="0.6"
+            android:background="@color/neutral0" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ivDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_delete"
+            android:drawablePadding="@dimen/dp2"
+            android:drawableTint="@android:color/white"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="@string/trashLabel"
+            android:textColor="@android:color/white" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:alpha="0.6"
+            android:background="@color/neutral0" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ivColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_color_bottom"
+            android:drawablePadding="@dimen/dp2"
+            android:drawableTint="@android:color/white"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="@string/label"
+            android:textColor="@android:color/white" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:alpha="0.6"
+            android:background="@color/neutral0" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ivExtend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_extend"
+            android:drawablePadding="@dimen/dp2"
+            android:drawableTint="@android:color/white"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="@string/extendLabel"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/iclToastCustom"
+        layout="@layout/custom_toast_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp20"
+        android:layout_marginBottom="@dimen/dp16"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/llBottomSelected"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

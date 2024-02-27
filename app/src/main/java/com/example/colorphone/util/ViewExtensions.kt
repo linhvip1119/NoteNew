@@ -19,6 +19,7 @@ import android.text.SpannableString
 import android.text.format.Formatter
 import android.text.style.ForegroundColorSpan
 import android.util.DisplayMetrics
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.KeyEvent

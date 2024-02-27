@@ -42,7 +42,6 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : Fragment
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        navController = findNavController()
         _binding = inflate.invoke(inflater, container, false)
 //        if (navController?.currentDestination?.id == R.id.themeFragment) {
 //            if (viewPreview == null) {

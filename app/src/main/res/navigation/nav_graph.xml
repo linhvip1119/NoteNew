@@ -9,10 +9,13 @@
         android:id="@+id/mainFragment"
         android:name="com.example.colorphone.ui.main.MainFragment"
         android:label="main fragment"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_editFragment"
             app:destination="@id/editFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_selectFragment"
+            app:destination="@id/selectFragment" />
     </fragment>
 
     <fragment
@@ -20,5 +23,11 @@
         android:name="com.example.colorphone.ui.edit.EditNoteScreen"
         android:label="edit fragment"
         tools:layout="@layout/fragment_edit_note" />
+
+    <fragment
+        android:id="@+id/selectFragment"
+        android:name="com.example.colorphone.ui.select.SelectScreen"
+        android:label="select fragment"
+        tools:layout="@layout/fragment_select_screen" />
 
 </navigation>

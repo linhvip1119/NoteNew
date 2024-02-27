@@ -47,7 +47,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private val _noteTypeViewModel: BottomSheetViewModel by viewModels()
 
-    private var currentNote = TEXT_FM
+     var currentNote = TEXT_FM
 
     private var isInitialization = false
 
@@ -132,7 +132,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             }
 
             ivMenu.setOnClickAnim {
-//                showHideViewMenu(!binding.iclMenu.root.isVisible)
                 initiatePopupMenu()
             }
 //            ivProfile.setOnClickListener {
@@ -244,7 +243,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     }
 
     private fun navigateToCreateNote() {
-//        val type = if (currentType == TypeColorNote.DEFAULT.name) TypeColorNote.A_ORANGE.name else currentType
         val currentType = if (binding.vp2.currentItem == 0) Const.TYPE_NOTE else Const.TYPE_CHECKLIST
         navigationWithAnim(
             R.id.editFragment,

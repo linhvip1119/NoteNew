@@ -28,6 +28,9 @@ object Const {
     const val KEY_RELOAD_DATA_TEXT = "KEY_RELOAD_DATA_TEXT"
     const val KEY_ID_DATA_NOTE = "KEY_ID_DATA_NOTE"
     const val TYPE_ITEM_EDIT = "TYPE_ITEM_EDIT"
+    const val CURRENT_TYPE_ITEM = "CURRENT_TYPE_ITEM"
+    const val NOTE_FROM_LONG_CLICK = "NOTE_FROM_LONG_CLICK"
+    const val POSITION_SELECTED = "POSITION_SELECTED"
 
     //key fragment listener
     const val KEY_FILTER_COLOR_NOTE = "KEY_FILTER_COLOR_NOTE"

@@ -13,7 +13,10 @@ import com.example.colorphone.databinding.FragmentBaseListBinding
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.ui.main.listNote.adapter.TextAdapter
 import com.example.colorphone.util.Const
+import com.example.colorphone.util.Const.CURRENT_TYPE_ITEM
 import com.example.colorphone.util.Const.KEY_ID_DATA_NOTE
+import com.example.colorphone.util.Const.NOTE_FROM_LONG_CLICK
+import com.example.colorphone.util.Const.POSITION_SELECTED
 import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
 import com.example.colorphone.util.Const.currentType
 import com.example.colorphone.util.PrefUtil
@@ -62,7 +65,6 @@ class ListNoteScreen(type: String) : BaseFragment<FragmentBaseListBinding>(Fragm
         setTypeRecyclerView()
         setUpRecyclerView(prefUtil.typeView)
         onListener()
-        onFragmentListener()
         loadData()
     }
 
@@ -78,28 +80,19 @@ class ListNoteScreen(type: String) : BaseFragment<FragmentBaseListBinding>(Fragm
 
     private fun onListener() {
         mAdapterText.onLongClickItem = { it, pos ->
-//            navController?.navigate(
-//                R.id.selectedNoteScreen,
-//                bundleOf(
-//                    CURRENT_TYPE_ITEM to if (isText) TypeItem.TEXT.name else TypeItem.CHECK_LIST.name,
-//                    NOTE_FROM_LONG_CLICK to it.ids,
-//                    POSITION_SELECTED to pos
-//                )
-//            )
+            navigationWithAnim(
+                R.id.selectFragment,
+                bundleOf(
+                    CURRENT_TYPE_ITEM to if (isNoteType) TypeItem.TEXT.name else TypeItem.CHECK_LIST.name,
+                    NOTE_FROM_LONG_CLICK to it.ids,
+                    POSITION_SELECTED to pos
+                )
+            )
         }
 
         mAdapterText.mOnClickItem = {
             navigateToEdit(it.ids)
         }
-    }
-
-    private fun onFragmentListener() {
-//        getFragmentListener(KEY_FILTER_COLOR_NOTE) {
-//            mListLocal = getListSortType(viewModelTextNote.textNoteLiveData.value)
-//            mAdapterText.submitList(mListLocal)
-//            clearFocusEditText()
-//            toggleRecyclerView(mListLocal ?: listOf())
-//        }
     }
 
     private fun setTypeRecyclerView() {
