@@ -3,7 +3,6 @@ package com.example.colorphone.ui.select
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.StatsLog.logEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -11,6 +10,7 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.TextViewCompat
 import androidx.core.widget.doOnTextChanged
@@ -87,15 +87,15 @@ class SelectScreen() :
         onSearchNote()
         onListener()
         viewModelTextNote.getListTextNote(isTextType, prefUtil.sortType)
-/*        val account = context?.let { GoogleSignIn.getLastSignedInAccount(it) }
-        if (account != null) {
-            initializeDriveClient(account)
-        }
-        if (prefUtil.isPremium) {
-            binding.llTextLockNow.gone()
-        } else {
-            binding.llTextLockNow.show()
-        }*/
+        /*        val account = context?.let { GoogleSignIn.getLastSignedInAccount(it) }
+                if (account != null) {
+                    initializeDriveClient(account)
+                }
+                if (prefUtil.isPremium) {
+                    binding.llTextLockNow.gone()
+                } else {
+                    binding.llTextLockNow.show()
+                }*/
     }
 
     private fun setTypeRecyclerView() {
@@ -290,12 +290,12 @@ class SelectScreen() :
 
     private fun handleClickReminder() {
         lifecycleScope.launch {
-//            navigationWithAnim(
-//                R.id.reminderFragment, bundleOf(
-//                    ITEM_FROM_SELECTED_SCREEN to _adapterText.getListSelected()
-//                            .firstOrNull()?.ids
-//                )
-//            )
+            navigationWithAnim(
+                R.id.action_selectFragment_to_reminderFragment, bundleOf(
+                    ITEM_FROM_SELECTED_SCREEN to _adapterText.getListSelected()
+                            .firstOrNull()?.ids
+                )
+            )
         }
     }
 
@@ -463,18 +463,18 @@ class SelectScreen() :
     }
 
     private fun showToast(message: String) {
-          binding.apply {
-              lifecycleScope.launch {
-                  iclToastCustom.tvContent.text = message
-                  iclToastCustom.root.isVisible = true
-                  delay(2500)
-                  iclToastCustom.root.isVisible = false
-                  listChangeColor.clear()
-                  listJustArchived.clear()
-                  listJustDelete.clear()
-              }
+        binding.apply {
+            lifecycleScope.launch {
+                iclToastCustom.tvContent.text = message
+                iclToastCustom.root.isVisible = true
+                delay(2500)
+                iclToastCustom.root.isVisible = false
+                listChangeColor.clear()
+                listJustArchived.clear()
+                listJustDelete.clear()
+            }
 
-          }
+        }
     }
 
     private fun initView() {

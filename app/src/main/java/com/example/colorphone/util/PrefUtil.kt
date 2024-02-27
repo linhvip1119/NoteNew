@@ -60,5 +60,11 @@ constructor(
         set(value) {
             editor.putString("email", value).commit()
         }
+    var statusNotificationBar: Boolean
+        get() = sharedPreferences.getBoolean("statusNotificationBar", true)
+        set(value) {
+            editor.putBoolean("statusNotificationBar", value).commit()
+        }
+
 
 }

@@ -24,6 +24,8 @@ object Const {
 
     var currentType: String = TypeColorNote.DEFAULT.name
 
+    var notificationOn = true
+
     //key bundle
     const val KEY_RELOAD_DATA_TEXT = "KEY_RELOAD_DATA_TEXT"
     const val KEY_ID_DATA_NOTE = "KEY_ID_DATA_NOTE"
@@ -34,4 +36,11 @@ object Const {
 
     //key fragment listener
     const val KEY_FILTER_COLOR_NOTE = "KEY_FILTER_COLOR_NOTE"
+
+    //reminder
+    const val ID = "ID"
+    const val TITTLE = "TITTLE_ALARM"
+    const val MESSAGE = "MESSAGE_ALARM"
+    const val TYPE_WORKER = "TYPE_WORKER"
+    const val TYPE_ITEM = "TYPE_ITEM_WORKER"
 }

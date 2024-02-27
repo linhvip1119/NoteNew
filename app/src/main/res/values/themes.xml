@@ -18,8 +18,7 @@
     <style name="Theme.Baseappandroid" parent="Base.Theme.Baseappandroid" />
 
     <style name="BrandedSwitch.control" parent="Theme.AppCompat.Light">
-        <!-- active thumb & track color (30% transparency) -->
-        <item name="colorControlActivated">?attr/colorPrimary</item>
+        <item name="colorControlActivated">@color/material_on_primary_emphasis_high_type</item>
         <item name="colorSwitchThumbNormal">@color/neutral100</item>
         <item name="android:colorForeground">@color/neutral400</item>
     </style>

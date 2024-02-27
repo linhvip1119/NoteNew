@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.example.colorphone.R
@@ -17,6 +18,7 @@ import com.example.colorphone.model.CheckList
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.ui.edit.adapter.MakeListVH
 import com.example.colorphone.ui.edit.utils.TextViewUndoRedo
+import com.example.colorphone.ui.select.SelectScreen.Companion.ITEM_FROM_SELECTED_SCREEN
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.getCurrentTimeToLong
 import com.example.colorphone.util.hideKeyboard
@@ -196,11 +198,11 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
                 ivIcon.setImageResource(R.drawable.ic_remindertime_primary)
 
                 root.setOnClickListener {
-//                    navigationWithAnim(
-//                        R.id.reminderFragment, bundleOf(
-//                            SelectedFragment.ITEM_FROM_SELECTED_SCREEN to model?.ids
-//                        )
-//                    )
+                    navigationWithAnim(
+                        R.id.action_editFragment_to_reminderFragment, bundleOf(
+                            ITEM_FROM_SELECTED_SCREEN to model?.ids
+                        )
+                    )
                     mDropdown?.dismiss()
                 }
             }
@@ -239,7 +241,6 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
                             getString(R.string.noteArchiveLabel).plus(".")
                         )
                     }
-//                    putShowRating()
                     mDropdown?.dismiss()
                     navController?.popBackStack()
                 }
@@ -268,8 +269,6 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
                             it, getString(R.string.noteDeletedLabel).plus(".")
                         )
                     }
-//                    putListenLoadData()
-//                    putShowRating()
                     navController?.popBackStack()
                     mDropdown?.dismiss()
                 }
@@ -345,8 +344,14 @@ fun EditNoteScreen.handeReadMode() {
     binding.apply {
         etTittle.isEnabled = !onReadMode
         etContent.isEnabled = !onReadMode
-        ivUndo.isEnabled = !onReadMode
-        ivRedo.isEnabled = !onReadMode
+
+        if (onReadMode) {
+            ivUndo.isEnabled = !onReadMode
+            ivRedo.isEnabled = !onReadMode
+        } else {
+            handleEnableIconDo()
+        }
+
         tvAddItem.isEnabled = !onReadMode
         mapIdColor(currentColor) { idIcon, _, _, _, _ ->
             ivReadMode.setBackgroundResource(if (onReadMode) idIcon else 0)
@@ -371,11 +376,6 @@ fun EditNoteScreen.handleEnableIconDo() {
                 ivUndo.isEnabled = helperContent?.canUndo == true
                 ivRedo.isEnabled = helperContent?.canRedo == true
             }
-
-//                isFocusCL -> {
-//                    ivUndo.isEnabled = isUndoCL
-//                    ivRedo.isEnabled = isRedoCL
-//                }
 
             else -> {
                 ivUndo.isEnabled = false

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llItem"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/neutral100"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvBack"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:layout_marginHorizontal="@dimen/dp4"
+        android:drawableStart="@drawable/ic_back"
+        android:drawablePadding="@dimen/dp8"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:gravity="center"
+        android:paddingEnd="30dp"
+        android:text="@string/reminder"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp20" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBack"
+        android:layout_marginHorizontal="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp4"
+        android:background="@drawable/bg_view_reminder"
+        android:orientation="vertical"
+        android:padding="@dimen/dp14"
+        app:cardCornerRadius="@dimen/dp10">
+
+        <RelativeLayout
+            android:id="@+id/clDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/dp10"
+                android:drawableTint="@color/primary_current"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/date"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp16"
+                app:drawableStartCompat="@drawable/ic_date" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDateValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:drawablePadding="@dimen/dp10"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:gravity="center"
+                android:padding="@dimen/dp8"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp12"
+                app:drawableEndCompat="@drawable/ic_down"
+                tools:text="@string/date" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/clReminderTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp14">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvReminderTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/dp10"
+                android:drawableTint="@color/primary_current"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/reminderTime"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp16"
+                app:drawableStartCompat="@drawable/ic_reminder_time_edit" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvReminderTimeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:drawablePadding="@dimen/dp10"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:gravity="center"
+                android:padding="@dimen/dp8"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp12"
+                app:drawableEndCompat="@drawable/ic_down"
+                tools:text="@string/date" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/clRepeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp14">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvRepeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/dp10"
+                android:drawableTint="@color/primary_current"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/repeat"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp16"
+                app:drawableStartCompat="@drawable/ic_repeat" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvRepeatValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:drawablePadding="@dimen/dp10"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:gravity="center"
+                android:padding="@dimen/dp8"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp12"
+                app:drawableEndCompat="@drawable/ic_down"
+                tools:text="@string/date" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/clAlarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp14">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/dp10"
+                android:drawableTint="@color/primary_current"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/alarm"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp16"
+                app:drawableStartCompat="@drawable/ic_alarm" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchAlarmValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:checked="true"
+                android:gravity="center"
+                android:longClickable="false"
+                android:padding="@dimen/dp6"
+                app:theme="@style/BrandedSwitch.control" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="@dimen/dp16"
+        android:layout_marginBottom="@dimen/dp48"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvButtonCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginHorizontal="@dimen/dp8"
+            android:layout_weight="1"
+            android:alpha="0.6"
+            android:background="@drawable/bg_button_cancel"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/dp12"
+            android:text="@string/cancel"
+            android:textColor="@color/neutral400"
+            android:textSize="@dimen/sp16" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvButtonSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginHorizontal="@dimen/dp8"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_undo"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/dp12"
+            android:text="@string/applyLabel"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp16" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>

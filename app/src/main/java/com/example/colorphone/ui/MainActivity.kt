@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import com.example.colorphone.R
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.TypeColorNote
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         themeIndex = getIndexTheme(prefUtil.themeColor)
         setTheme(themesList[themeIndex])
         setContentView(R.layout.activity_main)
+        Const.notificationOn = prefUtil.statusNotificationBar
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
     companion object {
