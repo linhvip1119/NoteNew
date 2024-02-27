@@ -51,11 +51,19 @@ class MakeListVH(
         }
     }
 
-    fun bind(item: CheckList) {
-        binding.editText.setText(item.body)
+    fun bind(item: CheckList, onReadMode: Boolean) {
+        binding.apply {
+            editText.setText(item.body)
 //        binding.editText.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
 //            if (hasFocus) v.showKeyboard() else v.hideKeyboard()
 //        }
-        binding.checkBox.isChecked = item.checked
+            checkBox.isChecked = item.checked
+
+            ivDragHandle.isEnabled = !onReadMode
+            ivCloseDelete.isEnabled = !onReadMode
+            editText.isEnabled = !onReadMode
+            checkBox.isEnabled = !onReadMode
+        }
+
     }
 }

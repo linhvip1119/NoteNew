@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginHorizontal="@dimen/dp48"
+    android:background="@drawable/bg_view_reminder"
+    android:padding="@dimen/dp24">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_down"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:gravity="center"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/repeatDaily" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEvery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="@string/every"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittle" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etNumberDaily"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:inputType="number"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintBottom_toBottomOf="@+id/tvEvery"
+        app:layout_constraintStart_toEndOf="@+id/tvEvery"
+        app:layout_constraintTop_toTopOf="@+id/tvEvery"
+        tools:text="15" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDaily"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintBottom_toBottomOf="@+id/tvEvery"
+        app:layout_constraintStart_toEndOf="@+id/etNumberDaily"
+        app:layout_constraintTop_toTopOf="@+id/tvEvery"
+        tools:text="days" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp13"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/etNumberDaily">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvButtonContinue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginHorizontal="@dimen/dp8"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_undo"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/dp5"
+            android:text="@string/continueLabel"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp16" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvButtonBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginHorizontal="@dimen/dp8"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_cancel"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/dp5"
+            android:text="@string/backLabel"
+            android:textColor="@color/neutral400"
+            android:textSize="@dimen/sp16" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

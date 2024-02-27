@@ -1,15 +1,32 @@
 package com.example.colorphone.ui.edit
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.FrameLayout
+import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import com.example.colorphone.R
+import com.example.colorphone.databinding.PopupMenuEditBinding
 import com.example.colorphone.model.CheckList
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.ui.edit.adapter.MakeListVH
+import com.example.colorphone.ui.edit.utils.TextViewUndoRedo
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.getCurrentTimeToLong
+import com.example.colorphone.util.hideKeyboard
 import com.example.colorphone.util.isNotNullOfEmpty
 import com.example.colorphone.util.showKeyboard
+import com.wecan.inote.util.mapIdColor
+import com.wecan.inote.util.showCustomToast
+import com.wecan.inote.util.showCustomToastPinned
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 
 fun EditNoteScreen.getRandomString(length: Int): String {
     val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
@@ -139,5 +156,254 @@ fun EditNoteScreen.getDatePinned(isPinned: Boolean): Long? {
         }
     } else {
         null
+    }
+}
+
+@OptIn(ExperimentalCoroutinesApi::class)
+fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
+    var mDropdown: PopupWindow? = null
+    try {
+        val mInflater =
+            context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val bindingPopup = PopupMenuEditBinding.inflate(mInflater)
+        val layout = bindingPopup.root
+
+        bindingPopup.apply {
+
+            item1.apply {
+                if (model?.isPinned == true) {
+                    tvText.text = getString(R.string.unPinLabel)
+                    ivIcon.setImageResource(R.drawable.ic_unpin_edit)
+                } else {
+                    tvText.text = getString(R.string.pin)
+                    ivIcon.setImageResource(R.drawable.ic_pin_edit)
+                }
+
+                root.setOnClickListener {
+                    model?.isPinned = model?.isPinned == false
+                    context?.let { ct ->
+                        Toast(ct).showCustomToastPinned(
+                            ct,
+                            model?.isPinned == true
+                        )
+                    }
+                    mDropdown?.dismiss()
+                }
+            }
+
+            item2.apply {
+                tvText.text = getString(R.string.reminderTime)
+                ivIcon.setImageResource(R.drawable.ic_remindertime_primary)
+
+                root.setOnClickListener {
+//                    navigationWithAnim(
+//                        R.id.reminderFragment, bundleOf(
+//                            SelectedFragment.ITEM_FROM_SELECTED_SCREEN to model?.ids
+//                        )
+//                    )
+                    mDropdown?.dismiss()
+                }
+            }
+
+            item3.apply {
+                tvText.text = getString(R.string.addToHome)
+                ivIcon.setImageResource(R.drawable.ic_add_to_home)
+
+                root.setOnClickListener {
+//                    model?.let { addWidgetNote(it) }
+                    mDropdown?.dismiss()
+                }
+            }
+
+            item4.apply {
+                tvText.text = getString(R.string.swapText)
+                ivIcon.setImageResource(R.drawable.ic_swap_text)
+
+                root.setOnClickListener {
+                    swapNote()
+                    mDropdown?.dismiss()
+                }
+            }
+
+            item5.apply {
+                tvText.text = getString(R.string.archiveLabel)
+                ivIcon.setImageResource(R.drawable.ic_archive_primary)
+
+                root.setOnClickListener {
+                    lifecycleScope.launch {
+                        model?.let { viewModelTextNote.archiveNote(it) }
+                    }
+                    activity?.let {
+                        Toast(context).showCustomToast(
+                            it,
+                            getString(R.string.noteArchiveLabel).plus(".")
+                        )
+                    }
+//                    putShowRating()
+                    mDropdown?.dismiss()
+                    navController?.popBackStack()
+                }
+            }
+
+            item6.apply {
+                tvText.text = getString(R.string.share)
+                ivIcon.setImageResource(R.drawable.ic_share)
+
+                root.setOnClickListener {
+                    shareNote()
+                    mDropdown?.dismiss()
+                }
+            }
+
+            item7.apply {
+                tvText.text = getString(R.string.deleteLabel)
+                ivIcon.setImageResource(R.drawable.ic_delete_primary)
+
+                root.setOnClickListener {
+                    lifecycleScope.launch {
+                        model?.let { viewModelTextNote.deleteLocalNote(it) }
+                    }
+                    activity?.let {
+                        Toast(context).showCustomToast(
+                            it, getString(R.string.noteDeletedLabel).plus(".")
+                        )
+                    }
+//                    putListenLoadData()
+//                    putShowRating()
+                    navController?.popBackStack()
+                    mDropdown?.dismiss()
+                }
+            }
+        }
+        layout.measure(
+            View.MeasureSpec.UNSPECIFIED,
+            View.MeasureSpec.UNSPECIFIED
+        )
+        mDropdown = PopupWindow(
+            layout, FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT, true
+        )
+        mDropdown.showAsDropDown(binding.ivMenu, 0, 0, Gravity.END)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return mDropdown
+}
+
+fun EditNoteScreen.swapNote() {
+    binding.apply {
+        lifecycleScope.launch {
+            isNoteText = !isNoteText
+            handleViewText()
+            if (isNoteText) {
+                swapCheckListToText()
+            } else {
+                swapTextToCheckList()
+            }
+        }
+    }
+}
+
+private fun EditNoteScreen.swapCheckListToText() {
+    lifecycleScope.launch {
+        var newText = ""
+        model?.typeItem = TypeItem.TEXT.name
+        model?.listCheckList?.forEachIndexed() { pos, it ->
+            newText = if (pos != (model?.listCheckList?.size?.minus(1) ?: 0)) newText.plus(it.body).plus("\n") else newText.plus(it.body)
+        }
+        model?.content = newText
+        binding.etContent.setText(newText)
+        model?.listCheckList?.clear()
+    }
+}
+
+private fun EditNoteScreen.swapTextToCheckList() {
+    lifecycleScope.launch {
+        val newListCL = arrayListOf<CheckList>()
+        val listText = binding.etContent.text.toString().split("\n")
+        listText.forEach {
+            newListCL.add(CheckList(it, false, false, getRandomString(50)))
+        }
+        model?.listCheckList = newListCL
+        model?.typeItem = TypeItem.CHECK_LIST.name
+        setupRecyclerView()
+    }
+}
+
+fun EditNoteScreen.shareNote() {
+    val sendIntent: Intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, model?.title?.plus("\n").plus(model?.content))
+        type = "text/plain"
+    }
+
+    val shareIntent = Intent.createChooser(sendIntent, null)
+    startActivity(shareIntent)
+}
+
+fun EditNoteScreen.handeReadMode() {
+    binding.apply {
+        etTittle.isEnabled = !onReadMode
+        etContent.isEnabled = !onReadMode
+        ivUndo.isEnabled = !onReadMode
+        ivRedo.isEnabled = !onReadMode
+        tvAddItem.isEnabled = !onReadMode
+        mapIdColor(currentColor) { idIcon, _, _, _, _ ->
+            ivReadMode.setBackgroundResource(if (onReadMode) idIcon else 0)
+        }
+        ivReadMode.alpha = if (onReadMode) 0.5f else 1f
+        if (model.typeItem == TypeItem.CHECK_LIST.name) {
+            adapter.changeReadMode(onReadMode)
+            adapter.notifyDataSetChanged()
+        }
+    }
+}
+
+fun EditNoteScreen.handleEnableIconDo() {
+    binding.apply {
+        when {
+            isFocusTittle -> {
+                ivUndo.isEnabled = helperTittle?.canUndo == true
+                ivRedo.isEnabled = helperTittle?.canRedo == true
+            }
+
+            isFocusContent -> {
+                ivUndo.isEnabled = helperContent?.canUndo == true
+                ivRedo.isEnabled = helperContent?.canRedo == true
+            }
+
+//                isFocusCL -> {
+//                    ivUndo.isEnabled = isUndoCL
+//                    ivRedo.isEnabled = isRedoCL
+//                }
+
+            else -> {
+                ivUndo.isEnabled = false
+                ivRedo.isEnabled = false
+            }
+        }
+    }
+}
+
+fun EditNoteScreen.handleRedoUndo() {
+
+    helperTittle = TextViewUndoRedo(binding.etTittle)
+    helperContent = TextViewUndoRedo(binding.etContent)
+
+    binding.ivRedo.setOnClickListener {
+        if (isFocusTittle) helperTittle?.redo() else helperContent?.redo()
+    }
+    binding.ivUndo.setOnClickListener {
+        if (isFocusTittle) helperTittle?.undo() else helperContent?.undo()
+    }
+
+    binding.etTittle.apply {
+        onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            isFocusTittle = hasFocus
+        }
+    }
+    binding.etContent.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+        if (hasFocus) v.showKeyboard() else v.hideKeyboard()
+        isFocusContent = hasFocus
     }
 }

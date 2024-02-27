@@ -15,7 +15,14 @@ class MakeListAdapter(
 ) : RecyclerView.Adapter<MakeListVH>() {
 
     private val callback = DragCallback(elevation, this)
+
     private val touchHelper = ItemTouchHelper(callback)
+
+    private var onReadMode = false
+
+    fun changeReadMode(isReadMode: Boolean) {
+        onReadMode = isReadMode
+    }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         touchHelper.attachToRecyclerView(recyclerView)
@@ -25,7 +32,7 @@ class MakeListAdapter(
 
     override fun onBindViewHolder(holder: MakeListVH, position: Int) {
         val item = list[position]
-        holder.bind(item)
+        holder.bind(item, onReadMode)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MakeListVH {

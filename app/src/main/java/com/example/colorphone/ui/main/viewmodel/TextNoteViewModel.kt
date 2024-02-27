@@ -27,11 +27,15 @@ class TextNoteViewModel @Inject constructor(
     private val app: Application
 ) :
     AndroidViewModel(app) {
+
     val textNoteLiveData: MutableLiveData<List<NoteModel>?> = MutableLiveData()
 
     val recycleBinLiveData: MutableLiveData<List<NoteModel>> = MutableLiveData()
+
     val archiveLiveData: MutableLiveData<List<NoteModel>> = MutableLiveData()
+
     val firstItemLD: MutableLiveData<NoteModel> = MutableLiveData()
+
     val itemWithIdsLD: MutableLiveData<NoteModel> = MutableLiveData()
 
     fun getListTextNote(key: String, typeSort: String? = SortType.MODIFIED_TIME.name) {

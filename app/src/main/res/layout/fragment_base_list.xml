@@ -5,57 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:background="@color/neutral0"
-    tools:context=".ui.main.listNote.BaseListNote">
-
-    <RelativeLayout
-        android:id="@+id/clSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginHorizontal="@dimen/dp16"
-        android:background="@drawable/bg_layout_search">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/dp8"
-            android:src="@drawable/ic_search" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edtSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/ivCloseSearch"
-            android:layout_toEndOf="@+id/ivSearch"
-            android:background="@android:color/transparent"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center_vertical"
-            android:hint="@string/searchThreeDotLabel"
-            android:minHeight="@dimen/dp45"
-            android:paddingHorizontal="@dimen/dp8"
-            android:paddingTop="1dp"
-            android:textColor="@color/neutral500"
-            android:textColorHint="@color/neutral300"
-            android:textSize="@dimen/sp14" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivCloseSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/dp6"
-            android:src="@drawable/ic_close_search" />
-    </RelativeLayout>
+    tools:context=".ui.main.listNote.ListNoteScreen">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/clSearch"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="8dp"
         android:layout_marginHorizontal="@dimen/dp8"
         android:layout_marginBottom="8dp"

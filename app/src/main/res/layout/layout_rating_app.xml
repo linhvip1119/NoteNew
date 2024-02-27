@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/bg_dialog_login_success"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/dp8"
+    android:paddingTop="@dimen/dp14"
+    android:paddingBottom="@dimen/dp24">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_close_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivImageLikeNote"
+        android:layout_width="100dp"
+        android:layout_height="105dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image_rate_app"
+        tools:layout_editor_absoluteY="73dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvWeTryEveryDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/dp22"
+        android:text="@string/weTryEvery"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageLikeNote" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvIfYouLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp4"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:paddingHorizontal="26dp"
+        android:text="@string/ifYouLike"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWeTryEveryDay" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvIfJustTake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp2"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:paddingHorizontal="26dp"
+        android:text="@string/ifJustTake"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvIfYouLike" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvThankYou"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp2"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:paddingHorizontal="26dp"
+        android:text="@string/thankYouSupport"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvIfJustTake" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llStar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp16"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/tvThankYou">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/start1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp6"
+            app:srcCompat="@drawable/rating_star_d" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/start2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp6"
+            app:srcCompat="@drawable/rating_star_d" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/start3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp6"
+            app:srcCompat="@drawable/rating_star_d" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/start4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp6"
+            app:srcCompat="@drawable/rating_star_d" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp6">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/start5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/rating_star_d" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieAnimation4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="start_5.json"
+                app:lottie_loop="true" />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp16"
+        android:background="@drawable/bg_submit"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:gravity="center"
+        android:paddingVertical="@dimen/dp12"
+        android:text="@string/rateLabel"
+        android:textColor="@color/neutral50038"
+        app:layout_constraintTop_toBottomOf="@+id/llStar" />
+</androidx.constraintlayout.widget.ConstraintLayout>

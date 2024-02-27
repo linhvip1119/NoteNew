@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginHorizontal="@dimen/dp48"
+    android:background="@drawable/bg_view_reminder"
+    android:padding="@dimen/dp13">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/addToWaitingScreen"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/touchAndHoldWidgets"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittle" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp8"
+        android:background="@drawable/bg_search_bar_radius_5"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/dp8"
+        app:layout_constraintTop_toBottomOf="@+id/tvContent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/neutral100"
+            tools:srcCompat="@drawable/ic_widgetbar" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNameItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp2"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/sp10"
+            tools:text="note Tools" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSizeItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp2"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/sp10"
+            tools:text="4X1" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="@dimen/dp2"
+        android:layout_height="@dimen/dp18"
+        android:background="@color/neutral400"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAdd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvAdd" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:paddingHorizontal="@dimen/dp18"
+        android:paddingVertical="@dimen/dp10"
+        android:text="@string/add"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintEnd_toStartOf="@+id/viewLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llItem" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:paddingHorizontal="@dimen/dp18"
+        android:paddingVertical="@dimen/dp10"
+        android:text="@string/cancel"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/viewLine"
+        app:layout_constraintTop_toBottomOf="@+id/llItem" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

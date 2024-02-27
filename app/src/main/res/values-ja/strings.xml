@@ -142,7 +142,7 @@
     <string name="setReminderForYou">常にリマインダーをオンにします</string>
     <string name="createInAppShortCut">アプリケーションからウィジェットを作成します</string>
     <string name="changeColorLabel">色変更</string>
-    <string name="soft">によってソートされました</string>
+    <string name="sort">によってソートされました</string>
     <string name="note">注記</string>
     <string name="invalid_backup">無効なバックアップ</string>
     <string name="imported_backup">インポートされたバックアップ</string>

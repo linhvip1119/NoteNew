@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginHorizontal="48dp"
+    android:background="@drawable/bg_dialog_login_success"
+    android:gravity="center"
+    android:paddingVertical="@dimen/dp24">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableBottom="@drawable/ic_login_success"
+        android:drawablePadding="24dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/loginSuccessLabel"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp20" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

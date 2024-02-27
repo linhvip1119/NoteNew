@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginHorizontal="@dimen/dp48"
+    android:background="@drawable/bg_dialog_login_success"
+    android:paddingHorizontal="@dimen/dp24"
+    android:paddingVertical="@dimen/dp16">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/tipsMessage"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/tip"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp13"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/dp8"
+        android:text="@string/yoursChangeHaveNotBeen"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittle"
+        app:layout_goneMarginTop="36dp" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp13"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/tvContent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvButtonContinue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginHorizontal="@dimen/dp8"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_undo"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/dp5"
+            android:text="@string/continueLabel"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp16" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvButtonBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginHorizontal="@dimen/dp8"
+            android:layout_weight="1"
+            android:alpha="0.6"
+            android:background="@drawable/bg_button_cancel"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/dp5"
+            android:text="@string/cancel"
+            android:textColor="@color/neutral500"
+            android:textSize="@dimen/sp16" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

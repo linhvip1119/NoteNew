@@ -141,7 +141,7 @@
     <string name="setReminderForYou">เปิดการแจ้งเตือนตลอดเวลา</string>
     <string name="createInAppShortCut">สร้างวิดเจ็ตจากแอปพลิเคชัน</string>
     <string name="changeColorLabel">เปลี่ยนสี</string>
-    <string name="soft">จัดเรียงโดย</string>
+    <string name="sort">จัดเรียงโดย</string>
     <string name="note">บันทึก</string>
     <string name="invalid_backup">การสำรองข้อมูลไม่ถูกต้อง</string>
     <string name="imported_backup">นำเข้าสำรอง</string>

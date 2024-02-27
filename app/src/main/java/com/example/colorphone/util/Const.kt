@@ -22,7 +22,7 @@ object Const {
     const val FORMAT_DATE_REMINDER_TIME = "HH:mm"
     const val FORMAT_DATE_UPDATE = "yyyy-MM-dd HH:mm"
 
-    var currentType: String? = TypeColorNote.DEFAULT.name
+    var currentType: String = TypeColorNote.DEFAULT.name
 
     //key bundle
     const val KEY_RELOAD_DATA_TEXT = "KEY_RELOAD_DATA_TEXT"

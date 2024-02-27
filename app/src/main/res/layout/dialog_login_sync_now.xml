@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clLoginSync"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg_login_sync_now"
+        tools:layout_height="330dp"
+        tools:layout_width="330dp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivCloseDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp10"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:padding="@dimen/dp6"
+        app:layout_constraintEnd_toEndOf="@+id/ivBg"
+        app:layout_constraintTop_toTopOf="@+id/ivBg"
+        app:srcCompat="@drawable/ic_close" />
+
+    <TextView
+        android:id="@+id/tvNowLoginSync"
+        android:layout_width="@dimen/dp0"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp16"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/dp24"
+        android:text="@string/nowYouCanSync"
+        android:textColor="#121212"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintBottom_toTopOf="@+id/tvLoginSync"
+        app:layout_constraintEnd_toEndOf="@+id/ivBg"
+        app:layout_constraintStart_toStartOf="@+id/ivBg" />
+
+    <TextView
+        android:id="@+id/tvLoginSync"
+        android:layout_width="@dimen/dp0"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp24"
+        android:layout_marginBottom="@dimen/dp16"
+        android:background="@drawable/bg_button_sync"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:gravity="center"
+        android:paddingVertical="@dimen/dp12"
+        android:text="@string/loginSyncNow"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBg"
+        app:layout_constraintEnd_toEndOf="@+id/ivBg"
+        app:layout_constraintStart_toStartOf="@+id/ivBg" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

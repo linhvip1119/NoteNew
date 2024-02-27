@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_item_all_notes"
+    android:orientation="vertical"
+    android:paddingVertical="@dimen/dp6">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_select"
+        android:drawablePadding="@dimen/dp12"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingVertical="@dimen/dp12"
+        android:paddingStart="@dimen/dp12"
+        android:paddingEnd="@dimen/dp30"
+        android:text="@string/selectLabel"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_view_union"
+        android:drawablePadding="@dimen/dp12"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingVertical="@dimen/dp12"
+        android:paddingStart="@dimen/dp12"
+        android:paddingEnd="@dimen/dp30"
+        android:text="@string/viewLabel"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_soft"
+        android:drawablePadding="@dimen/dp12"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingVertical="@dimen/dp12"
+        android:paddingStart="@dimen/dp12"
+        android:paddingEnd="@dimen/dp30"
+        android:text="@string/sort"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16" />
+
+</LinearLayout>

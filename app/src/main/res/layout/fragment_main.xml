@@ -53,13 +53,59 @@
             android:src="@drawable/ic_allbox" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/clSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/clTopBar"
+        android:layout_marginHorizontal="@dimen/dp16"
+        android:background="@drawable/bg_layout_search">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp8"
+            android:layout_marginStart="@dimen/dp4"
+            android:src="@drawable/ic_search" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/ivCloseSearch"
+            android:layout_toEndOf="@+id/ivSearch"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center_vertical"
+            android:hint="@string/searchThreeDotLabel"
+            android:minHeight="@dimen/dp45"
+            android:paddingHorizontal="@dimen/dp8"
+            android:paddingTop="1dp"
+            android:textColor="@color/neutral500"
+            android:textColorHint="@color/neutral300"
+            android:textSize="@dimen/sp14" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCloseSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp6"
+            android:layout_marginEnd="@dimen/dp4"
+            android:src="@drawable/ic_close_search" />
+    </RelativeLayout>
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp0"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@+id/llBottomBar"
-        app:layout_constraintTop_toBottomOf="@+id/clTopBar" />
+        app:layout_constraintTop_toBottomOf="@+id/clSearch" />
 
 
     <androidx.appcompat.widget.LinearLayoutCompat

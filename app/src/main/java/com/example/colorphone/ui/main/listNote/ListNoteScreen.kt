@@ -3,20 +3,24 @@ package com.example.colorphone.ui.main.listNote
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentBaseListBinding
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.ui.main.listNote.adapter.TextAdapter
+import com.example.colorphone.util.Const
+import com.example.colorphone.util.Const.KEY_ID_DATA_NOTE
+import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
 import com.example.colorphone.util.Const.currentType
 import com.example.colorphone.util.PrefUtil
+import com.example.colorphone.util.SortType
 import com.example.colorphone.util.TypeColorNote
+import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.TypeView
-import com.example.colorphone.util.hideKeyboard
-import com.wecan.inote.util.setPreventDoubleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.Locale
@@ -24,14 +28,29 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
-abstract class BaseListNote() : BaseFragment<FragmentBaseListBinding>(FragmentBaseListBinding::inflate) {
+class ListNoteScreen(type: String) : BaseFragment<FragmentBaseListBinding>(FragmentBaseListBinding::inflate) {
 
     @Inject
     lateinit var prefUtil: PrefUtil
 
-    lateinit var mAdapterText: TextAdapter
+    private lateinit var mAdapterText: TextAdapter
+
+    private var isNoteType = type == Const.TYPE_NOTE
 
     private var mListLocal: List<NoteModel>? = null
+
+    private var textSearch: String = ""
+
+    private var call : (() -> Unit)? = null
+
+    companion object {
+        fun newInstance(type: String, text: String, callback: () -> Unit): ListNoteScreen {
+            return ListNoteScreen(type).apply {
+                textSearch = text
+                call = callback
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,22 +66,17 @@ abstract class BaseListNote() : BaseFragment<FragmentBaseListBinding>(FragmentBa
         loadData()
     }
 
-    open fun initAdapter() {
+    private fun initAdapter() {
         mAdapterText = TextAdapter()
         mAdapterText.isDarkTheme = prefUtil.isDarkMode
+        mAdapterText.typeItem = if (isNoteType) TypeItem.TEXT.name else TypeItem.CHECK_LIST.name
     }
 
-    open fun loadData() {}
+    private fun loadData() {
+        viewModelTextNote.getListTextNote(if (isNoteType) TypeItem.TEXT.name else TypeItem.CHECK_LIST.name, prefUtil.sortType)
+    }
 
     private fun onListener() {
-        binding.apply {
-            ivCloseSearch.setPreventDoubleClick {
-                edtSearch.clearFocus()
-                edtSearch.text?.clear()
-                activity?.hideKeyboard()
-            }
-        }
-
         mAdapterText.onLongClickItem = { it, pos ->
 //            navController?.navigate(
 //                R.id.selectedNoteScreen,
@@ -88,13 +102,6 @@ abstract class BaseListNote() : BaseFragment<FragmentBaseListBinding>(FragmentBa
 //        }
     }
 
-    private fun clearFocusEditText() {
-        binding.edtSearch.apply {
-            text?.clear()
-        }
-        activity?.hideKeyboard()
-    }
-
     private fun setTypeRecyclerView() {
         val currentTypeValue = prefUtil.typeView
         mAdapterText.typeView = when (currentTypeValue) {
@@ -117,13 +124,6 @@ abstract class BaseListNote() : BaseFragment<FragmentBaseListBinding>(FragmentBa
                 else -> StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             }
             adapter = mAdapterText
-        }
-    }
-
-    private fun onSearchNote() {
-        binding.edtSearch.doOnTextChanged { char, _, _, _ ->
-            val query = char.toString().lowercase(Locale.getDefault())
-            filterWithQuery(query, true)
         }
     }
 
@@ -168,16 +168,50 @@ abstract class BaseListNote() : BaseFragment<FragmentBaseListBinding>(FragmentBa
     override fun onSubscribeObserver(view: View) {
         viewModelTextNote.textNoteLiveData.observe(viewLifecycleOwner) {
             mListLocal = getListSortType(it)
-            val query = binding.edtSearch.text.toString().lowercase(Locale.getDefault())
+            val query = textSearch
             filterWithQuery(query, false)
         }
-        shareViewModel.filterColorLiveData.observe(viewLifecycleOwner) {
-            currentType = it
-            mListLocal = getListSortType(viewModelTextNote.textNoteLiveData.value)
-            mAdapterText.submitList(mListLocal)
-            mAdapterText.notifyDataSetChanged()
-            clearFocusEditText()
-            toggleRecyclerView(mListLocal ?: listOf())
+        with(shareViewModel) {
+
+            filterColorLiveData.observe(viewLifecycleOwner) {
+                currentType = it
+                mListLocal = getListSortType(viewModelTextNote.textNoteLiveData.value)
+                mAdapterText.submitList(mListLocal)
+                mAdapterText.notifyDataSetChanged()
+                call?.invoke()
+                toggleRecyclerView(mListLocal ?: listOf())
+            }
+
+            changeViewListLiveData.observe(viewLifecycleOwner) {
+                setUpRecyclerView(it.value)
+                mAdapterText.typeView = it.type
+                mAdapterText.notifyDataSetChanged()
+            }
+
+            searchLiveData.observe(viewLifecycleOwner) {
+                textSearch = it
+                filterWithQuery(it, true)
+            }
+            sortLiveData.observe(viewLifecycleOwner) {
+                when (it) {
+                    SortType.MODIFIED_TIME.name -> {
+                        viewModelTextNote.sortModifiedTime()
+                    }
+
+                    SortType.CREATE_TIME.name -> {
+                        viewModelTextNote.sortCreateTime()
+                    }
+
+                    SortType.REMINDER_TIME.name -> {
+                        viewModelTextNote.sortReminderTime()
+                    }
+
+                    SortType.COLOR.name -> {
+                        viewModelTextNote.sortByColor()
+                    }
+                }
+            }
+
         }
     }
 
@@ -185,5 +219,12 @@ abstract class BaseListNote() : BaseFragment<FragmentBaseListBinding>(FragmentBa
         return if (currentType == TypeColorNote.DEFAULT.name) list else list?.filter { data -> data.typeColor == currentType }
     }
 
-    open fun navigateToEdit(idNote: Int? = null) {}
+    private fun navigateToEdit(idNote: Int? = null) {
+        navigationWithAnim(
+            R.id.editFragment, bundleOf(
+                KEY_ID_DATA_NOTE to idNote,
+                TYPE_ITEM_EDIT to if (isNoteType) Const.TYPE_NOTE else Const.TYPE_CHECKLIST,
+            )
+        )
+    }
 }

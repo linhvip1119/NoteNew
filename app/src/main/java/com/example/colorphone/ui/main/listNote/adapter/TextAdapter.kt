@@ -50,7 +50,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
         isLockNote = isLock
     }
 
-    fun getListSelected(): ArrayList<NoteModel> = ArrayList(currentList.filter { it.isSelected })
+     fun getListSelected(): ArrayList<NoteModel> = ArrayList(currentList.filter { it.isSelected })
 
     fun updateListAfterArchive() {
         listLocal.apply {

@@ -184,7 +184,7 @@
                     android:textColor="@color/neutral500"
                     android:textSize="@dimen/sp14"
                     tools:text="@string/textDemo"
-                    tools:visibility="visible" />
+                    tools:visibility="gone" />
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
@@ -196,7 +196,7 @@
             android:paddingHorizontal="@dimen/dp10"
             android:paddingBottom="@dimen/dp6"
             android:visibility="gone"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCheckList"

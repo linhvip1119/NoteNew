@@ -139,7 +139,7 @@
     <string name="setReminderForYou">Set reminders for you all the time</string>
     <string name="createInAppShortCut">Create in-app shortcut widget!</string>
     <string name="changeColorLabel">Change Color</string>
-    <string name="soft">Sort</string>
+    <string name="sort">Sort</string>
     <string name="note">Note</string>
     <string name="invalid_backup">Invalid backup</string>
     <string name="imported_backup">Imported backup</string>

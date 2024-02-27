@@ -141,7 +141,7 @@
     <string name="setReminderForYou">Enciende los recordatorios todo el tiempo</string>
     <string name="createInAppShortCut">Crear widgets de la aplicación</string>
     <string name="changeColorLabel">Cambio de color</string>
-    <string name="soft">Ordenado por</string>
+    <string name="sort">Ordenado por</string>
     <string name="note">Nota</string>
     <string name="invalid_backup">Copia de seguridad no válida</string>
     <string name="imported_backup">Copia de seguridad importada</string>

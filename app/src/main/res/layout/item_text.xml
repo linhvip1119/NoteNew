@@ -21,13 +21,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="@dimen/dp12"
+            android:layout_marginStart="@dimen/dp28"
             android:layout_marginEnd="10dp"
             android:ellipsize="end"
             android:fontFamily="@font/poppins_semi_bold"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:paddingStart="@dimen/dp16"
             android:textColor="@color/neutral500every"
             android:textSize="@dimen/sp14"
             app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp0"
             android:layout_below="@+id/tvTittle"
-            android:layout_alignBottom="@+id/ivReminderTime"
+            android:layout_alignBottom="@+id/tvDate"
             android:layout_marginTop="@dimen/dp4"
             android:layout_marginBottom="@dimen/dp16"
             android:ellipsize="end"
@@ -54,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_below="@+id/tvTittle"
-            android:layout_alignBottom="@+id/ivReminderTime"
+            android:layout_alignBottom="@+id/tvDate"
             android:layout_marginTop="@dimen/dp4"
             android:layout_marginBottom="@dimen/dp16"
             android:orientation="vertical" />
@@ -79,12 +78,12 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_reminder_time" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/ivReminderTime"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/dp2"
             android:fontFamily="@font/poppins_regular"
@@ -99,28 +98,30 @@
         android:id="@+id/viewBgSelected"
         android:layout_width="@dimen/dp0"
         android:layout_height="@dimen/dp0"
+        android:background="@drawable/bg_item_selected"
+        android:layout_alignTop="@+id/llBody"
+        android:layout_alignBottom="@+id/llBody"
+        android:layout_alignStart="@+id/llBody"
+        android:layout_alignEnd="@+id/llBody"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/llBody"
-        app:layout_constraintEnd_toEndOf="@+id/llBody"
-        app:layout_constraintStart_toStartOf="@+id/llBody"
-        app:layout_constraintTop_toTopOf="@+id/llBody"
-        tools:background="@drawable/bg_item_selected_orange" />
+        tools:visibility="visible"/>
 
     <ImageView
         android:id="@+id/ivColorWidget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTittle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvTittle"
-        tools:src="@drawable/ic_color" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp4"
+        tools:src="@drawable/ic_bookmark_blink" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/ivPinned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:drawableEnd="@drawable/ic_pinned"
-        app:layout_constraintEnd_toEndOf="@+id/llBody"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/dp10"
+        android:drawableEnd="@drawable/ic_pinned" />
 </RelativeLayout>

@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.lifecycleScope
 import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentEditNoteBinding
@@ -20,15 +19,13 @@ import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.hideKeyboard
+import com.example.colorphone.util.showKeyboard
 import com.wecan.inote.util.changeBackgroundColor
 import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.setOnNextAction
 import com.wecan.inote.util.setPreventDoubleClickScaleView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -51,18 +48,20 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     private var isFromWidget: Boolean? = false
 
-    private var isFocusTittle = false
+    var isFocusTittle = false
 
-    private var isFocusContent = false
+    var isFocusContent = false
 
     var idReCreateNoteWidget: Int? = null
 
-    private var helperTittle: TextViewUndoRedo? = null
-    private var helperContent: TextViewUndoRedo? = null
+    var helperTittle: TextViewUndoRedo? = null
+    var helperContent: TextViewUndoRedo? = null
 
     private var isBackPress = false
 
     var listCheckList = mutableListOf<CheckList>()
+
+    var onReadMode = false
 
     @Inject
     lateinit var prefUtil: PrefUtil
@@ -104,14 +103,16 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     }
 
     override fun init(view: View) {
-        setupRecyclerView()
         handleViewText()
         if (idNoteEdited != -1) {
             viewModelTextNote.getNoteWithIds(idNoteEdited)
         } else {
+            setupRecyclerView()
             bindViewEditNote(model)
         }
         onListener()
+        handleRedoUndo()
+        handleEnableIconDo()
     }
 
     private fun onListener() {
@@ -134,7 +135,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             }
 
             ivMenu.setPreventDoubleClickScaleView {
-//                initiatePopupMenu()
+                initiatePopupMenu()
             }
 
             tvAddItem.setPreventDoubleClickScaleView {
@@ -157,13 +158,13 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             }
 
             etContent.doAfterTextChanged {
-//                handleEnableIconDo()
+                handleEnableIconDo()
             }
         }
 
         binding.etTittle.doAfterTextChanged { text ->
             model?.title = requireNotNull(text).trim().toString()
-//            handleEnableIconDo()
+            handleEnableIconDo()
         }
 
         binding.ivVComplete.setOnClickListener {
@@ -178,6 +179,12 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                 navController?.popBackStack()
             }
         }
+
+        binding.ivReadMode.setOnClickListener {
+            onReadMode = !onReadMode
+            handeReadMode()
+        }
+
     }
 
     private fun handleSaveNote(onComplete: () -> Unit) {
@@ -203,13 +210,14 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     override fun onSubscribeObserver(view: View) {
         viewModelTextNote.itemWithIdsLD.observe(viewLifecycleOwner) {
             model = it
+            setupRecyclerView()
             bindViewEditNote(it)
         }
     }
 
-    private fun bindViewEditNote(item: NoteModel?) {
+    private fun bindViewEditNote(item: NoteModel) {
         binding.apply {
-            currentColor = item?.typeColor ?: TypeColorNote.BLUE.name
+            currentColor = item.typeColor
             mapIdColor(currentColor, true) { idIcon, _, _, idColorBody, idBgTopBar ->
                 ivTypeBox.setImageResource(idIcon)
                 llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
@@ -228,7 +236,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         }
     }
 
-    private fun setupRecyclerView() {
+    fun setupRecyclerView() {
         val unit = resources.getDimension(R.dimen.dp1)
         val elevation = unit * 2
 

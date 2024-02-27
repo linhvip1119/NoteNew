@@ -1,24 +1,27 @@
 package com.example.colorphone.ui.main
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.PopupWindow
 import androidx.activity.addCallback
 import androidx.core.os.bundleOf
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentMainBinding
+import com.example.colorphone.databinding.RowBinding
 import com.example.colorphone.model.ColorItem
-import com.example.colorphone.model.NoteModel
 import com.example.colorphone.model.NoteType
 import com.example.colorphone.ui.MainActivity
 import com.example.colorphone.ui.bottomDialogColor.viewmodel.BottomSheetViewModel
 import com.example.colorphone.ui.main.adapter.DashBoardPagerAdapter
-import com.example.colorphone.ui.main.viewmodel.ListShareViewModel
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
 import com.example.colorphone.util.Const.currentType
@@ -26,11 +29,14 @@ import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.hideKeyboard
 import com.wecan.inote.util.mapIdColor
+import com.wecan.inote.util.px
 import com.wecan.inote.util.setOnClickAnim
 import com.wecan.inote.util.setPreventDoubleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.util.Locale
 import javax.inject.Inject
+
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
@@ -67,6 +73,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         initBottomBar()
         initViewPager()
         onListener()
+        onSearchNote()
     }
 
     private fun initView() {
@@ -116,9 +123,18 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                 }
             }
 
-//            ivMenu.setOnClickAnim {
+            binding.apply {
+                ivCloseSearch.setPreventDoubleClick {
+                    edtSearch.text?.clear()
+                    edtSearch.clearFocus()
+                    activity?.hideKeyboard()
+                }
+            }
+
+            ivMenu.setOnClickAnim {
 //                showHideViewMenu(!binding.iclMenu.root.isVisible)
-//            }
+                initiatePopupMenu()
+            }
 //            ivProfile.setOnClickListener {
 //                navigate(R.id.settingsScreen)
 //            }
@@ -170,7 +186,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                         binding.ivAllBox.setImageResource(icon)
                     }
                     shareViewModel.setFilterColor(it)
-//                    putFragmentListener(Const.KEY_FILTER_COLOR_NOTE)
                 }
             }
 
@@ -181,6 +196,50 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         activity?.onBackPressedDispatcher?.addCallback(this, true) {
             activity?.hideKeyboard()
             activity?.finish()
+        }
+    }
+
+    private var mDropdown: PopupWindow? = null
+    private var mInflater: LayoutInflater? = null
+
+    private fun initiatePopupMenu(): PopupWindow? {
+        try {
+            mInflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val menuBinding = RowBinding.inflate(mInflater!!)
+
+            menuBinding.root.measure(
+                View.MeasureSpec.UNSPECIFIED,
+                View.MeasureSpec.UNSPECIFIED
+            )
+            menuBinding.apply {
+                tvSelect.setPreventDoubleClick {
+                    navToSelectScreen()
+                    mDropdown?.dismiss()
+                }
+                tvView.setPreventDoubleClick {
+                    openDialogView()
+                    mDropdown?.dismiss()
+                }
+                tvSort.setPreventDoubleClick {
+                    handleDialogSoft()
+                    mDropdown?.dismiss()
+                }
+            }
+            mDropdown = PopupWindow(
+                menuBinding.root, FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT, true
+            )
+            mDropdown?.showAsDropDown(binding.ivSync, (-20).px, (-5).px)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+        return mDropdown
+    }
+
+    private fun onSearchNote() {
+        binding.edtSearch.doOnTextChanged { char, _, _, _ ->
+            val query = char.toString().lowercase(Locale.getDefault())
+            shareViewModel.setSearchText(query)
         }
     }
 
@@ -215,7 +274,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private fun initViewPager() {
         try {
-            val dashBoardAdapter = activity?.let { DashBoardPagerAdapter(it) }
+            val dashBoardAdapter = activity?.let {
+                DashBoardPagerAdapter(it, binding.edtSearch.text.toString().lowercase(Locale.getDefault())) {
+                    clearFocusEditText()
+                }
+            }
             binding.vp2.apply {
                 adapter = dashBoardAdapter
                 isSaveEnabled = false

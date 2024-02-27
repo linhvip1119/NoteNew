@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemText"
+        android:icon="@drawable/ic_select"
+        android:title="@string/selectLabel" />
+    <item
+        android:id="@+id/itemChecklist"
+        android:icon="@drawable/ic_view_union"
+        android:title="@string/viewLabel" />
+</menu>

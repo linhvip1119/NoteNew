@@ -141,7 +141,7 @@
     <string name="setReminderForYou">Hatırlatıcıları her zaman aç</string>
     <string name="createInAppShortCut">Uygulamadan widget\'lar oluşturun</string>
     <string name="changeColorLabel">Renk değişimi</string>
-    <string name="soft">E göre kategorilendi</string>
+    <string name="sort">E göre kategorilendi</string>
     <string name="note">Not</string>
     <string name="invalid_backup">Geçersiz yedekleme</string>
     <string name="imported_backup">İthal Yedekleme</string>

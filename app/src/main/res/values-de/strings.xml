@@ -141,7 +141,7 @@
     <string name="setReminderForYou">Schalten Sie die ganze Zeit Erinnerungen ein</string>
     <string name="createInAppShortCut">Erstellen Sie Widgets aus der Anwendung</string>
     <string name="changeColorLabel">Farbwechsel</string>
-    <string name="soft">Sortiert nach</string>
+    <string name="sort">Sortiert nach</string>
     <string name="note">Notiz</string>
     <string name="invalid_backup">Ungültige Sicherung</string>
     <string name="imported_backup">Importiertes Backup</string>

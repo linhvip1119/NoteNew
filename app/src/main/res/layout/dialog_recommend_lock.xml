@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_login_success">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="@dimen/dp12"
+        android:layout_marginTop="@dimen/dp14"
+        android:padding="@dimen/dp6"
+        app:srcCompat="@drawable/ic_close_dialog" />
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/icClose"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/image_recommend" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp48"
+            android:layout_marginVertical="@dimen/dp16"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/weRecommendYouSetLock"
+            android:textColor="@color/neutral500"
+            android:textSize="@dimen/sp16" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:id="@+id/ivSetNow"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp28"
+            android:layout_marginBottom="@dimen/dp24"
+            android:background="@drawable/bg_button_login"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/dp12"
+            android:text="@string/setNow"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp16" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</RelativeLayout>

@@ -706,3 +706,7 @@ fun Window.setSoftInputResize() {
     setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 }
 
+val Float.px: Float get() = (this * Resources.getSystem().displayMetrics.density)
+
+val Int.px: Int get() = ((this * Resources.getSystem().displayMetrics.density).toInt())
+

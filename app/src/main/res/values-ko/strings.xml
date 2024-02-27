@@ -141,7 +141,7 @@
     <string name="setReminderForYou">항상 알림을 설정하십시오</string>
     <string name="createInAppShortCut">인앱 바로 가기 위젯을 만듭니다!</string>
     <string name="changeColorLabel">색상 변경</string>
-    <string name="soft">정렬 순서</string>
+    <string name="sort">정렬 순서</string>
     <string name="note">메모</string>
     <string name="invalid_backup">Invalid backup</string>
     <string name="imported_backup">Imported backup</string>

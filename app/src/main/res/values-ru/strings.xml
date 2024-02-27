@@ -141,7 +141,7 @@
     <string name="setReminderForYou">Все время включать напоминания</string>
     <string name="createInAppShortCut">Создать виджеты из приложения</string>
     <string name="changeColorLabel">Изменение цвета</string>
-    <string name="soft">Отсортировано по</string>
+    <string name="sort">Отсортировано по</string>
     <string name="note">Примечание</string>
     <string name="invalid_backup">Неверная резервная копия</string>
     <string name="imported_backup">Импортированная резервная копия</string>

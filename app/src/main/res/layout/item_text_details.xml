@@ -96,18 +96,18 @@
         android:layout_width="@dimen/dp0"
         android:layout_height="@dimen/dp0"
         android:background="@drawable/bg_item_selected"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/llBody"
-        app:layout_constraintEnd_toEndOf="@+id/llBody"
-        app:layout_constraintStart_toStartOf="@+id/llBody"
-        app:layout_constraintTop_toTopOf="@+id/llBody" />
+        android:layout_alignTop="@+id/llBody"
+        android:layout_alignBottom="@+id/llBody"
+        android:layout_alignStart="@+id/llBody"
+        android:layout_alignEnd="@+id/llBody"
+        android:visibility="visible" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/ivPinned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="@dimen/dp10"
         android:drawableEnd="@drawable/ic_pinned" />
 
     <ImageView

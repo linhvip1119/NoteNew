@@ -19,7 +19,7 @@ data class NoteModel(
     var dateCreateNote: Long? = null,
     var isPinned: Boolean? = false,
     var datePinned: Long? = null,
-    var typeColor: String = TypeColorNote.BLUE.name,
+    var typeColor: String = if (Const.currentType == TypeColorNote.DEFAULT.name) TypeColorNote.BLUE.name else Const.currentType,
     var modifiedTime: Long? = null,
     var isArchive: Boolean? = false,
     var isDelete: Boolean? = false,

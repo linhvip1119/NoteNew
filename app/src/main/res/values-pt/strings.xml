@@ -141,7 +141,7 @@
     <string name="setReminderForYou">Ligue lembretes o tempo todo</string>
     <string name="createInAppShortCut">Crie widgets a partir do aplicativo</string>
     <string name="changeColorLabel">Mudança de cor</string>
-    <string name="soft">Classificado por</string>
+    <string name="sort">Classificado por</string>
     <string name="note">Observação</string>
     <string name="invalid_backup">Backup inválido</string>
     <string name="imported_backup">Backup importado</string>

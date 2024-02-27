@@ -142,7 +142,7 @@
     <string name="setReminderForYou">Nyalakan pengingat sepanjang waktu</string>
     <string name="createInAppShortCut">Buat widget dari aplikasi</string>
     <string name="changeColorLabel">Perubahan warna</string>
-    <string name="soft">Diurutkan oleh</string>
+    <string name="sort">Diurutkan oleh</string>
     <string name="note">Catatan</string>
     <string name="invalid_backup">Cadangan tidak valid</string>
     <string name="imported_backup">Cadangan impor</string>

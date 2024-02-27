@@ -49,4 +49,16 @@ constructor(
             editor.putString("sortType", value).commit()
         }
 
+    var pin: String?
+        get() = sharedPreferences.getString("pinzz", "")
+        set(value) {
+            editor.putString("pinzz", value).commit()
+        }
+
+    var email: String?
+        get() = sharedPreferences.getString("email", "")
+        set(value) {
+            editor.putString("email", value).commit()
+        }
+
 }

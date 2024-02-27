@@ -142,7 +142,7 @@
     <string name="setReminderForYou">Allumez les rappels tout le temps</string>
     <string name="createInAppShortCut">Créer des widgets à partir de l\'application</string>
     <string name="changeColorLabel">Changement de couleur</string>
-    <string name="soft">Trié par</string>
+    <string name="sort">Trié par</string>
     <string name="note">Note</string>
     <string name="invalid_backup">Sauvegarde non valide</string>
     <string name="imported_backup">Sauvegarde importée</string>

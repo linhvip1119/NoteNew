@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/doesNotRepeat"
+        android:title="@string/doesNotRepeat"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/daily"
+        android:title="@string/daily"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/weekly"
+        android:title="@string/weekly"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/monthly"
+        android:title="@string/monthly"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/custom"
+        android:title="@string/custom"
+        app:showAsAction="never" />
+</menu>
