@@ -2,6 +2,8 @@ package com.example.colorphone.util
 
 import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
+import com.example.colorphone.model.EmailUser
+import com.google.gson.Gson
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -66,5 +68,20 @@ constructor(
             editor.putBoolean("statusNotificationBar", value).commit()
         }
 
+    var statusEmailUser: EmailUser?
+        get() = Gson().fromJson(
+            sharedPreferences.getString("statusEmailUser", null),
+            EmailUser::class.java
+        )
+        set(value) {
+           val model = Gson().toJson(value)
+            editor.putString("statusEmailUser", model).commit()
+        }
+
+    var lastSync: Long
+        get() = sharedPreferences.getLong("lastSync", 0)
+        set(value) {
+            editor.putLong("lastSync", value).commit()
+        }
 
 }

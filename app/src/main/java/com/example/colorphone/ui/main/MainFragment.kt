@@ -42,9 +42,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
 
-    @Inject
-    lateinit var prefUtil: PrefUtil
-
     private val _noteTypeViewModel: BottomSheetViewModel by viewModels()
 
      var currentNote = TEXT_FM
@@ -71,6 +68,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     override fun init(view: View) {
         addListColorType()
         initBottomBar()
+        initView()
         initViewPager()
         onListener()
         onSearchNote()
@@ -78,34 +76,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private fun initView() {
         binding.ivAllBox.isSelected = false
-        // binding.ivDown.gone()
-        showHideSortMenu(false)
-        showHideViewMenu(false)
         currentType?.let {
             mapIdColor(it, true) { idColor: Int, _: Int, _: Int, _: Int, _ ->
                 binding.ivAllBox.setImageResource(idColor)
             }
         }
-    }
-
-    private fun showHideSortMenu(isShow: Boolean) {
-        binding.apply {
-//            viewSupportMenu.isVisible = isShow
-//            iclMenuSort.root.isVisible = isShow
-//            if (isShow) {
-//                logEvent("Dialog_Sort_Show")
-//            }
-        }
-    }
-
-    private fun showHideViewMenu(isShow: Boolean) {
-//        binding.apply {
-//            viewSupportMenu.isVisible = isShow
-//            iclMenu.root.isVisible = isShow
-//        }
-//        if (isShow) {
-//            logEvent("Dialog_Main_Extend_Show")
-//        }
     }
 
     private fun onListener() {
@@ -134,36 +109,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             ivMenu.setOnClickAnim {
                 initiatePopupMenu()
             }
-//            ivProfile.setOnClickListener {
-//                navigate(R.id.settingsScreen)
-//            }
-//            viewSupportMenu.setOnClickListener {
-//                showHideSortMenu(false)
-//                showHideViewMenu(false)
-//            }
-//            iclMenu.root.forEachIndexed { index, view ->
-//                view.setOnClickListener {
-//                    when (index) {
-//                        0 -> {
-//                            navToSelectScreen()
-//                        }
-//
-//                        1 -> {
-//                            openDialogView()
-//                        }
-//
-//                        2 -> {
-//                            handleDialogSoft()
-//                        }
-//
-//                        3 -> {
-//                            //   navigationWithAnim()
-//                            navController?.navigate(R.id.iapFragment)
-//                        }
-//                    }
-//                    showHideViewMenu(false)
-//                }
-//            }
+            ivProfile.setOnClickListener {
+                navigationWithAnim(R.id.action_mainFragment_to_settingFragment)
+            }
 
             ivSync.setPreventDoubleClick {
 //                Log.d("TABNGMMM", prefUtil.statusEmailUser.toString() + "mm")

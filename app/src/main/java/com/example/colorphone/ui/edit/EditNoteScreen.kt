@@ -63,9 +63,6 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     var onReadMode = false
 
-    @Inject
-    lateinit var prefUtil: PrefUtil
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         handleArgumentsListener()

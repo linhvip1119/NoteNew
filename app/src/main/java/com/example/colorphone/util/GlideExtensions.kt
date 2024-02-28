@@ -9,7 +9,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import androidx.appcompat.widget.AppCompatImageView
+import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -38,6 +42,7 @@ fun RequestManager.getBitmap(url: String, listener: GlideBitmapListener?) {
         override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
             listener?.onLoadSuccess(resource)
         }
+
         override fun onLoadCleared(placeholder: Drawable?) {
         }
     })
@@ -81,6 +86,7 @@ fun RequestManager.getBitmap(url: InputStream, success: (bitmap: Bitmap) -> Unit
         override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
             success(resource)
         }
+
         override fun onLoadCleared(placeholder: Drawable?) {
         }
     })
@@ -93,14 +99,15 @@ fun RequestManager.getBitmap(
     success: (bitmap: Bitmap) -> Unit
 ) {
     asBitmap().load(url).apply(RequestOptions().override(width, height))
-        .into(object : CustomTarget<Bitmap>() {
-            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                success(resource)
-            }
-            override fun onLoadCleared(placeholder: Drawable?) {
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    success(resource)
+                }
 
-            }
-        })
+                override fun onLoadCleared(placeholder: Drawable?) {
+
+                }
+            })
 }
 
 /*
@@ -203,4 +210,14 @@ interface DownloadImageListener {
 
 interface GlideBitmapListener {
     fun onLoadSuccess(bitmap: Bitmap)
+}
+
+fun AppCompatImageView.loadUrl(url: Any, radius: Int) {
+    Glide.with(this)
+            .load(url)
+            .apply(
+                RequestOptions().transform(CenterCrop())
+                        .transform(RoundedCorners(radius))
+            )
+            .into(this)
 }

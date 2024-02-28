@@ -33,6 +33,7 @@ object Const {
     const val CURRENT_TYPE_ITEM = "CURRENT_TYPE_ITEM"
     const val NOTE_FROM_LONG_CLICK = "NOTE_FROM_LONG_CLICK"
     const val POSITION_SELECTED = "POSITION_SELECTED"
+    const val KEY_SCREEN_RECYCLER_BIN = "KEY_SCREEN_RECYCLER_BIN"
 
     //key fragment listener
     const val KEY_FILTER_COLOR_NOTE = "KEY_FILTER_COLOR_NOTE"
@@ -43,4 +44,7 @@ object Const {
     const val MESSAGE = "MESSAGE_ALARM"
     const val TYPE_WORKER = "TYPE_WORKER"
     const val TYPE_ITEM = "TYPE_ITEM_WORKER"
+
+    //email
+    const val EMAIL_FEEDBACK = "contact@keego.dev"
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">iNote</string>
-    <string name="app_client_id">650417639284-r2kcf9hmhgo2q7d1lvph3h0ch04e0vvo.apps.googleusercontent.com</string>
     <string name="hello_blank_fragment">สวัสดี!</string>
     <string name="textLabel">ข้อความ</string>
     <string name="checklistLabel">รายการ</string>

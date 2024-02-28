@@ -73,8 +73,6 @@ class SelectScreen() :
 
     private var mInflater: LayoutInflater? = null
 
-    @Inject
-    lateinit var prefUtil: PrefUtil
 
     override fun init(view: View) {
         _adapterText = TextAdapter(true)

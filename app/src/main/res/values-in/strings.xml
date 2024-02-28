@@ -2,7 +2,6 @@
 <resources>
     <string name="none">Tidak ada</string>
     <string name="app_name">iNote</string>
-    <string name="app_client_id">650417639284-r2kcf9hmhgo2q7d1lvph3h0ch04e0vvo.apps.googleusercontent.com</string>
     <string name="hello_blank_fragment">Halo!</string>
     <string name="textLabel">TXT</string>
     <string name="checklistLabel">Daftar</string>

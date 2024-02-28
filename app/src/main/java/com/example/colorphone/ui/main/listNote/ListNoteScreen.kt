@@ -33,9 +33,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ListNoteScreen(type: String) : BaseFragment<FragmentBaseListBinding>(FragmentBaseListBinding::inflate) {
 
-    @Inject
-    lateinit var prefUtil: PrefUtil
-
     private lateinit var mAdapterText: TextAdapter
 
     private var isNoteType = type == Const.TYPE_NOTE

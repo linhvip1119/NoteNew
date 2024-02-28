@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">아이노트</string>
-    <string name="app_client_id">650417639284-r2kcf9hmhgo2q7d1lvph3h0ch04e0vvo.apps.googleusercontent.com</string>
     <string name="hello_blank_fragment">안녕하세요</string>
     <string name="textLabel">텍스트</string>
     <string name="checklistLabel">체크리스트</string>

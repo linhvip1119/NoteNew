@@ -5,6 +5,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -40,6 +41,20 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    packaging {
+        resources {
+            excludes.add("META-INF/DEPENDENCIES")
+            excludes.add("META-INF/LICENSE")
+            excludes.add("META-INF/LICENSE.txt")
+            excludes.add("META-INF/license.txt")
+            excludes.add("META-INF/NOTICE")
+            excludes.add("META-INF/NOTICE.txt")
+            excludes.add("META-INF/notice.txt")
+            excludes.add("META-INF/ASL2.0")
+            excludes.add("META-INF/*.kotlin_module")
+        }
+    }
 }
 
 dependencies {
@@ -48,6 +63,9 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.work:work-runtime-ktx:2.9.0")
+    implementation("com.google.android.gms:play-services-base:18.3.0")
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
+    implementation("com.google.firebase:firebase-auth:22.3.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -101,8 +119,7 @@ dependencies {
 
     // implementation("com.google.firebase:firebase-messaging-ktx")
 
-  //  implementation("androidx.tonyodev.fetch2:xfetch2:3.1.6")
-    implementation("com.makeramen:roundedimageview:2.3.0")
+    //  implementation("androidx.tonyodev.fetch2:xfetch2:3.1.6")
 
     val billing_version = "6.1.0"
     //   implementation("com.android.billingclient:billing-ktx:$billing_version")
@@ -114,4 +131,8 @@ dependencies {
     implementation("com.google.android.play:review-ktx:2.0.1")
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    implementation("com.google.api-client:google-api-client-android:1.26.0")
+    implementation("com.google.apis:google-api-services-drive:v3-rev136-1.25.0")
+    implementation("com.google.http-client:google-http-client-gson:1.41.0")
 }

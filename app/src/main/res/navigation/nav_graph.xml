@@ -16,13 +16,16 @@
         <action
             android:id="@+id/action_mainFragment_to_selectFragment"
             app:destination="@id/selectFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/editFragment"
         android:name="com.example.colorphone.ui.edit.EditNoteScreen"
         android:label="edit fragment"
-        tools:layout="@layout/fragment_edit_note" >
+        tools:layout="@layout/fragment_edit_note">
         <action
             android:id="@+id/action_editFragment_to_reminderFragment"
             app:destination="@id/reminderFragment" />
@@ -32,7 +35,7 @@
         android:id="@+id/selectFragment"
         android:name="com.example.colorphone.ui.select.SelectScreen"
         android:label="select fragment"
-        tools:layout="@layout/fragment_select_screen" >
+        tools:layout="@layout/fragment_select_screen">
         <action
             android:id="@+id/action_selectFragment_to_reminderFragment"
             app:destination="@id/reminderFragment" />
@@ -43,5 +46,21 @@
         android:name="com.example.colorphone.ui.reminder.ReminderFragment"
         android:label="reminder fragment"
         tools:layout="@layout/fragment_reminder" />
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.colorphone.ui.settings.SettingFragment"
+        android:label="setting fragment"
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_recyclerBinFragment"
+            app:destination="@id/recyclerBinFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recyclerBinFragment"
+        android:name="com.example.colorphone.ui.settings.recyclerBin.RecyclerBinFragment"
+        android:label="recycler bin fragment"
+        tools:layout="@layout/fragment_recycler_bin" />
 
 </navigation>
