@@ -15,11 +15,8 @@ import com.example.colorphone.databinding.FragmentSettingBinding
 import com.example.colorphone.ui.settings.googleDriver.helper.GoogleDriveApiDataRepository
 import com.example.colorphone.util.Const.EMAIL_FEEDBACK
 import com.example.colorphone.util.Const.KEY_SCREEN_RECYCLER_BIN
-import com.example.colorphone.util.PrefUtil
-import com.example.colorphone.util.loadImageUser
-import com.example.colorphone.util.loadUrl
-import com.example.colorphone.util.parseJsonToUserEmail
-import com.example.colorphone.util.showAlertDialog
+import com.example.colorphone.util.ext.loadUrl
+import com.example.colorphone.util.ext.showAlertDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.api.services.drive.Drive
@@ -164,7 +161,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(FragmentSettingBind
             }
 
             clWidgets.setOnClickListener {
-//                navigationWithAnim(R.id.widgetMain)
+                navigationWithAnim(R.id.action_settingFragment_to_widgetFragment)
             }
 
             clFeedback.setOnClickListener {

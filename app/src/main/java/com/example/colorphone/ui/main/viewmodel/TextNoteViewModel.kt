@@ -10,7 +10,7 @@ import com.example.colorphone.repository.MailRepository
 import com.example.colorphone.repository.NoteRepository
 import com.example.colorphone.util.DataState
 import com.example.colorphone.util.SortType
-import com.example.colorphone.util.getCurrentTimeToLong
+import com.example.colorphone.util.ext.getCurrentTimeToLong
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

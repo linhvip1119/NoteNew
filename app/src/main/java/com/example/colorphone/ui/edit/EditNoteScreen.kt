@@ -15,18 +15,15 @@ import com.example.colorphone.ui.edit.utils.ListItemListener
 import com.example.colorphone.ui.edit.utils.TextViewUndoRedo
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.KEY_ID_DATA_NOTE
-import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.TypeItem
-import com.example.colorphone.util.hideKeyboard
-import com.example.colorphone.util.showKeyboard
+import com.example.colorphone.util.ext.hideKeyboard
 import com.wecan.inote.util.changeBackgroundColor
 import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.setOnNextAction
 import com.wecan.inote.util.setPreventDoubleClickScaleView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint

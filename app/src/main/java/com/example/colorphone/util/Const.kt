@@ -35,6 +35,9 @@ object Const {
     const val POSITION_SELECTED = "POSITION_SELECTED"
     const val KEY_SCREEN_RECYCLER_BIN = "KEY_SCREEN_RECYCLER_BIN"
 
+    //key add widget
+    const val KEY_ADD_WIDGET_SUCCESS = "KEY_ADD_WIDGET_SUCCESS"
+
     //key fragment listener
     const val KEY_FILTER_COLOR_NOTE = "KEY_FILTER_COLOR_NOTE"
 

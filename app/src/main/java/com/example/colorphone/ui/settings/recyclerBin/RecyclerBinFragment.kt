@@ -9,7 +9,6 @@ import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
@@ -21,7 +20,7 @@ import com.example.colorphone.ui.settings.googleDriver.helper.GoogleDriveApiData
 import com.example.colorphone.ui.settings.recyclerBin.adapter.RecycleBinAdapter
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.TypeView
-import com.example.colorphone.util.showAlertDialog
+import com.example.colorphone.util.ext.showAlertDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException
 import com.google.api.services.drive.Drive

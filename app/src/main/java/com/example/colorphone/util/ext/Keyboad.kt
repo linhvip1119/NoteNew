@@ -1,4 +1,4 @@
-package com.example.colorphone.util
+package com.example.colorphone.util.ext
 
 import android.app.Activity
 import android.content.Context

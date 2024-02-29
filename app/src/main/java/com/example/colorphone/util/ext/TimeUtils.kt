@@ -1,8 +1,7 @@
-package com.example.colorphone.util
+package com.example.colorphone.util.ext
 
 import android.util.Log
 import com.example.colorphone.util.Const.FORMAT_DATE_NOTE
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date

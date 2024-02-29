@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/app_widget_description"
+    android:initialKeyguardLayout="@layout/new_app_widget"
+    android:initialLayout="@layout/new_app_widget"
+    android:minWidth="250dp"
+    android:minHeight="40dp"
+    android:minResizeWidth="120dp"
+    android:minResizeHeight="@dimen/dp18"
+    android:previewImage="@drawable/ic_widgetbar"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="4"
+    android:targetCellHeight="1"
+    android:widgetCategory="home_screen" />

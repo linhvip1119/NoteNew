@@ -6,9 +6,9 @@ import com.example.colorphone.R
 import com.example.colorphone.util.Const.CURRENT_TYPE_ITEM
 import com.example.colorphone.util.SortType
 import com.example.colorphone.util.TypeItem
-import com.example.colorphone.util.hideKeyboard
-import com.example.colorphone.util.showDialogOptionSoft
-import com.example.colorphone.util.showDialogOptionView
+import com.example.colorphone.util.ext.hideKeyboard
+import com.example.colorphone.util.ext.showDialogOptionSoft
+import com.example.colorphone.util.ext.showDialogOptionView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 

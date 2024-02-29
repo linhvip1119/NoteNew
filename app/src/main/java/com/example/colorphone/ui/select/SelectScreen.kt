@@ -27,12 +27,11 @@ import com.example.colorphone.util.Const.CURRENT_TYPE_ITEM
 import com.example.colorphone.util.Const.NOTE_FROM_LONG_CLICK
 import com.example.colorphone.util.Const.POSITION_SELECTED
 import com.example.colorphone.util.Const.SELECTED_SCREEN
-import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.TypeView
-import com.example.colorphone.util.getCurrentTimeToLong
-import com.example.colorphone.util.hideKeyboard
-import com.example.colorphone.util.isNotNullOfEmpty
+import com.example.colorphone.util.ext.getCurrentTimeToLong
+import com.example.colorphone.util.ext.hideKeyboard
+import com.example.colorphone.util.ext.isNotNullOfEmpty
 import com.wecan.inote.util.gone
 import com.wecan.inote.util.px
 import com.wecan.inote.util.setOnClickAnim
@@ -44,7 +43,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale
-import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint

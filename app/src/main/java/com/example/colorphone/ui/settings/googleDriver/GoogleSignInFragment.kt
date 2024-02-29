@@ -1,8 +1,6 @@
 package com.example.colorphone.ui.settings.googleDriver
 
-import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
@@ -11,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.colorphone.R
 import com.example.colorphone.model.EmailUser
 import com.example.colorphone.util.PrefUtil
-import com.example.colorphone.util.showDialogLoginSuccess
+import com.example.colorphone.util.ext.showDialogLoginSuccess
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

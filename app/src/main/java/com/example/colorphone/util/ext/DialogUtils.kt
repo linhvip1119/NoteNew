@@ -1,4 +1,4 @@
-package com.example.colorphone.util
+package com.example.colorphone.util.ext
 
 import android.app.Dialog
 import android.content.Context
@@ -37,6 +37,10 @@ import com.example.colorphone.databinding.LayoutDialogRepeatDailyBinding
 import com.example.colorphone.databinding.LayoutLoginSuccessBinding
 import com.example.colorphone.databinding.LayoutRatingAppBinding
 import com.example.colorphone.databinding.LayoutSaveYourChangeReminderBinding
+import com.example.colorphone.util.PrefUtil
+import com.example.colorphone.util.RepeatType
+import com.example.colorphone.util.SortType
+import com.example.colorphone.util.TypeView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.wecan.inote.util.bindViewMenuSort
 import com.wecan.inote.util.getIndexSelectedMenu

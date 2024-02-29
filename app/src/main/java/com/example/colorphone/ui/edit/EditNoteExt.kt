@@ -20,10 +20,10 @@ import com.example.colorphone.ui.edit.adapter.MakeListVH
 import com.example.colorphone.ui.edit.utils.TextViewUndoRedo
 import com.example.colorphone.ui.select.SelectScreen.Companion.ITEM_FROM_SELECTED_SCREEN
 import com.example.colorphone.util.TypeItem
-import com.example.colorphone.util.getCurrentTimeToLong
-import com.example.colorphone.util.hideKeyboard
-import com.example.colorphone.util.isNotNullOfEmpty
-import com.example.colorphone.util.showKeyboard
+import com.example.colorphone.util.ext.getCurrentTimeToLong
+import com.example.colorphone.util.ext.hideKeyboard
+import com.example.colorphone.util.ext.isNotNullOfEmpty
+import com.example.colorphone.util.ext.showKeyboard
 import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.showCustomToast
 import com.wecan.inote.util.showCustomToastPinned

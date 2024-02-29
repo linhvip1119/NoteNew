@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/neutral100">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvWidgetBack"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginStart="12dp"
+        android:drawableStart="@drawable/ic_back"
+        android:drawablePadding="@dimen/dp8"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:gravity="center"
+        android:text="@string/widgets"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvInstruct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/neutral0"
+        android:drawableStart="@drawable/ic_i_about"
+        android:drawablePadding="@dimen/dp10"
+        android:fontFamily="@font/poppins_regular"
+        android:paddingHorizontal="17dp"
+        android:paddingVertical="@dimen/dp8"
+        android:text="@string/selectawidgetandaddittothehomescreen"
+        android:textColor="@color/neutral400"
+        android:textSize="@dimen/sp10"
+        app:layout_constraintTop_toBottomOf="@+id/tvWidgetBack" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivWidgetBarr"
+        android:layout_width="@dimen/dp0"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/dp12"
+        android:layout_marginTop="@dimen/dp22"
+        android:layout_marginEnd="@dimen/dp6"
+        android:background="@drawable/bg_item_widget"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:paddingHorizontal="@dimen/dp10"
+        app:layout_constraintBottom_toBottomOf="@+id/llItem"
+        app:layout_constraintEnd_toStartOf="@+id/glCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvInstruct"
+        app:srcCompat="@drawable/ic_widgetbar" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvNoteTool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp12"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/noteTool"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintEnd_toEndOf="@+id/ivWidgetBarr"
+        app:layout_constraintStart_toStartOf="@+id/ivWidgetBarr"
+        app:layout_constraintTop_toBottomOf="@+id/ivWidgetBarr"
+        tools:textColor="@color/primaryOption" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llItem"
+        android:layout_width="@dimen/dp0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp12"
+        android:layout_marginTop="@dimen/dp22"
+        android:layout_marginEnd="@dimen/dp6"
+        android:background="@drawable/bg_item_widget"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/dp10"
+        android:paddingVertical="@dimen/dp10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/glCenter"
+        app:layout_constraintTop_toBottomOf="@+id/tvInstruct">
+
+        <include
+            android:id="@+id/iclItem"
+            layout="@layout/item_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvStickyNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp12"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/stickyNote"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintEnd_toEndOf="@+id/llItem"
+        app:layout_constraintStart_toStartOf="@+id/llItem"
+        app:layout_constraintTop_toBottomOf="@+id/llItem"
+        tools:textColor="@color/primaryOption" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAddToHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp16"
+        android:layout_marginVertical="@dimen/dp24"
+        android:background="@drawable/bg_button_add_to_home"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:paddingVertical="@dimen/dp8"
+        android:text="@string/addToHomeScreen"
+        android:textColor="@color/custom_color_text_button_selected"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

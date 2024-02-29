@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_settingFragment_to_advancedFragment"
             app:destination="@id/advancedFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_widgetFragment"
+            app:destination="@id/widgetFragment" />
     </fragment>
 
     <fragment
@@ -71,5 +74,11 @@
         android:name="com.example.colorphone.ui.settings.advanced.AdvancedSetting"
         android:label="advanced fragment"
         tools:layout="@layout/fragment_setting_detail" />
+
+    <fragment
+        android:id="@+id/widgetFragment"
+        android:name="com.example.colorphone.ui.settings.widget.WidgetFragment"
+        android:label="widget fragment"
+        tools:layout="@layout/fragment_widget"/>
 
 </navigation>

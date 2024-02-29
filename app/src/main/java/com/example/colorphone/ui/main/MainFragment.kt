@@ -26,7 +26,7 @@ import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
 import com.example.colorphone.util.Const.currentType
 import com.example.colorphone.util.TypeColorNote
-import com.example.colorphone.util.hideKeyboard
+import com.example.colorphone.util.ext.hideKeyboard
 import com.wecan.inote.util.getBgBottomBarMain
 import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.px

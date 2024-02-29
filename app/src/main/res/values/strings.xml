@@ -248,4 +248,7 @@
     <string name="applovin_hk1_app_open_default">hk1_app_open_default</string>
     <string name="hk1">hk1</string>
     <string name="label">Label</string>
+    <string name="noteTool">Note Tool</string>
+    <string name="stickyNote">Sticky Note</string>
+    <string name="toolBar">Tools Widget</string>
 </resources>

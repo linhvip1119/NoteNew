@@ -17,7 +17,7 @@ import com.example.colorphone.databinding.ItemTextListBinding
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.TypeView
-import com.example.colorphone.util.convertLongToDateYYMMDD
+import com.example.colorphone.util.ext.convertLongToDateYYMMDD
 import com.wecan.inote.util.changeBackgroundColor
 import com.wecan.inote.util.gone
 import com.wecan.inote.util.mapIdColor

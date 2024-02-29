@@ -12,8 +12,8 @@ import com.example.colorphone.ui.settings.advanced.bottomLanguage.BottomFragment
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.APPLICATION_ID
 import com.example.colorphone.util.PrefUtils
-import com.example.colorphone.util.getTextLanguage
-import com.example.colorphone.util.showAlertDialogTip
+import com.example.colorphone.util.ext.getTextLanguage
+import com.example.colorphone.util.ext.showAlertDialogTip
 import com.wecan.inote.util.mapIdColor
 import kotlinx.coroutines.launch
 
