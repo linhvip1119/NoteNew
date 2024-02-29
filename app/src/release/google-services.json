@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:769679740468:android:7eca65cea7b27224010461",
         "android_client_info": {
-          "package_name": "com.example.noteNew"
+          "package_name": "note.notebook.notepad.wisenotes"
         }
       },
       "oauth_client": [

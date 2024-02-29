@@ -6,6 +6,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
+    id("com.google.firebase.appdistribution")
 }
 
 android {
@@ -13,13 +14,23 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.noteNew"
+        applicationId = "dev.note.notebook.notepad.wisenotes"
         minSdk = 24
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    applicationVariants.configureEach {
+        if (name.contains("debug")) {
+            (mergedFlavor as com.android.build.gradle.internal.core.MergedFlavor).applicationId =
+                "dev.note.notebook.notepad.wisenotes"
+        } else if (name.contains("release")) {
+            (mergedFlavor as com.android.build.gradle.internal.core.MergedFlavor).applicationId =
+                "note.notebook.notepad.wisenotes"
+        }
     }
 
     buildTypes {
@@ -29,6 +40,16 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        debug {
+            isDebuggable = true
+            firebaseAppDistribution {
+                appId ="1:72511390302:android:b47f9ed25d23697362eacf"
+                releaseNotesFile = "$rootDir/firebase/note.txt"
+                serviceCredentialsFile = "$rootDir/firebase/key.json"
+                groups = "tester"
+            }
         }
     }
     compileOptions {
