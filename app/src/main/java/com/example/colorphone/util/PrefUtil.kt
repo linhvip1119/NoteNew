@@ -84,4 +84,10 @@ constructor(
             editor.putLong("lastSync", value).commit()
         }
 
+    var languageApp: String?
+        get() = sharedPreferences.getString("languageApp", "")
+        set(value) {
+            editor.putString("languageApp", value).commit()
+        }
+
 }

@@ -19,25 +19,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:background="@color/orangeBody">
+            tools:background="@color/primaryBody">
 
-            <LinearLayout
-                android:id="@+id/lnAdsBanner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="1dp">
-
-                <FrameLayout
-                    android:id="@+id/flAdsBanner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/dp1"-->
+<!--                android:alpha="0.4"-->
+<!--                android:background="@color/neutral500" />-->
 
             <RelativeLayout
                 android:id="@+id/clTopBarMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:background="@color/greenOption50">
+                tools:background="@color/primaryBody">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivVComplete"

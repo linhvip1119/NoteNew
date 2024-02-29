@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp48"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="@dimen/dp16"
+        android:layout_marginHorizontal="@dimen/dp12"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -57,17 +57,17 @@
         android:id="@+id/clSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/clTopBar"
         android:layout_marginHorizontal="@dimen/dp16"
-        android:background="@drawable/bg_layout_search">
+        android:background="@drawable/bg_layout_search"
+        app:layout_constraintTop_toBottomOf="@+id/clTopBar">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:padding="@dimen/dp8"
             android:layout_marginStart="@dimen/dp4"
+            android:padding="@dimen/dp8"
             android:src="@drawable/ic_search" />
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -94,8 +94,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:padding="@dimen/dp6"
             android:layout_marginEnd="@dimen/dp4"
+            android:padding="@dimen/dp6"
             android:src="@drawable/ic_close_search" />
     </RelativeLayout>
 

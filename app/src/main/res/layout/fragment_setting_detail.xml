@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llSettingFm"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/neutral100"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/dp8">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_back"
+        android:drawablePadding="@dimen/dp8"
+        android:focusable="true"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:gravity="center"
+        android:paddingStart="0dp"
+        android:paddingEnd="30dp"
+        android:text="@string/advancedLabel"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp20" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp6"
+        android:background="@drawable/bg_view_reminder"
+        android:orientation="vertical"
+        android:paddingVertical="16dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="@dimen/dp18">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvGeneral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/general"
+            android:textColor="@color/neutral500"
+            android:textSize="@dimen/sp16" />
+
+        <RelativeLayout
+            android:id="@+id/clDarkMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvDarkMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/dp10"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingVertical="@dimen/dp10"
+                android:text="@string/darkMode"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp16"
+                app:drawableStartCompat="@drawable/ic_darkmode"
+                app:drawableTint="@color/primary_current" />
+
+            <Switch
+                android:id="@+id/switchDarkMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:checked="true"
+                android:gravity="center"
+                android:longClickable="false"
+                android:paddingHorizontal="@dimen/dp8"
+                app:theme="@style/BrandedSwitch.control" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/clDefaultColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp2">
+
+            <TextView
+                android:id="@+id/tvDefaultColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/dp10"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingVertical="@dimen/dp10"
+                android:text="@string/themeColorLabel"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp16"
+                app:drawableStartCompat="@drawable/ic_color_24dp"
+                app:drawableTint="@color/primary_current" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:longClickable="false"
+                app:theme="@style/BrandedSwitch.control"
+                tools:srcCompat="@drawable/ic_new_blink" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/clLanguageOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp2">
+
+            <TextView
+                android:id="@+id/tvLanguageOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:drawablePadding="@dimen/dp11"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingVertical="@dimen/dp10"
+                android:text="@string/languageLabel"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp16"
+                app:drawableStartCompat="@drawable/ic_language_option"
+                app:drawableTint="@color/primary_current" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvValueLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:drawablePadding="@dimen/dp2"
+                android:focusable="true"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/dp6"
+                android:paddingVertical="@dimen/dp6"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp12"
+                app:drawableEndCompat="@drawable/ic_down"
+                tools:text="@string/englishLabel" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/clNotificationBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp14">
+
+            <TextView
+                android:id="@+id/tvNotificationBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/dp11"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingBottom="@dimen/dp2"
+                android:text="@string/notificationBar"
+                android:textColor="@color/neutral500"
+                android:textSize="@dimen/sp16"
+                app:drawableStartCompat="@drawable/ic_notifibar"
+                app:drawableTint="@color/primary_current" />
+
+            <Switch
+                android:id="@+id/switchNotifiBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                android:longClickable="false"
+                android:paddingHorizontal="@dimen/dp8"
+                app:theme="@style/BrandedSwitch.control" />
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp14"
+        android:background="@drawable/bg_view_reminder"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvOthers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/others"
+            android:textColor="@color/neutral500"
+            android:textSize="@dimen/sp16" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvShare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp14"
+            android:clickable="true"
+            android:drawableStart="@drawable/ic_share_24dp"
+            android:drawablePadding="@dimen/dp10"
+            android:focusable="true"
+            android:fontFamily="@font/poppins_regular"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:includeFontPadding="false"
+            android:minHeight="@dimen/dp48"
+            android:paddingVertical="@dimen/dp10"
+            android:paddingEnd="@dimen/dp16"
+            android:text="@string/share"
+            android:textColor="@color/neutral500"
+            android:textSize="@dimen/sp16"
+            app:drawableTint="@color/primary_current" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:drawableStart="@drawable/ic_privacy"
+            android:drawablePadding="@dimen/dp10"
+            android:focusable="true"
+            android:fontFamily="@font/poppins_regular"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:includeFontPadding="false"
+            android:minHeight="@dimen/dp48"
+            android:paddingVertical="@dimen/dp10"
+            android:paddingEnd="@dimen/dp16"
+            android:text="@string/privacyPolicy"
+            android:textColor="@color/neutral500"
+            android:textSize="@dimen/sp16"
+            app:drawableTint="@color/primary_current" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

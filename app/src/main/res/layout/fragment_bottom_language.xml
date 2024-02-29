@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet_radius_top"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/dp22"
+    android:paddingVertical="@dimen/dp16">
+
+    <TextView
+        android:id="@+id/tvLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:paddingVertical="@dimen/dp8"
+        android:text="@string/languageLabel"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp20" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_language" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

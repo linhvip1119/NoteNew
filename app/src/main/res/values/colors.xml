@@ -61,4 +61,5 @@
 
     <color name="bgBottomTab">#FFFFFF</color>
     <color name="bgShadowBottomTab">#E6E3E3</color>
+    <color name="bgBottomColor">#FFFFFF</color>
 </resources>

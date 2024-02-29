@@ -25,9 +25,9 @@ import com.example.colorphone.ui.main.adapter.DashBoardPagerAdapter
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
 import com.example.colorphone.util.Const.currentType
-import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.hideKeyboard
+import com.wecan.inote.util.getBgBottomBarMain
 import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.px
 import com.wecan.inote.util.setOnClickAnim
@@ -35,7 +35,6 @@ import com.wecan.inote.util.setPreventDoubleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.Locale
-import javax.inject.Inject
 
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -44,7 +43,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private val _noteTypeViewModel: BottomSheetViewModel by viewModels()
 
-     var currentNote = TEXT_FM
+    var currentNote = TEXT_FM
 
     private var isInitialization = false
 
@@ -66,9 +65,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     }
 
     override fun init(view: View) {
+        initView()
         addListColorType()
         initBottomBar()
-        initView()
         initViewPager()
         onListener()
         onSearchNote()
@@ -80,6 +79,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             mapIdColor(it, true) { idColor: Int, _: Int, _: Int, _: Int, _ ->
                 binding.ivAllBox.setImageResource(idColor)
             }
+        }
+        getBgBottomBarMain(prefUtil.themeColor) {
+            bgSelected = it
         }
     }
 
@@ -192,24 +194,19 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private fun navigateToCreateNote() {
         val currentType = if (binding.vp2.currentItem == 0) Const.TYPE_NOTE else Const.TYPE_CHECKLIST
-        navigationWithAnim(
-            R.id.editFragment,
-            bundleOf(
-//                TextFragment.ARG_CREATE_NOTE to isCreateNote,
-//                BaseListFragment.CURRENT_TYPE to type,
-                TYPE_ITEM_EDIT to currentType
-            )
-        )
+        navigationWithAnim(R.id.editFragment, bundleOf(TYPE_ITEM_EDIT to currentType))
     }
 
     override fun onSubscribeObserver(view: View) {
     }
 
+    private var bgSelected = R.drawable.bg_bottom_bar_blue
+
     private fun initBottomBar() {
         binding.apply {
             val isSelectNote = currentNote == TEXT_FM
-            flNote.setBackgroundResource(if (isSelectNote) R.drawable.bg_button_note_bar_selected else Color.TRANSPARENT)
-            flChecklist.setBackgroundResource(if (!isSelectNote) R.drawable.bg_button_note_bar_selected else Color.TRANSPARENT)
+            flNote.setBackgroundResource(if (isSelectNote) bgSelected else Color.TRANSPARENT)
+            flChecklist.setBackgroundResource(if (!isSelectNote) bgSelected else Color.TRANSPARENT)
             tvNote.isSelected = isSelectNote
             tvNote.text = if (isSelectNote) getString(R.string.note) else ""
             tvChecklist.isSelected = !isSelectNote

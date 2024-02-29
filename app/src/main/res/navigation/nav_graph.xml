@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_settingFragment_to_recyclerBinFragment"
             app:destination="@id/recyclerBinFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_advancedFragment"
+            app:destination="@id/advancedFragment" />
     </fragment>
 
     <fragment
@@ -62,5 +65,11 @@
         android:name="com.example.colorphone.ui.settings.recyclerBin.RecyclerBinFragment"
         android:label="recycler bin fragment"
         tools:layout="@layout/fragment_recycler_bin" />
+
+    <fragment
+        android:id="@+id/advancedFragment"
+        android:name="com.example.colorphone.ui.settings.advanced.AdvancedSetting"
+        android:label="advanced fragment"
+        tools:layout="@layout/fragment_setting_detail" />
 
 </navigation>

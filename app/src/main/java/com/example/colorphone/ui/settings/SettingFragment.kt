@@ -160,7 +160,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(FragmentSettingBind
             }
 
             clSettings.setOnClickListener {
-//                navigationWithAnim(R.id.settingsDetailsScreen)
+                navigationWithAnim(R.id.action_settingFragment_to_advancedFragment)
             }
 
             clWidgets.setOnClickListener {

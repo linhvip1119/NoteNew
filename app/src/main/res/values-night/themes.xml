@@ -6,6 +6,30 @@
     </style>
 
     <attr name="themeColor" format="color" />
+
+    <style name="MyDatePickerStyle2" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">?attr/colorOnPrimary</item>
+        <!--selected Item color-->
+        <item name="colorControlActivated">?attr/colorOnPrimary</item>
+        <!-- arrow bordercolor(<>)-->
+        <item name="android:selectableItemBackgroundBorderless">@color/neutral100</item>
+        <!-- Highlight item color-->
+        <item name="colorControlHighlight">?attr/colorOnPrimary</item>
+        <!--Calender Background color -->
+        <item name="android:windowBackground">@color/neutral100</item>
+        <!-- Ok Cancel Color-->
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <!-- Week TextColor-->
+        <item name="android:textColorSecondary">?attr/colorOnPrimary</item>
+        <!-- Calender Number color arrow color (< >) -->
+        <item name="android:textColorPrimary">@color/neutral500</item>
+        <!--day , month-->
+        <item name="android:textColorPrimaryInverse">@android:color/white</item>
+        <!-- year-->
+        <item name="android:textColorSecondaryInverse">@android:color/white</item>
+
+    </style>
+
     //custom theme
 
     <style name="coolPrimaryNav" parent="Theme.MaterialComponents.Light">
@@ -78,6 +102,36 @@
         <item name="colorOnSecondary">@color/redOption</item>
         <item name="colorPrimaryDark">@color/redOption</item>
         <item name="colorAccent">@color/redOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <item name="android:statusBarColor">?attr/themeColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="coolBlinkNav" parent="Theme.MaterialComponents.Light">
+        <item name="themeColor">@color/blinkOption</item>
+        <item name="colorPrimary">@color/blinkOption</item>
+        <item name="colorPrimaryVariant">?attr/themeColor</item>
+        <item name="colorOnPrimary">@color/blinkOption</item>
+        <item name="colorSecondary">?attr/themeColor</item>
+        <item name="colorSecondaryVariant">@color/blinkOption</item>
+        <item name="colorOnSecondary">@color/blinkOption</item>
+        <item name="colorPrimaryDark">@color/blinkOption</item>
+        <item name="colorAccent">@color/blinkOption</item>
+        <item name="android:itemBackground">@color/neutral0</item>
+        <item name="android:statusBarColor">?attr/themeColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="coolGrayNav" parent="Theme.MaterialComponents.Light">
+        <item name="themeColor">@color/grayOption</item>
+        <item name="colorPrimary">@color/grayOption</item>
+        <item name="colorPrimaryVariant">?attr/themeColor</item>
+        <item name="colorOnPrimary">@color/grayOption</item>
+        <item name="colorSecondary">?attr/themeColor</item>
+        <item name="colorSecondaryVariant">@color/grayOption</item>
+        <item name="colorOnSecondary">@color/grayOption</item>
+        <item name="colorPrimaryDark">@color/grayOption</item>
+        <item name="colorAccent">@color/grayOption</item>
         <item name="android:itemBackground">@color/neutral0</item>
         <item name="android:statusBarColor">?attr/themeColor</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>

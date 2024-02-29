@@ -600,6 +600,30 @@ fun mapIdColorWidget(
     }
 }
 
+fun getBgBottomBarMain(
+    nameColor: String?,
+    idColor: ((idBg: Int) -> Unit)
+) {
+    when (nameColor) {
+
+        TypeColorNote.A_ORANGE.name -> idColor.invoke(R.drawable.bg_bottom_bar_orange)
+
+        TypeColorNote.B_GREEN.name -> idColor.invoke(R.drawable.bg_bottom_bar_green)
+
+        TypeColorNote.F_PRIMARY.name -> idColor.invoke(R.drawable.bg_bottom_bar_primary)
+
+        TypeColorNote.D_RED.name -> idColor.invoke(R.drawable.bg_bottom_bar_red)
+
+        TypeColorNote.BLUE.name -> idColor.invoke(R.drawable.bg_bottom_bar_blue)
+
+        TypeColorNote.BLINK.name -> idColor.invoke(R.drawable.bg_bottom_bar_blink)
+
+        TypeColorNote.GRAY.name -> idColor.invoke(R.drawable.bg_bottom_bar_gray)
+
+        else -> idColor.invoke(R.drawable.bg_bottom_bar_blue)
+    }
+}
+
 fun Toast.showToastSyncSuccess(ct: Context) {
     val binding: ItemToastSyncSuccessBinding =
         ItemToastSyncSuccessBinding.inflate(LayoutInflater.from(ct))

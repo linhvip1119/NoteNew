@@ -177,7 +177,7 @@ class ReminderFragment : BaseFragment<FragmentReminderBinding>(FragmentReminderB
 
     private fun openCalendar() {
         context?.let { ct ->
-            DatePickerDialog(ct, this, chosenYear, chosenMonth, chosenDay).show()
+            DatePickerDialog(ct, R.style.MyDatePickerStyle2, this, chosenYear, chosenMonth, chosenDay).show()
         }
     }
 

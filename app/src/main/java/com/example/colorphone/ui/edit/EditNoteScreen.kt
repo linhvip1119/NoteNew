@@ -125,7 +125,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                             ivTypeBox.setImageResource(icon)
                             llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
                             llAppBar.setBackgroundResource(idColorBody)
-                            clTopBarMenu.setBackgroundResource(idBgTopBar)
+                            clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
                         }
                     }
                 }
@@ -219,7 +219,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                 ivTypeBox.setImageResource(idIcon)
                 llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
                 llAppBar.setBackgroundResource(idColorBody)
-                clTopBarMenu.setBackgroundResource(idBgTopBar)
+                clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
             }
             if (item?.title.isNullOrEmpty()) {
                 etTittle.hint = getString(R.string.headingLabel)

@@ -2,6 +2,8 @@ package com.example.colorphone.ui
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
@@ -9,8 +11,11 @@ import android.view.WindowManager
 import com.example.colorphone.R
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.PrefUtil
+import com.example.colorphone.util.PrefUtils
 import com.example.colorphone.util.TypeColorNote
+import com.example.colorphone.util.custom.ContextUtils
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -27,6 +32,15 @@ class MainActivity : AppCompatActivity() {
         Const.notificationOn = prefUtil.statusNotificationBar
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val localeUpdatedContext: ContextWrapper? =
+            newBase?.let {
+                ContextUtils.updateLocale(it, Locale(PrefUtils.languageApp(it) ?: Locale.getDefault().language))
+            }
+        super.attachBaseContext(localeUpdatedContext)
+    }
+
     companion object {
         @SuppressLint("StaticFieldLeak")
         var fa: Activity? = null
@@ -36,7 +50,9 @@ class MainActivity : AppCompatActivity() {
             R.style.coolGreenNav,
             R.style.coolOrangeNav,
             R.style.coolRedNav,
-            R.style.coolBlueNav
+            R.style.coolBlueNav,
+            R.style.coolBlinkNav,
+            R.style.coolGrayNav
         )
 
         fun getIndexTheme(colorTheme: String): Int {
@@ -46,7 +62,9 @@ class MainActivity : AppCompatActivity() {
                 TypeColorNote.A_ORANGE.name -> 2
                 TypeColorNote.D_RED.name -> 3
                 TypeColorNote.BLUE.name -> 4
-                else -> 0
+                TypeColorNote.BLINK.name -> 5
+                TypeColorNote.GRAY.name -> 6
+                else -> 4
             }
         }
 
