@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/neutral0">
+
+    <TextView
+        android:id="@+id/tvBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/dp16"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_back"
+        android:drawablePadding="@dimen/dp6"
+        android:focusable="true"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:gravity="center"
+        android:text="@string/selectANote"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp20"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/clNoDataRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0"
+        android:layout_below="@+id/tvBack"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp40"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivNoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp6"
+            android:src="@drawable/ic_search_empty" />
+
+        <TextView
+            android:id="@+id/tvEmptyData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp24"
+            android:layout_marginTop="@dimen/dp16"
+            android:alpha="0.6"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:gravity="center"
+            android:text="@string/emptyDataSearch"
+            android:textColor="@color/neutral500"
+            android:textSize="@dimen/sp16" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvListText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0"
+        android:layout_below="@+id/tvBack"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="@dimen/dp8"
+        android:paddingVertical="@dimen/dp8"
+        android:paddingBottom="@dimen/dp40"
+        android:scrollbars="vertical"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_text_details"
+        tools:visibility="visible" />
+
+
+    <LinearLayout
+        android:id="@+id/llSelectNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_bottom_bar_select"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/dp16"
+        android:weightSum="2"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawableTop="@drawable/ic_text"
+            android:drawablePadding="@dimen/dp2"
+            android:drawableTint="@color/custom_color_white_select_38"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:text="@string/textLabel"
+            android:textColor="@color/custom_color_white_select_38" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvChecklist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawableTop="@drawable/ic_checklist"
+            android:drawablePadding="@dimen/dp2"
+            android:drawableTint="@color/custom_color_white_select_38"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:text="@string/checklistLabel"
+            android:textColor="@color/custom_color_white_select_38" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewLoadWidget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:alpha="0.4"
+        android:background="@color/neutral300"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:progressTint="@color/material_on_primary_emphasis_high_type"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</RelativeLayout>

@@ -1,8 +1,13 @@
 package com.example.colorphone.base
 
+import android.app.PendingIntent
 import android.app.ProgressDialog
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,7 +16,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -27,6 +31,8 @@ import com.example.colorphone.ui.main.viewmodel.ListShareViewModel
 import com.example.colorphone.ui.main.viewmodel.TextNoteViewModel
 import com.example.colorphone.ui.settings.googleDriver.GoogleSignInFragment
 import com.example.colorphone.ui.settings.googleDriver.helper.GoogleDriveApiDataRepository
+import com.example.colorphone.ui.settings.widget.provider.NoteProvider
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.TypeItem
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -77,7 +83,6 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
         navBuilder.setEnterAnim(android.R.anim.fade_in).setExitAnim(android.R.anim.fade_out)
                 .setPopEnterAnim(android.R.anim.fade_in)
                 .setPopExitAnim(android.R.anim.fade_out)
-        navController = findNavController()
         return binding.root
     }
 
@@ -99,6 +104,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
     abstract fun onSubscribeObserver(view: View)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        navController = findNavController()
     }
 
     fun isConnectedViaWifi(): Boolean {
@@ -111,7 +117,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
 
     open fun setUpGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+//                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestScopes(Scope(Scopes.DRIVE_FILE)).requestEmail().build()
 
         googleSignInClient = activity?.let { GoogleSignIn.getClient(it, gso) }
@@ -129,6 +135,34 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
             addPhotoBottomDialogFragment.show(
                 it, "TAG"
             )
+        }
+    }
+
+    fun addWidget(idNote: Int, callSuccess: (Boolean) -> Unit) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context?.let { ct ->
+                val appWidgetManager = ct.getSystemService(
+                    AppWidgetManager::class.java
+                )
+                val myProvider = ComponentName(ct, NoteProvider::class.java)
+                if (appWidgetManager != null && appWidgetManager.isRequestPinAppWidgetSupported) {
+                    val intent = Intent(activity, NoteProvider::class.java)
+                    intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                    val ids = appWidgetManager.getAppWidgetIds(myProvider)
+                    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+                    intent.putExtra(Const.KEY_ID_NOTE_ADD_WIDGET, idNote)
+                    val successCallback = PendingIntent.getBroadcast(
+                        context,
+                        1,
+                        intent,
+                        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                    )
+                    appWidgetManager.requestPinAppWidget(myProvider, null, successCallback)
+                    callSuccess.invoke(true)
+                }
+            }
+        } else {
+            callSuccess.invoke(false)
         }
     }
 
@@ -150,7 +184,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
             noteData = DataConverter().fromListNote(ArrayList(listNoteLocal))
             try {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    try{
+                    try {
                         val id = repository?.query()
                         if (id.isNullOrEmpty()) {
                             try {
@@ -165,7 +199,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                         showMessage(getString(R.string.synced_successfully))
                                     }
                                 }
-                            }catch (e: Exception){
+                            } catch (e: Exception) {
 
                             }
                         } else {
@@ -334,7 +368,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                             }
 
                         }
-                    }catch (e: UserRecoverableAuthIOException){
+                    } catch (e: UserRecoverableAuthIOException) {
                         launcher.launch(e.intent)
                         //startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);
                     }

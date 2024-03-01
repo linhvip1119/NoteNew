@@ -212,7 +212,7 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
                 ivIcon.setImageResource(R.drawable.ic_add_to_home)
 
                 root.setOnClickListener {
-//                    model?.let { addWidgetNote(it) }
+                    model.ids?.let { it1 -> addPhotoWidget(it1) }
                     mDropdown?.dismiss()
                 }
             }

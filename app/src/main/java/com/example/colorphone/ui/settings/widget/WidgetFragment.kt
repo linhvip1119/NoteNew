@@ -99,7 +99,7 @@ class WidgetFragment : BaseFragment<FragmentWidgetBinding>(FragmentWidgetBinding
 
             tvAddToHome.setOnClickListener {
                 if (llItem.isSelected) {
-//                    navigationWithAnim(R.id.selectNoteToWidget)
+                    navigationWithAnim(R.id.action_widgetFragment_to_ltNoteAddWidget)
                 } else {
                     addWidgetTools()
                 }

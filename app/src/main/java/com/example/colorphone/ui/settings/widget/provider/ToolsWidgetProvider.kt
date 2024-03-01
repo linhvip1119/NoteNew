@@ -11,6 +11,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
 import com.example.colorphone.R
 import com.example.colorphone.util.Const
+import com.example.colorphone.util.Const.KEY_CREATE_NOTE_TOOLS_WIDGET
 import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.RequestPinWidget
 import com.example.colorphone.util.TypeColorNote
@@ -41,7 +42,7 @@ class ToolsWidgetProvider : AppWidgetProvider() {
     }
 
     private fun updateBarWidget(context: Context) {
-        val views = RemoteViews(context.packageName, R.layout.new_app_widget)
+        val views = RemoteViews(context.packageName, R.layout.item_tools_widget)
         views.setOnClickPendingIntent(R.id.ivText, setMyAction(TEXT_FM, context))
         views.setOnClickPendingIntent(R.id.icCheckList, setMyAction(CL_FM, context))
         views.setOnClickPendingIntent(R.id.ivSetting, setMyAction(SETTING_FM, context))
@@ -52,16 +53,14 @@ class ToolsWidgetProvider : AppWidgetProvider() {
 
     private fun setMyAction(idFm: Int, context: Context?): PendingIntent? {
         val myPendingIntent = context?.let {
-            val desFragment = R.id.mainFragment
             val nameScreen = when (idFm) {
                 TEXT_FM -> Const.TEXT_SCREEN
                 CL_FM -> Const.CHECK_LIST_SCREEN
                 else -> Const.SETTING_SCREEN
             }
             NavDeepLinkBuilder(it).setGraph(R.navigation.nav_graph).setDestination(
-                desFragment, bundleOf(
-                    "ARG_CREATE_NOTE" to true,
-                    "TYPE_ITEM_EDIT" to nameScreen,
+                R.id.mainFragment, bundleOf(
+                    KEY_CREATE_NOTE_TOOLS_WIDGET to nameScreen,
                 )
             ).createPendingIntent()
         }

@@ -74,7 +74,7 @@ constructor(
             EmailUser::class.java
         )
         set(value) {
-           val model = Gson().toJson(value)
+            val model = Gson().toJson(value)
             editor.putString("statusEmailUser", model).commit()
         }
 
@@ -89,5 +89,20 @@ constructor(
         set(value) {
             editor.putString("languageApp", value).commit()
         }
+
+    var newIdNoteWidget: Int
+        get() = sharedPreferences.getInt("newIdNoteWidget", -1)
+        set(value) {
+            editor.putInt("newIdNoteWidget", value).commit()
+        }
+
+    fun setIdWidgetNote(idNote: Int, value: Int) {
+        editor.putInt("${idNote}_save", value)
+        editor.apply()
+    }
+
+    fun getIdWidgetNote(idNote: Int): Int {
+        return sharedPreferences.getInt("${idNote}_save", -1)
+    }
 
 }

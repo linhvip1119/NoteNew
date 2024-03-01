@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/app_widget_description"
+    android:initialKeyguardLayout="@layout/item_note_widget"
+    android:initialLayout="@layout/item_note_widget"
+    android:minWidth="120dp"
+    android:minHeight="@dimen/dp60"
+    android:minResizeWidth="@dimen/dp60"
+    android:minResizeHeight="@dimen/dp30"
+    android:previewImage="@drawable/image_text"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="2"
+    android:targetCellHeight="2"
+    android:widgetCategory="keyguard|home_screen" />

@@ -1,12 +1,10 @@
 package com.example.colorphone.ui.main
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.PopupWindow
 import androidx.activity.addCallback
 import androidx.core.os.bundleOf
@@ -16,7 +14,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentMainBinding
-import com.example.colorphone.databinding.RowBinding
 import com.example.colorphone.model.ColorItem
 import com.example.colorphone.model.NoteType
 import com.example.colorphone.ui.MainActivity
@@ -29,7 +26,6 @@ import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.ext.hideKeyboard
 import com.wecan.inote.util.getBgBottomBarMain
 import com.wecan.inote.util.mapIdColor
-import com.wecan.inote.util.px
 import com.wecan.inote.util.setOnClickAnim
 import com.wecan.inote.util.setPreventDoubleClick
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,18 +45,54 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private val listCountRate = arrayListOf(1, 7, 21, 45)
 
+    var mDropdown: PopupWindow? = null
+
+    var mInflater: LayoutInflater? = null
+
+    private var fromToolsWidget: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return if (!isInitialization) {
             isInitialization = true
 //            updateApp()
             super.onCreateView(inflater, container, savedInstanceState)
+
         } else {
             context?.theme?.applyStyle(MainActivity.themesList[MainActivity.themeIndex], true)
             binding.root
+        }
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.getString(Const.KEY_CREATE_NOTE_TOOLS_WIDGET)?.let {
+            fromToolsWidget = it
+        }
+        initToolsWidget()
+    }
+
+    private fun initToolsWidget() {
+        if (!fromToolsWidget.isNullOrEmpty()) {
+            when (fromToolsWidget) {
+                Const.TEXT_SCREEN -> {
+                    currentNote = TEXT_FM
+                    navigationWithAnim(R.id.editFragment, bundleOf(TYPE_ITEM_EDIT to Const.TYPE_NOTE))
+                }
+
+                Const.CHECK_LIST_SCREEN -> {
+                    currentNote = CHECKLIST_FM
+                    navigationWithAnim(R.id.editFragment, bundleOf(TYPE_ITEM_EDIT to Const.TYPE_CHECKLIST))
+                }
+
+                Const.SETTING_SCREEN -> navigationWithAnim(R.id.action_mainFragment_to_settingFragment)
+            }
+            fromToolsWidget = null
         }
     }
 
@@ -146,43 +178,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             activity?.hideKeyboard()
             activity?.finish()
         }
-    }
-
-    private var mDropdown: PopupWindow? = null
-    private var mInflater: LayoutInflater? = null
-
-    private fun initiatePopupMenu(): PopupWindow? {
-        try {
-            mInflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val menuBinding = RowBinding.inflate(mInflater!!)
-
-            menuBinding.root.measure(
-                View.MeasureSpec.UNSPECIFIED,
-                View.MeasureSpec.UNSPECIFIED
-            )
-            menuBinding.apply {
-                tvSelect.setPreventDoubleClick {
-                    navToSelectScreen()
-                    mDropdown?.dismiss()
-                }
-                tvView.setPreventDoubleClick {
-                    openDialogView()
-                    mDropdown?.dismiss()
-                }
-                tvSort.setPreventDoubleClick {
-                    handleDialogSoft()
-                    mDropdown?.dismiss()
-                }
-            }
-            mDropdown = PopupWindow(
-                menuBinding.root, FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT, true
-            )
-            mDropdown?.showAsDropDown(binding.ivSync, (-20).px, (-5).px)
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-        }
-        return mDropdown
     }
 
     private fun onSearchNote() {

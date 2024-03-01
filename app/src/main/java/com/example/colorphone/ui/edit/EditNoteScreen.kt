@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentEditNoteBinding
@@ -15,6 +19,7 @@ import com.example.colorphone.ui.edit.utils.ListItemListener
 import com.example.colorphone.ui.edit.utils.TextViewUndoRedo
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.KEY_ID_DATA_NOTE
+import com.example.colorphone.util.RequestPinWidget
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.ext.hideKeyboard
@@ -22,8 +27,14 @@ import com.wecan.inote.util.changeBackgroundColor
 import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.setOnNextAction
 import com.wecan.inote.util.setPreventDoubleClickScaleView
+import com.wecan.inote.util.showCustomToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
@@ -39,7 +50,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     var isNoteText: Boolean = true
 
-    private var _isAddNote: Boolean? = false
+    private var _isAddNote: Boolean = false
 
     private var idNoteEdited: Int = -1
 
@@ -59,6 +70,8 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     var listCheckList = mutableListOf<CheckList>()
 
     var onReadMode = false
+
+    private var jobAddWidget: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -188,7 +201,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     private fun saveNote() {
         val typeDefault = if (isNoteText) TypeItem.TEXT.name else TypeItem.CHECK_LIST.name
-        if (_isAddNote == true) {
+        if (_isAddNote) {
             viewModelTextNote.addNote(getDataNote("0", "-1", typeDefault)) {
                 model?.ids = it
             }
@@ -226,6 +239,27 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             etContent.setText(item?.content)
             if (item?.listCheckList?.isEmpty() == true) {
                 addListItem(true)
+            }
+            if (_isAddNote) {
+                etContent.requestFocus()
+            }
+        }
+    }
+
+    fun addPhotoWidget(id: Int) {
+        if (jobAddWidget?.isActive == true) {
+            jobAddWidget?.cancel()
+        }
+        jobAddWidget = lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                RequestPinWidget.noteWidgetSuccess.filter { state -> state }.take(1).collectLatest {
+                    Toast(context).showCustomToast(requireContext(), "success")
+                }
+            }
+        }
+        addWidget(id) { isSuccess ->
+            if (!isSuccess) {
+                jobAddWidget?.cancel()
             }
         }
     }
