@@ -1,16 +1,18 @@
 package com.example.colorphone.ui.settings.widget.remoteService
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.example.colorphone.R
 import com.example.colorphone.model.CheckList
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.repository.NoteRepository
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.ID_NOTE_CHECKLIST_WIDGET
 import com.example.colorphone.util.DataState
-import com.example.colorphone.util.RequestPinWidget
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,23 +20,32 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
-class WidgetService :
-    RemoteViewsService() {
+class WidgetService : RemoteViewsService() {
+
     @Inject
     lateinit var noteRepository: NoteRepository
+
     private var listData = arrayListOf<CheckList>()
+
+    private var mIntentListener: BroadcastReceiver? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
+        mIntentListener = listenerChangeWindowManager
+        registerReceiver(
+            listenerChangeWindowManager, IntentFilter(Const.UPDATE_REMOTE_CHECK_LIST)
+        )
+
         val i = intent?.getIntExtra(ID_NOTE_CHECKLIST_WIDGET, -1)
         i?.let {
-            getDataCustomizeWithId(it) {
+            getDataCustomizeWithId(it) { note ->
                 listData.clear()
-                listData.addAll(it.listCheckList ?: listOf())
+                listData.addAll(note.listCheckList ?: listOf())
             }
         }
-        return super.onStartCommand(intent, flags, startId)
+        return START_STICKY
     }
 
     private fun getDataCustomizeWithId(ids: Int, data: (NoteModel) -> Unit) {
@@ -53,18 +64,24 @@ class WidgetService :
         }
     }
 
-    override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
-        return DataProvider(this, intent)
+    private val listenerChangeWindowManager: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val idExtra = intent.getIntExtra(ID_NOTE_CHECKLIST_WIDGET, -1)
+            if (intent.action == Const.UPDATE_REMOTE_CHECK_LIST && idExtra != -1) {
+                getDataCustomizeWithId(idExtra) {
+                    listData.clear()
+                    listData.addAll(it.listCheckList ?: listOf())
+                }
+            }
+        }
     }
 
-    inner class DataProvider(context: Context?, intent: Intent?) :
-        RemoteViewsFactory {
-        private var myListView: ArrayList<CheckList> = ArrayList()
-        private var mContext: Context? = null
+    override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
+        return DataRemoteFactory(applicationContext, intent)
+    }
 
-        init {
-            mContext = context
-        }
+    inner class DataRemoteFactory(val mContext: Context?, intent: Intent?) : RemoteViewsFactory {
+        private var myListView: ArrayList<CheckList> = ArrayList()
 
         override fun onCreate() {
             try {
@@ -84,15 +101,14 @@ class WidgetService :
 
         override fun getViewAt(position: Int): RemoteViews {
             val view = RemoteViews(
-                mContext?.packageName,
-                R.layout.item_check_list
+                mContext?.packageName, R.layout.item_check_list
             )
             view.setInt(
-                R.id.ivCheckBox,
-                "setImageResource",
-                if (myListView[position].checked) R.drawable.ic_checkbox_true_15dp else R.drawable.ic_checkbox_false_15dp
+                R.id.ivCheckBox, "setImageResource", if (myListView.getOrNull(position)?.checked == true) R.drawable.ic_checkbox_true_15dp else R.drawable.ic_checkbox_false_15dp
             )
-            view.setTextViewText(R.id.editText, myListView[position].body)
+            view.setTextViewText(R.id.editText, myListView.getOrNull(position)?.body)
+            val fillInIntent = Intent()
+            view.setOnClickFillInIntent(R.id.editText, fillInIntent)
             return view
         }
 

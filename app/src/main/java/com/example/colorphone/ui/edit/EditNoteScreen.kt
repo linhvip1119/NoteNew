@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -31,6 +32,7 @@ import com.wecan.inote.util.showCustomToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.take
@@ -167,10 +169,15 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             etContent.doAfterTextChanged {
                 handleEnableIconDo()
             }
+
+            activity?.onBackPressedDispatcher?.addCallback(this@EditNoteScreen, true) {
+                jobAddWidget?.cancel()
+                navController?.popBackStack()
+            }
         }
 
         binding.etTittle.doAfterTextChanged { text ->
-            model?.title = requireNotNull(text).trim().toString()
+            model.title = requireNotNull(text).trim().toString()
             handleEnableIconDo()
         }
 
@@ -184,6 +191,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             handleSaveNote {
 //                    showAds()
                 navController?.popBackStack()
+                jobAddWidget?.cancel()
             }
         }
 
@@ -194,9 +202,12 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     }
 
-    private fun handleSaveNote(onComplete: () -> Unit) {
-        saveNote()
-        onComplete.invoke()
+    fun handleSaveNote(onComplete: () -> Unit) {
+        lifecycleScope.launch {
+            saveNote()
+            delay(200)
+            onComplete.invoke()
+        }
     }
 
     private fun saveNote() {
@@ -246,18 +257,22 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         }
     }
 
-    fun addPhotoWidget(id: Int) {
+    fun addPhotoWidget(note: NoteModel) {
         if (jobAddWidget?.isActive == true) {
             jobAddWidget?.cancel()
         }
         jobAddWidget = lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 RequestPinWidget.noteWidgetSuccess.filter { state -> state }.take(1).collectLatest {
-                    Toast(context).showCustomToast(requireContext(), "success")
+                    delay(400)
+                    context?.let { ct ->
+                        Toast(context).showCustomToast(ct, ct.getString(R.string.widgetAddSuccess))
+                    }
                 }
             }
         }
-        addWidget(id) { isSuccess ->
+
+        addWidget(note) { isSuccess ->
             if (!isSuccess) {
                 jobAddWidget?.cancel()
             }

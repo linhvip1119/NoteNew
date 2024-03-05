@@ -14,7 +14,9 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.TextViewCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.colorphone.R
@@ -27,6 +29,7 @@ import com.example.colorphone.util.Const.CURRENT_TYPE_ITEM
 import com.example.colorphone.util.Const.NOTE_FROM_LONG_CLICK
 import com.example.colorphone.util.Const.POSITION_SELECTED
 import com.example.colorphone.util.Const.SELECTED_SCREEN
+import com.example.colorphone.util.RequestPinWidget
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.TypeView
 import com.example.colorphone.util.ext.getCurrentTimeToLong
@@ -37,10 +40,15 @@ import com.wecan.inote.util.px
 import com.wecan.inote.util.setOnClickAnim
 import com.wecan.inote.util.setPreventDoubleClick
 import com.wecan.inote.util.show
+import com.wecan.inote.util.showCustomToast
 import com.wecan.inote.util.showCustomToastPinned
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -49,7 +57,7 @@ import java.util.Locale
 class SelectScreen() :
     BaseFragment<FragmentSelectScreenBinding>(FragmentSelectScreenBinding::inflate) {
 
-    lateinit var _adapterText: TextAdapter
+    private lateinit var _adapterText: TextAdapter
 
     private var _listLocal: ArrayList<NoteModel>? = arrayListOf()
 
@@ -114,6 +122,7 @@ class SelectScreen() :
     private fun onBackPressHandle() {
         activity?.onBackPressedDispatcher?.addCallback(this, true) {
             activity?.hideKeyboard()
+            jobAddWidget?.cancel()
             navController?.popBackStack()
         }
     }
@@ -185,17 +194,18 @@ class SelectScreen() :
                     ivIcon.setImageResource(R.drawable.ic_add_to_home)
                     tvText.text = getString(R.string.addToHome)
                     root.setPreventDoubleClick {
-//                        _adapterText.getListSelected().firstOrNull()?.let { it1 -> addWidgetNote(it1) }
+                        mDropdown?.dismiss()
+                        _adapterText.getListSelected().firstOrNull()?.let { it1 -> addPhotoWidget(it1) }
                     }
-                    mDropdown?.dismiss()
                 }
                 item2.apply {
                     ivIcon.setImageResource(R.drawable.ic_share)
                     tvText.text = getString(R.string.share)
+                    mDropdown?.dismiss()
                     root.setPreventDoubleClick {
+                        mDropdown?.dismiss()
                         shareNote()
                     }
-                    mDropdown?.dismiss()
                 }
             }
 
@@ -208,6 +218,32 @@ class SelectScreen() :
             e.printStackTrace()
         }
         return mDropdown
+    }
+
+    private var jobAddWidget: Job? = null
+
+    private fun addPhotoWidget(note: NoteModel) {
+
+        if (jobAddWidget?.isActive == true) {
+            jobAddWidget?.cancel()
+        }
+
+        jobAddWidget = lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                RequestPinWidget.noteWidgetSuccess.filter { state -> state }.take(1).collectLatest {
+                    context?.let { ct ->
+                        Toast(context).showCustomToast(ct, ct.getString(R.string.widgetAddSuccess))
+                    }
+                }
+            }
+        }
+
+        addWidget(note) {
+            if (!it) {
+                jobAddWidget?.cancel()
+            }
+        }
+
     }
 
     private fun handleChangeColors(typeColor: String) {

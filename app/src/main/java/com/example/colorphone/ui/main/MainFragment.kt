@@ -23,6 +23,7 @@ import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
 import com.example.colorphone.util.Const.currentType
 import com.example.colorphone.util.TypeColorNote
+import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.ext.hideKeyboard
 import com.wecan.inote.util.getBgBottomBarMain
 import com.wecan.inote.util.mapIdColor
@@ -51,6 +52,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private var fromToolsWidget: String? = null
 
+    private var idFromStickerWidget: Int = -1
+
+    private var typeItemFromWidget: String = TypeItem.TEXT.name
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -74,7 +79,21 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         arguments?.getString(Const.KEY_CREATE_NOTE_TOOLS_WIDGET)?.let {
             fromToolsWidget = it
         }
+        arguments?.getInt(Const.ID_NAVIGATE_EDIT_FROM_ITEM_WIDGET, -1)?.let {
+            idFromStickerWidget = it
+        }
+        arguments?.getString(TYPE_ITEM_EDIT)?.let {
+            typeItemFromWidget = it
+        }
         initToolsWidget()
+        initFromStickerWidget()
+    }
+
+    private fun initFromStickerWidget() {
+        if (idFromStickerWidget != -1) {
+            val typeEdit = if (typeItemFromWidget == TypeItem.TEXT.name) Const.TYPE_NOTE else Const.TYPE_CHECKLIST
+            navigationWithAnim(R.id.editFragment, bundleOf(TYPE_ITEM_EDIT to typeEdit, Const.KEY_ID_DATA_NOTE to idFromStickerWidget))
+        }
     }
 
     private fun initToolsWidget() {

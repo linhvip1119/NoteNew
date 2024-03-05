@@ -17,8 +17,9 @@ import com.example.colorphone.model.NoteModel
 import com.example.colorphone.repository.NoteRepository
 import com.example.colorphone.ui.settings.widget.remoteService.WidgetService
 import com.example.colorphone.util.Const
+import com.example.colorphone.util.Const.ACTION_UPDATE_WIDGET_EDIT
 import com.example.colorphone.util.Const.DELETE_NOTE_WIDGET
-import com.example.colorphone.util.Const.KEY_ID_NOTE_ADD_WIDGET
+import com.example.colorphone.util.Const.POST_ID_NOTE_UPDATE_WIDGET
 import com.example.colorphone.util.DataState
 import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.RequestPinWidget
@@ -46,73 +47,99 @@ class NoteProvider : AppWidgetProvider() {
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         val listIds = appWidgetManager.getAppWidgetIds(ComponentName(context, this::class.java))
         prefUtil.newIdNoteWidget = listIds.lastOrNull() ?: -1
+
+//        val widgetManager = AppWidgetManager.getInstance(context.applicationContext)
+//        widgetManager.notifyAppWidgetViewDataChanged(
+//            widgetManager.getAppWidgetIds(ComponentName(context.applicationContext.packageName, NoteProvider::class.java.name)), R.id.llCheckListWidget
+//        )
+    }
+
+    override fun onEnabled(context: Context?) {
+        super.onEnabled(context)
+        val widgetManager = AppWidgetManager.getInstance(context?.applicationContext)
+        widgetManager.notifyAppWidgetViewDataChanged(
+            widgetManager.getAppWidgetIds(ComponentName(context?.applicationContext!!.packageName, NoteProvider::class.java.name)), R.id.llCheckListWidget
+        )
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
         super.onReceive(context, intent)
-        idNote = intent?.getIntExtra(KEY_ID_NOTE_ADD_WIDGET, -1) ?: -1
+        idNote = intent?.getIntExtra(POST_ID_NOTE_UPDATE_WIDGET, -1) ?: -1
+        val action = intent?.getStringExtra(ACTION_UPDATE_WIDGET_EDIT)
         if (idNote != -1) {
-            CoroutineScope(Dispatchers.Main).launch {
-                RequestPinWidget.publishEventNote(true)
-            }
-            context?.let { updateAppWidget(it, idNote) }
+            context?.let { updateAppWidget(it, idNote, action) }
         }
     }
 
-    private fun updateAppWidget(context: Context, idNote: Int, actionUpdate: String? = Const.UPDATE_NOTE_WIDGET) {
+    private fun updateAppWidget(context: Context, idNote: Int, actionUpdate: String? = Const.ADD_NOTE_WIDGET) {
+
         val views = RemoteViews(context.packageName, R.layout.item_note_widget)
         getDataCustomizeWithId(idNote) { noteModel ->
-            views.setTextViewText(R.id.tvTittleWidget, noteModel.title)
-            views.setTextViewText(R.id.tvTittleWidget31, noteModel.title)
-            views.setViewVisibility(
-                R.id.tvTittleWidget,
-                if (Build.VERSION.SDK_INT >= 31) View.GONE else View.VISIBLE
-            )
-            views.setViewVisibility(
-                R.id.tvTittleWidget31,
-                if (Build.VERSION.SDK_INT >= 31) View.VISIBLE else View.GONE
-            )
 
-            views.setTextViewText(
-                R.id.tvDateWidget,
-                convertLongToDateYYMMDD(noteModel.modifiedTime ?: 0)
-            )
+            views.initRemoteView(noteModel)
 
-            mapIdColorWidget(noteModel.typeColor) { idColorBody, idIcon ->
-                views.setInt(R.id.ivColorWidget, "setBackgroundResource", idIcon)
-                views.setInt(R.id.llBodyWidget, "setBackgroundResource", idColorBody)
-            }
+            val serviceIntent = Intent(context, WidgetService::class.java)
+            serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, prefUtil.newIdNoteWidget)
+            serviceIntent.data = Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME))
+            views.setRemoteAdapter(R.id.llCheckListWidget, serviceIntent)
 
-            if (noteModel.typeItem == TypeItem.TEXT.name) {
-                views.setTextViewText(R.id.tvContentWidget, noteModel.content)
-                views.setViewVisibility(R.id.tvContentWidget, View.VISIBLE)
-                views.setViewVisibility(R.id.llCheckListWidget, View.GONE)
-            } else {
-                views.setViewVisibility(R.id.tvContentWidget, View.GONE)
-                views.setViewVisibility(R.id.llCheckListWidget, View.VISIBLE)
-
-                val serviceIntent = Intent(context, WidgetService::class.java)
-                serviceIntent.putExtra(Const.ID_NOTE_CHECKLIST_WIDGET, noteModel.ids ?: 999)
-                serviceIntent.data = Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME))
-                views.setRemoteAdapter(
-                    R.id.llCheckListWidget, serviceIntent
-                )
-                context.startService(serviceIntent)
-            }
             if (actionUpdate == DELETE_NOTE_WIDGET) {
                 views.setOnClickPendingIntent(
-                    R.id.llBodyWidget,
-                    setMyActionUpdate(context, noteModel)
+                    R.id.llBodyWidget, setMyActionUpdate(context, noteModel)
                 )
             } else {
                 views.setOnClickPendingIntent(
-                    R.id.llBodyWidget,
-                    setMyAction(context, noteModel)
+                    R.id.llBodyWidget, setMyAction(context, noteModel)
                 )
             }
 
-            AppWidgetManager.getInstance(context).updateAppWidget(prefUtil.newIdNoteWidget, views)
-            prefUtil.newIdNoteWidget = -1
+            if (actionUpdate == Const.ADD_NOTE_WIDGET) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    AppWidgetManager.getInstance(context).updateAppWidget(prefUtil.newIdNoteWidget, views)
+                    if (noteModel.typeItem == TypeItem.CHECK_LIST.name) {
+                        AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(prefUtil.getIdWidgetNote(idNote), R.id.llCheckListWidget)
+                    }
+                    prefUtil.setIdWidgetNote(idNote, prefUtil.newIdNoteWidget)
+                    prefUtil.newIdNoteWidget = -1
+                    RequestPinWidget.publishEventNote(true)
+
+                }
+            } else {
+                AppWidgetManager.getInstance(context).updateAppWidget(prefUtil.getIdWidgetNote(idNote), views)
+                if (noteModel.typeItem == TypeItem.CHECK_LIST.name) {
+                    AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(prefUtil.getIdWidgetNote(idNote), R.id.llCheckListWidget)
+                }
+                CoroutineScope(Dispatchers.Main).launch {
+                    RequestPinWidget.publishEventNote(true)
+                }
+            }
+        }
+    }
+
+    private fun RemoteViews.initRemoteView(noteModel: NoteModel) {
+        this.setTextViewText(R.id.tvTittleWidget, noteModel.title)
+        this.setTextViewText(R.id.tvTittleWidget31, noteModel.title)
+        this.setViewVisibility(
+            R.id.tvTittleWidget, if (Build.VERSION.SDK_INT < 31) View.VISIBLE else View.GONE
+        )
+        this.setViewVisibility(
+            R.id.tvTittleWidget31, if (Build.VERSION.SDK_INT >= 31) View.VISIBLE else View.GONE
+        )
+        this.setTextViewText(
+            R.id.tvDateWidget, convertLongToDateYYMMDD(noteModel.modifiedTime ?: 0)
+        )
+        mapIdColorWidget(noteModel.typeColor) { idColorBody, idIcon ->
+            this.setInt(R.id.ivColorWidget, "setBackgroundResource", idIcon)
+            this.setInt(R.id.llBodyWidget, "setBackgroundResource", idColorBody)
+        }
+
+        if (noteModel.typeItem == TypeItem.TEXT.name) {
+            this.setTextViewText(R.id.tvContentWidget, noteModel.content)
+            this.setViewVisibility(R.id.tvContentWidget, View.VISIBLE)
+            this.setViewVisibility(R.id.llCheckListWidget, View.GONE)
+        } else {
+            this.setViewVisibility(R.id.tvContentWidget, View.GONE)
+            this.setViewVisibility(R.id.llCheckListWidget, View.VISIBLE)
         }
     }
 
@@ -135,18 +162,12 @@ class NoteProvider : AppWidgetProvider() {
     private fun setMyAction(context: Context?, noteModel: NoteModel): PendingIntent? {
         val myPendingIntent = context?.let {
             val desFragment = R.id.mainFragment
-            NavDeepLinkBuilder(it)
-                    .setGraph(R.navigation.nav_graph)
-                    .setDestination(
-                        desFragment,
-                        bundleOf(
-                            "ARG_CREATE_NOTE" to false,
-                            "ARG_FROM_WIDGET" to true,
-                            "KEY_IDS_NOTE_FROM_WIDGET" to noteModel.ids,
-                            "KEY_TYPE_ITEM_FROM_WIDGET" to noteModel.typeItem
-                        )
-                    )
-                    .createPendingIntent()
+            NavDeepLinkBuilder(it).setGraph(R.navigation.nav_graph).setDestination(
+                desFragment, bundleOf(
+                    Const.ID_NAVIGATE_EDIT_FROM_ITEM_WIDGET to noteModel.ids,
+                    Const.TYPE_ITEM_EDIT to noteModel.typeItem
+                )
+            ).createPendingIntent()
         }
         return myPendingIntent
     }
@@ -154,17 +175,13 @@ class NoteProvider : AppWidgetProvider() {
     private fun setMyActionUpdate(context: Context?, noteModel: NoteModel): PendingIntent? {
         val myPendingIntent = context?.let {
             val desFragment = R.id.editFragment
-            NavDeepLinkBuilder(it)
-                    .setGraph(R.navigation.nav_graph)
-                    .setDestination(
-                        desFragment,
-                        bundleOf(
-                            "ARG_CREATE_NOTE" to true,
-                            "UPDATE_WIDGET_IDS" to noteModel.ids,
+            NavDeepLinkBuilder(it).setGraph(R.navigation.nav_graph).setDestination(
+                desFragment, bundleOf(
+                    "ARG_CREATE_NOTE" to true,
+                    "UPDATE_WIDGET_IDS" to noteModel.ids,
 //                            "TYPE_ITEM_EDIT" to if (noteModel.typeItem == TypeItem.TEXT.name) TextFragment::class.java.name else CheckListFragment::class.java.name
-                        )
-                    )
-                    .createPendingIntent()
+                )
+            ).createPendingIntent()
         }
         return myPendingIntent
     }

@@ -99,7 +99,7 @@ fun EditNoteScreen.handleUpdateNote(typeDefault: String, isLocking: Boolean = fa
                 )
             ) {
             }
-//            updateWidgetWithId(getDataNote("0", "0", model?.typeItem ?: typeDefault))
+            updateWidgetWithId(getDataNote("0", "0", model?.typeItem ?: typeDefault))
         }
 
     } else {
@@ -117,7 +117,7 @@ fun EditNoteScreen.handleUpdateNote(typeDefault: String, isLocking: Boolean = fa
                     model.typeItem ?: typeDefault
                 )
             ) {}
-//            updateWidgetWithId(getDataNote("0", "0", model?.typeItem ?: typeDefault))
+            updateWidgetWithId(getDataNote("0", "0", model?.typeItem ?: typeDefault))
         }
     }
 }
@@ -212,7 +212,9 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
                 ivIcon.setImageResource(R.drawable.ic_add_to_home)
 
                 root.setOnClickListener {
-                    model.ids?.let { it1 -> addPhotoWidget(it1) }
+                    handleSaveNote {
+                        addPhotoWidget(model)
+                    }
                     mDropdown?.dismiss()
                 }
             }

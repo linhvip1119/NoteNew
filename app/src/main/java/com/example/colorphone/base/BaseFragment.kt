@@ -1,11 +1,14 @@
 package com.example.colorphone.base
 
+import android.app.Activity
+import android.app.ActivityManager
 import android.app.PendingIntent
 import android.app.ProgressDialog
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
@@ -26,12 +29,14 @@ import androidx.viewbinding.ViewBinding
 import com.example.colorphone.R
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.room.DataConverter
+import com.example.colorphone.ui.MainActivity
 import com.example.colorphone.ui.bottomDialogColor.ui.NoteBottomSheetDialog
 import com.example.colorphone.ui.main.viewmodel.ListShareViewModel
 import com.example.colorphone.ui.main.viewmodel.TextNoteViewModel
 import com.example.colorphone.ui.settings.googleDriver.GoogleSignInFragment
 import com.example.colorphone.ui.settings.googleDriver.helper.GoogleDriveApiDataRepository
 import com.example.colorphone.ui.settings.widget.provider.NoteProvider
+import com.example.colorphone.ui.settings.widget.remoteService.WidgetService
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.TypeItem
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -67,9 +72,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = inflate.invoke(inflater, container, false)
 //        if (navController?.currentDestination?.id == R.id.themeFragment) {
@@ -80,9 +83,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
 //                return viewPreview
 //            }
 //        }
-        navBuilder.setEnterAnim(android.R.anim.fade_in).setExitAnim(android.R.anim.fade_out)
-                .setPopEnterAnim(android.R.anim.fade_in)
-                .setPopExitAnim(android.R.anim.fade_out)
+        navBuilder.setEnterAnim(android.R.anim.fade_in).setExitAnim(android.R.anim.fade_out).setPopEnterAnim(android.R.anim.fade_in).setPopExitAnim(android.R.anim.fade_out)
         return binding.root
     }
 
@@ -108,8 +109,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
     }
 
     fun isConnectedViaWifi(): Boolean {
-        val connectivityManager =
-            context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val mWifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
         val mMobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
         return mWifi!!.isConnected || mMobile!!.isConnected
@@ -124,13 +124,9 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
     }
 
     fun showBottomSheet(
-        showDefaultColor: Boolean = true,
-        currentColor: String? = null,
-        fromScreen: String,
-        colorClick: (String) -> Unit
+        showDefaultColor: Boolean = true, currentColor: String? = null, fromScreen: String, colorClick: (String) -> Unit
     ) {
-        val addPhotoBottomDialogFragment: NoteBottomSheetDialog =
-            NoteBottomSheetDialog.newInstance(showDefaultColor, currentColor, fromScreen, colorClick)
+        val addPhotoBottomDialogFragment: NoteBottomSheetDialog = NoteBottomSheetDialog.newInstance(showDefaultColor, currentColor, fromScreen, colorClick)
         activity?.supportFragmentManager?.let {
             addPhotoBottomDialogFragment.show(
                 it, "TAG"
@@ -138,8 +134,19 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
         }
     }
 
-    fun addWidget(idNote: Int, callSuccess: (Boolean) -> Unit) {
+    fun addWidget(note: NoteModel, callSuccess: (Boolean) -> Unit) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            if (note.isCheckList() && !isMyServiceRunning(WidgetService::class.java)) {
+                val serviceIntent = Intent(activity, WidgetService::class.java)
+                serviceIntent.putExtra(Const.ID_NOTE_CHECKLIST_WIDGET, note.ids)
+                activity?.startService(serviceIntent)
+            } else {
+                val intent2 = Intent(Const.UPDATE_REMOTE_CHECK_LIST)
+                intent2.putExtra(Const.ID_NOTE_CHECKLIST_WIDGET, note.ids)
+                context?.sendBroadcast(intent2)
+            }
+
             context?.let { ct ->
                 val appWidgetManager = ct.getSystemService(
                     AppWidgetManager::class.java
@@ -150,12 +157,10 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                     intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
                     val ids = appWidgetManager.getAppWidgetIds(myProvider)
                     intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
-                    intent.putExtra(Const.KEY_ID_NOTE_ADD_WIDGET, idNote)
+                    intent.putExtra(Const.ACTION_UPDATE_WIDGET_EDIT, Const.ADD_NOTE_WIDGET)
+                    intent.putExtra(Const.POST_ID_NOTE_UPDATE_WIDGET, note.ids)
                     val successCallback = PendingIntent.getBroadcast(
-                        context,
-                        1,
-                        intent,
-                        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                        context, 1, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
                     )
                     appWidgetManager.requestPinAppWidget(myProvider, null, successCallback)
                     callSuccess.invoke(true)
@@ -163,6 +168,41 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
             }
         } else {
             callSuccess.invoke(false)
+        }
+    }
+
+    private fun isMyServiceRunning(cls: Class<*>): Boolean {
+        return try {
+            for (runningServiceInfo in (requireActivity().getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getRunningServices(
+                Int.MAX_VALUE
+            )) {
+                if (cls.name == runningServiceInfo.service.className) {
+                    return true
+                }
+            }
+            false
+        } catch (e: java.lang.Exception) {
+            false
+        }
+    }
+
+    fun updateWidgetWithId(model: NoteModel, idWidgetConfig: Int? = null) {
+        val idsWidget = model.ids?.let { id ->
+            prefUtil.getIdWidgetNote(id)
+        }
+        val intent2 = Intent(Const.UPDATE_REMOTE_CHECK_LIST)
+        intent2.putExtra(Const.ID_NOTE_CHECKLIST_WIDGET, model.ids)
+        context?.sendBroadcast(intent2)
+        if (idsWidget != -1 || (idWidgetConfig != null && idWidgetConfig != 0)) {
+            lifecycleScope.launch {
+                val intent = Intent(activity, NoteProvider::class.java)
+                val actionUpdate = if (model.title.isEmpty() && model.content.isEmpty() && model.listCheckList.isNullOrEmpty()) Const.DELETE_NOTE_WIDGET
+                else Const.UPDATE_NOTE_WIDGET
+                intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                intent.putExtra(Const.ACTION_UPDATE_WIDGET_EDIT, actionUpdate)
+                intent.putExtra(Const.POST_ID_NOTE_UPDATE_WIDGET, model.ids)
+                activity?.sendBroadcast(intent)
+            }
         }
     }
 
@@ -189,8 +229,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                         if (id.isNullOrEmpty()) {
                             try {
                                 val idFile = repository?.createFile(
-                                    "text/plain",
-                                    ""
+                                    "text/plain", ""
                                 )?.id.toString()
                                 withContext(Dispatchers.IO) {
                                     repository?.uploadFile(idFile, "iNote", noteData.toString())
@@ -276,15 +315,13 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                 } else {
                                                     item.listCheckList?.let {
                                                         for (itemCheck in it) {
-                                                            val modelCheck =
-                                                                model.listCheckList?.find { it.token == itemCheck.token }
+                                                            val modelCheck = model.listCheckList?.find { it.token == itemCheck.token }
                                                             if (modelCheck == null) {
                                                                 model.listCheckList?.add(itemCheck)
                                                             } else {
                                                                 if (!modelCheck.isUpdate) {
                                                                     modelCheck.body = itemCheck.body
-                                                                    modelCheck.checked =
-                                                                        itemCheck.checked
+                                                                    modelCheck.checked = itemCheck.checked
                                                                 }
                                                             }
                                                             countUpdate++
@@ -316,9 +353,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                                 lifecycleScope.launch(Dispatchers.IO) {
                                                                     try {
                                                                         repository?.uploadFile(
-                                                                            id,
-                                                                            "iNote",
-                                                                            noteData.toString()
+                                                                            id, "iNote", noteData.toString()
                                                                         )
                                                                         withContext(Dispatchers.Main) {
                                                                             if (count > 0) {
@@ -336,8 +371,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                                                 item.isUpdate = "-1"
                                                                                 item.listCheckList?.let {
                                                                                     for (checkList in it) {
-                                                                                        checkList.isUpdate =
-                                                                                            false
+                                                                                        checkList.isUpdate = false
                                                                                     }
                                                                                 }
                                                                                 viewModelTextNote.updateNote(

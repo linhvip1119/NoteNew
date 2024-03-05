@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?android:attr/selectableItemBackground"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/dp3">
 
     <RelativeLayout
         android:id="@+id/llBodyWidget"
@@ -25,10 +26,10 @@
             android:fontFamily="@font/poppins_semi_bold"
             android:gravity="center_vertical"
             android:maxLines="1"
+            android:textStyle="bold"
             android:textColor="@color/neutral500every"
             android:textSize="@dimen/sp15"
-            tools:text="@string/app_name"
-            tools:visibility="gone" />
+            tools:text="@string/app_name"/>
 
         <TextView
             android:id="@+id/tvTittleWidget31"
@@ -40,6 +41,7 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
+            tools:visibility="gone"
             android:textColor="@color/neutral500every"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"

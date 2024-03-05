@@ -251,4 +251,5 @@
     <string name="noteTool">Note Tool</string>
     <string name="stickyNote">Sticky Note</string>
     <string name="toolBar">Tools Widget</string>
+    <string name="widgetAddSuccess">Add widget success!</string>
 </resources>

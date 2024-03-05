@@ -1,10 +1,5 @@
 package com.example.colorphone.ui.settings.widget.listNoteAdd
 
-import android.app.PendingIntent
-import android.appwidget.AppWidgetManager
-import android.content.ComponentName
-import android.content.Intent
-import android.os.Build
 import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -14,12 +9,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentListNoteAddWidgetBinding
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.ui.settings.recyclerBin.adapter.RecycleBinAdapter
-import com.example.colorphone.ui.settings.widget.provider.NoteProvider
-import com.example.colorphone.util.Const
 import com.example.colorphone.util.RequestPinWidget
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.TypeView
@@ -29,6 +23,7 @@ import com.wecan.inote.util.showCustomToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.take
@@ -83,7 +78,7 @@ class ListNoteAddWidget : BaseFragment<FragmentListNoteAddWidgetBinding>(Fragmen
         _adapterText.mOnClickItem = {
             lifecycleScope.launch(Dispatchers.Main) {
                 setVisibleProgress()
-                it.ids?.let { it1 -> addPhotoWidget(it1) }
+                addPhotoWidget(it)
             }
         }
 
@@ -95,12 +90,7 @@ class ListNoteAddWidget : BaseFragment<FragmentListNoteAddWidgetBinding>(Fragmen
 
     private var jobAddWidget: Job? = null
 
-    private fun addPhotoWidget(id: Int) {
-        addWidget(id) {
-            if (!it) {
-                jobAddWidget?.cancel()
-            }
-        }
+    private fun addPhotoWidget(note: NoteModel) {
         if (jobAddWidget?.isActive == true) {
             jobAddWidget?.cancel()
         }
@@ -108,11 +98,19 @@ class ListNoteAddWidget : BaseFragment<FragmentListNoteAddWidgetBinding>(Fragmen
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 RequestPinWidget.noteWidgetSuccess.filter { state -> state }.take(1).collectLatest {
                     binding.apply {
+                        delay(2500)
                         viewLoadWidget.gone()
                         progressBar.gone()
                     }
-                    Toast(context).showCustomToast(requireContext(), "success")
+                    context?.let { ct ->
+                        Toast(context).showCustomToast(ct, ct.getString(R.string.widgetAddSuccess))
+                    }
                 }
+            }
+        }
+        addWidget(note) {
+            if (!it) {
+                jobAddWidget?.cancel()
             }
         }
     }
