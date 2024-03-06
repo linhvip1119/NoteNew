@@ -117,7 +117,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
 
     open fun setUpGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestScopes(Scope(Scopes.DRIVE_FILE)).requestEmail().build()
 
         googleSignInClient = activity?.let { GoogleSignIn.getClient(it, gso) }
@@ -210,7 +210,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
         val dialogProgress = ProgressDialog(context)
         dialogProgress.setTitle(getString(R.string.processing))
         dialogProgress.setMessage(getString(R.string.please_wait))
-        dialogProgress.setCancelable(false)
+        dialogProgress.setCancelable(true)
         if (!dialogProgress.isShowing) {
             dialogProgress.show()
         }
@@ -224,21 +224,27 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
             noteData = DataConverter().fromListNote(ArrayList(listNoteLocal))
             try {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    try {
+                    try{
                         val id = repository?.query()
                         if (id.isNullOrEmpty()) {
                             try {
+                                Log.i("niksfhunwensdf", "id: $id")
                                 val idFile = repository?.createFile(
-                                    "text/plain", ""
+                                    "text/plain",
+                                    ""
                                 )?.id.toString()
+                                Log.i("niksfhunwensdf", "0: $idFile")
                                 withContext(Dispatchers.IO) {
+                                    Log.i("niksfhunwensdf", "1: $id")
                                     repository?.uploadFile(idFile, "iNote", noteData.toString())
+                                    Log.i("niksfhunwensdf", "2: $id")
                                     withContext(Dispatchers.Main) {
+                                        Log.i("niksfhunwensdf", "3: $id")
                                         dialogProgress.dismiss()
                                         showMessage(getString(R.string.synced_successfully))
                                     }
                                 }
-                            } catch (e: Exception) {
+                            }catch (e: Exception){
 
                             }
                         } else {
@@ -315,13 +321,15 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                 } else {
                                                     item.listCheckList?.let {
                                                         for (itemCheck in it) {
-                                                            val modelCheck = model.listCheckList?.find { it.token == itemCheck.token }
+                                                            val modelCheck =
+                                                                model.listCheckList?.find { it.token == itemCheck.token }
                                                             if (modelCheck == null) {
                                                                 model.listCheckList?.add(itemCheck)
                                                             } else {
                                                                 if (!modelCheck.isUpdate) {
                                                                     modelCheck.body = itemCheck.body
-                                                                    modelCheck.checked = itemCheck.checked
+                                                                    modelCheck.checked =
+                                                                        itemCheck.checked
                                                                 }
                                                             }
                                                             countUpdate++
@@ -353,7 +361,9 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                                 lifecycleScope.launch(Dispatchers.IO) {
                                                                     try {
                                                                         repository?.uploadFile(
-                                                                            id, "iNote", noteData.toString()
+                                                                            id,
+                                                                            "iNote",
+                                                                            noteData.toString()
                                                                         )
                                                                         withContext(Dispatchers.Main) {
                                                                             if (count > 0) {
@@ -371,7 +381,8 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                                                 item.isUpdate = "-1"
                                                                                 item.listCheckList?.let {
                                                                                     for (checkList in it) {
-                                                                                        checkList.isUpdate = false
+                                                                                        checkList.isUpdate =
+                                                                                            false
                                                                                     }
                                                                                 }
                                                                                 viewModelTextNote.updateNote(
@@ -402,9 +413,9 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                             }
 
                         }
-                    } catch (e: UserRecoverableAuthIOException) {
+                    }catch (e: UserRecoverableAuthIOException){
                         launcher.launch(e.intent)
-                        //startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);
+//                        startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);
                     }
                 }
 

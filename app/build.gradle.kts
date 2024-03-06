@@ -5,8 +5,9 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
-    id("com.google.gms.google-services")
     id("com.google.firebase.appdistribution")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -126,9 +127,9 @@ dependencies {
 
     // implementation("com.zxy.android:recovery:1.0.0")
 
-//    implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
-//    implementation("com.google.firebase:firebase-crashlytics-ktx")
-//    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
     implementation("com.airbnb.android:lottie:6.0.1")
 

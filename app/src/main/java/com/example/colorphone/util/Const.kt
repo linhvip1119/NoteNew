@@ -15,7 +15,7 @@ object Const {
     const val SETTING_SCREEN = "SETTING_SCREEN"
 
     //config
-    const val APPLICATION_ID = "iNote.note.notepad.stickynote"
+    const val APPLICATION_ID = "dev.note.notebook.notepad.wisenotes"
 
     const val FORMAT_DATE_NOTE = "dd-MM-yyyy | HH:mm"
     const val FORMAT_DATE_REMINDER = "yyyy-MM-dd"

@@ -19,20 +19,25 @@ import com.example.colorphone.model.NoteType
 import com.example.colorphone.ui.MainActivity
 import com.example.colorphone.ui.bottomDialogColor.viewmodel.BottomSheetViewModel
 import com.example.colorphone.ui.main.adapter.DashBoardPagerAdapter
+import com.example.colorphone.ui.settings.googleDriver.helper.GoogleDriveApiDataRepository
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
 import com.example.colorphone.util.Const.currentType
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.ext.hideKeyboard
+import com.example.colorphone.util.ext.loadUrl
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
+import com.google.api.services.drive.Drive
 import com.wecan.inote.util.getBgBottomBarMain
 import com.wecan.inote.util.mapIdColor
+import com.wecan.inote.util.px
 import com.wecan.inote.util.setOnClickAnim
 import com.wecan.inote.util.setPreventDoubleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.Locale
-
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
@@ -55,6 +60,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     private var idFromStickerWidget: Int = -1
 
     private var typeItemFromWidget: String = TypeItem.TEXT.name
+
+    override fun onGoogleDriveSignedInFailed(exception: ApiException?) {
+
+    }
+
+    override fun onGoogleDriveSignedInSuccess(driveApi: Drive?) {
+        repository = GoogleDriveApiDataRepository(driveApi)
+        prefUtil.statusEmailUser?.avatar?.let { binding.ivProfile.loadUrl(it, 120.px) }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -122,6 +136,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         initViewPager()
         onListener()
         onSearchNote()
+        setUpGoogle()
     }
 
     private fun initView() {
@@ -133,6 +148,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         }
         getBgBottomBarMain(prefUtil.themeColor) {
             bgSelected = it
+        }
+        val account = context?.let { GoogleSignIn.getLastSignedInAccount(it) }
+        if (account == null) {
+            binding.ivProfile.setImageResource(R.drawable.ic_profile)
+        } else {
+            initializeDriveClient(account)
         }
     }
 
@@ -167,17 +188,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             }
 
             ivSync.setPreventDoubleClick {
-//                Log.d("TABNGMMM", prefUtil.statusEmailUser.toString() + "mm")
-//                if (prefUtil.statusEmailUser.isNullOrEmpty()) {
-//                    startGoogleDriveSignIn()
-//                } else {
-//                    handleSyncData {
-//                        prefUtil.lastSync =
-//                            System.currentTimeMillis()
-//                        navigationWithAnim(R.id.settingsScreen)
-//                        putListenLoadData()
-//                    }
-//                }
+                if (prefUtil.statusEmailUser == null) {
+                    startGoogleDriveSignIn()
+                } else {
+                    handleSyncData {
+                        prefUtil.lastSync =
+                            System.currentTimeMillis()
+                        navigationWithAnim(R.id.action_mainFragment_to_settingFragment)
+                    }
+                }
             }
 
             binding.ivAllBox.setOnClickAnim {

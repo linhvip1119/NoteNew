@@ -18,11 +18,11 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dp48"
+            android:layout_height="@dimen/dp48"
             android:layout_alignParentStart="true"
+            android:padding="@dimen/dp8"
             android:layout_centerVertical="true"
-            android:padding="@dimen/dp6"
             android:src="@drawable/ic_profile" />
 
         <androidx.appcompat.widget.AppCompatImageView
