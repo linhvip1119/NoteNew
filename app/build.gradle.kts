@@ -46,7 +46,7 @@ android {
         debug {
             isDebuggable = true
             firebaseAppDistribution {
-                appId ="1:72511390302:android:b47f9ed25d23697362eacf"
+                appId = "1:72511390302:android:b47f9ed25d23697362eacf"
                 releaseNotesFile = "$rootDir/firebase/note.txt"
                 serviceCredentialsFile = "$rootDir/firebase/key.json"
                 groups = "tester"

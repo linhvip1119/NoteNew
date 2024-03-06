@@ -25,6 +25,8 @@ class BottomSheetViewModel @Inject constructor(private val noteRepository: NoteT
 
     val languageModelLiveData: MutableLiveData<List<LanguageModel>> = MutableLiveData()
 
+    val colorBackgroundLiveData: MutableLiveData<List<String>> = MutableLiveData()
+
     fun getColorType() {
         viewModelScope.launch {
             noteRepository.getAllType().collect {
@@ -67,5 +69,10 @@ class BottomSheetViewModel @Inject constructor(private val noteRepository: NoteT
             LanguageModel(getString(R.string.thaiKey), getString(R.string.thaiText)),
         )
         languageModelLiveData.postValue(list)
+    }
+
+    fun getColorBg() {
+        val listColor = arrayListOf("C7E7FF", "E1FFE7", "FFE0E0", "ECDFFF","FFE1C6", "FFDBEC","F2F2F2", "F7FFE0",)
+        colorBackgroundLiveData
     }
 }

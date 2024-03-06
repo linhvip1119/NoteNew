@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:background="@color/neutral0"
+    tools:layout_width="@dimen/dp100">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:gravity="center"
+        android:paddingVertical="@dimen/dp6"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        tools:text="@string/color" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBgSelected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_select_category" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
