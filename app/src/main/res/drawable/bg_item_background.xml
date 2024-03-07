@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Bóng đổ -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/neutral50038" /> <!-- Màu bóng đổ -->
+            <corners android:radius="@dimen/dp8" /> <!-- Bán kính góc của bóng đổ -->
+            <padding
+                android:bottom="@dimen/dp2"
+                android:left="@dimen/dp0"
+                android:right="@dimen/dp2"
+                android:top="@dimen/dp0" /> <!-- Điều chỉnh kích thước bóng đổ -->
+        </shape>
+    </item>
+
+    <!-- Nội dung chính -->
+    <item>
+        <shape>
+
+            <stroke
+                android:width="1.5dp"
+                android:color="@color/neutral500" />
+
+            <corners android:radius="@dimen/dp8" />
+        </shape>
+    </item>
+</layer-list>

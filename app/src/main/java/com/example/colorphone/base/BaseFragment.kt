@@ -113,9 +113,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
     }
 
     open fun setUpGoogle() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestScopes(Scope(Scopes.DRIVE_FILE)).requestEmail().build()
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestScopes(Scope(Scopes.DRIVE_FILE)).requestEmail().build()
 
         googleSignInClient = activity?.let { GoogleSignIn.getClient(it, gso) }
     }
@@ -215,7 +213,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
         var idNote = 0
         var countUpdate = 0
         var countThread = 0
-        viewModelTextNote.getAllData() {
+        viewModelTextNote.getAllData {
             val listNoteLocal = mutableListOf<NoteModel>()
             listNoteLocal.addAll(it)
             noteData = DataConverter().fromListNote(ArrayList(listNoteLocal))
@@ -227,8 +225,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                             try {
                                 Log.i("niksfhunwensdf", "id: $id")
                                 val idFile = repository?.createFile(
-                                    "text/plain",
-                                    ""
+                                    "text/plain", ""
                                 )?.id.toString()
                                 Log.i("niksfhunwensdf", "0: $idFile")
                                 withContext(Dispatchers.IO) {
@@ -318,15 +315,13 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                 } else {
                                                     item.listCheckList?.let {
                                                         for (itemCheck in it) {
-                                                            val modelCheck =
-                                                                model.listCheckList?.find { it.token == itemCheck.token }
+                                                            val modelCheck = model.listCheckList?.find { it.token == itemCheck.token }
                                                             if (modelCheck == null) {
                                                                 model.listCheckList?.add(itemCheck)
                                                             } else {
                                                                 if (!modelCheck.isUpdate) {
                                                                     modelCheck.body = itemCheck.body
-                                                                    modelCheck.checked =
-                                                                        itemCheck.checked
+                                                                    modelCheck.checked = itemCheck.checked
                                                                 }
                                                             }
                                                             countUpdate++
@@ -351,16 +346,14 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
 
                                                     lifecycleScope.launch(Dispatchers.IO) {
                                                         try {
-                                                            viewModelTextNote.getAllData() { listNoteAdded ->
+                                                            viewModelTextNote.getAllData { listNoteAdded ->
                                                                 noteData = DataConverter().fromListNote(
                                                                     ArrayList(listNoteAdded)
                                                                 )
                                                                 lifecycleScope.launch(Dispatchers.IO) {
                                                                     try {
                                                                         repository?.uploadFile(
-                                                                            id,
-                                                                            "iNote",
-                                                                            noteData.toString()
+                                                                            id, "iNote", noteData.toString()
                                                                         )
                                                                         withContext(Dispatchers.Main) {
                                                                             if (count > 0) {
@@ -378,8 +371,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                                                 item.isUpdate = "-1"
                                                                                 item.listCheckList?.let {
                                                                                     for (checkList in it) {
-                                                                                        checkList.isUpdate =
-                                                                                            false
+                                                                                        checkList.isUpdate = false
                                                                                     }
                                                                                 }
                                                                                 viewModelTextNote.updateNote(
