@@ -44,7 +44,7 @@
     <string name="cancel">취소</string>
     <string name="noteHasBeenReminded">메모 알람이 설정되었습니다</string>
     <string name="tipsMessage">공지 사항</string>
-    <string name="yoursChangeHaveNotBeen">알람을 끄면 알림이 제 시간에 맞지 않을 수 있습니다</string>
+    <string name="reminderMayNotBe">알람을 끄면 알림이 제 시간에 맞지 않을 수 있습니다</string>
     <string name="backLabel">뒤로</string>
     <string name="continueLabel">계속하다</string>
     <string name="doesNotRepeat">반복하지 않음</string>

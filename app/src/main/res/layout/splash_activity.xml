@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF9EC"
+    tools:context=".ui.splash.SplashActivity">
+
+    <View
+        android:id="@+id/viewCenter"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:layout_centerVertical="true" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/viewCenter"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/icon_splash" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/viewCenter"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/walter_turncoat_regular"
+        android:text="@string/note"
+        android:textColor="#FFB320"
+        android:textSize="@dimen/dp68" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="@dimen/dp40"
+        android:layout_marginBottom="@dimen/dp40"
+        android:progressDrawable="@drawable/custom_progress_bg"/>
+
+</RelativeLayout>

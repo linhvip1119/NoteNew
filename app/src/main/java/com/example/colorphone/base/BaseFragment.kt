@@ -1,6 +1,5 @@
 package com.example.colorphone.base
 
-import android.app.Activity
 import android.app.ActivityManager
 import android.app.PendingIntent
 import android.app.ProgressDialog
@@ -8,7 +7,6 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
@@ -29,7 +27,6 @@ import androidx.viewbinding.ViewBinding
 import com.example.colorphone.R
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.room.DataConverter
-import com.example.colorphone.ui.MainActivity
 import com.example.colorphone.ui.bottomDialogColor.ui.NoteBottomSheetDialog
 import com.example.colorphone.ui.main.viewmodel.ListShareViewModel
 import com.example.colorphone.ui.main.viewmodel.TextNoteViewModel
@@ -224,7 +221,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
             noteData = DataConverter().fromListNote(ArrayList(listNoteLocal))
             try {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    try{
+                    try {
                         val id = repository?.query()
                         if (id.isNullOrEmpty()) {
                             try {
@@ -244,7 +241,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                         showMessage(getString(R.string.synced_successfully))
                                     }
                                 }
-                            }catch (e: Exception){
+                            } catch (e: Exception) {
 
                             }
                         } else {
@@ -413,7 +410,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                             }
 
                         }
-                    }catch (e: UserRecoverableAuthIOException){
+                    } catch (e: UserRecoverableAuthIOException) {
                         launcher.launch(e.intent)
 //                        startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);
                     }

@@ -65,6 +65,10 @@ fun Context.showAlertDialogBackOnReminder(onContinue: (() -> Unit)) {
         LayoutSaveYourChangeReminderBinding.inflate(LayoutInflater.from(this))
     dialog.setView(binding.root)
     binding.apply {
+        tvTittle.show()
+        tvTip.gone()
+        tvContent.text = getString(R.string.yourChanges)
+        tvButtonBack.text = getString(R.string.backLabel)
         tvButtonBack.setOnClickListener { dialog.dismiss() }
         tvButtonContinue.setOnClickListener {
             onContinue.invoke()

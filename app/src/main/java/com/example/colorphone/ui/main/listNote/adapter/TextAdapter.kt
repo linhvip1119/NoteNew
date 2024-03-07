@@ -197,7 +197,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NoteModel) {
             binding.apply {
-                item.typeColor?.let {
+                item.typeColor.let {
                     mapIdColor(it, bgColor = { bg ->
                         llBody.setBackgroundResource(bg)
                     }) { _, _, idColor, _, _ ->

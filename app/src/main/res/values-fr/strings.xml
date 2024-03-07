@@ -7,7 +7,7 @@
     <string name="checklistLabel">Checklist</string>
     <string name="calendarLabel">Calendrier</string>
     <string name="settingLabel">Paramètre</string>
-    <string name="noteLabel">iNote</string>
+    <string name="noteLabel">Note</string>
     <string name="emptyDataLabel">Créer les premières notes</string>
     <string name="emptyDataSearch">Aucune note n\'est trouvée</string>
     <string name="emptyDataContent">Un voyage de mille lieues commence toujours par un premier pas ~</string>
@@ -45,7 +45,7 @@
     <string name="cancel">Annuler</string>
     <string name="noteHasBeenReminded">La note a été rappelée</string>
     <string name="tipsMessage">Notification</string>
-    <string name="yoursChangeHaveNotBeen">Le rappel ne fonctionnera pas si vous éteignez cette fonctionnalité</string>
+    <string name="reminderMayNotBe">Le rappel ne fonctionnera pas si vous éteignez cette fonctionnalité</string>
     <string name="backLabel">Revenir</string>
     <string name="continueLabel">Continuer</string>
     <string name="doesNotRepeat">Non-répétition</string>

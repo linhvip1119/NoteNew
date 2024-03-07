@@ -44,7 +44,7 @@
     <string name="cancel">İptal etmek</string>
     <string name="noteHasBeenReminded">Not hatırlatıldı</string>
     <string name="tipsMessage">Bildiri</string>
-    <string name="yoursChangeHaveNotBeen">Bu özelliği kapatırsanız hatırlatma çalışmaz</string>
+    <string name="reminderMayNotBe">Bu özelliği kapatırsanız hatırlatma çalışmaz</string>
     <string name="backLabel">Geri gelmek</string>
     <string name="continueLabel">Devam etmek</string>
     <string name="doesNotRepeat">Tersine Çıkma</string>

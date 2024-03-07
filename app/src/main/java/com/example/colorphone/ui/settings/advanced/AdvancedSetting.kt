@@ -79,7 +79,7 @@ class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSetti
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.type = "text/plain"
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, "VPN Master")
-            var shareMessage = """Hi, Try This Amazing iNote APP ❤🤩App Link:  """
+            var shareMessage = """Simple but Elegant & Super Useful Note App. Try this out 👉 """
             shareMessage =
                 (shareMessage + "https://play.google.com/store/apps/details?id=" + APPLICATION_ID).trimIndent()
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)

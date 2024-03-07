@@ -6,7 +6,7 @@
     <string name="checklistLabel">รายการ</string>
     <string name="calendarLabel">ปฏิทิน</string>
     <string name="settingLabel">การตั้งค่า</string>
-    <string name="noteLabel">iNote</string>
+    <string name="noteLabel">Note</string>
     <string name="emptyDataLabel">สร้างโน้ตแรก</string>
     <string name="emptyDataSearch">ไม่พบโน้ต</string>
     <string name="emptyDataContent">การเดินทางนับพันไมล์ ต้องเริ่มต้นที่ก้าวแรก ~</string>
@@ -44,7 +44,7 @@
     <string name="cancel">ยกเลิก</string>
     <string name="noteHasBeenReminded">หมายเหตุได้รับการเตือนแล้ว</string>
     <string name="tipsMessage">การแจ้ง</string>
-    <string name="yoursChangeHaveNotBeen">การเตือนความจำจะไม่ทำงานหากคุณปิดคุณสมบัตินี้</string>
+    <string name="reminderMayNotBe">การเตือนความจำจะไม่ทำงานหากคุณปิดคุณสมบัตินี้</string>
     <string name="backLabel">กลับมา</string>
     <string name="continueLabel">ดำเนินการต่อ</string>
     <string name="doesNotRepeat">การไม่ใช้ซ้ำ</string>

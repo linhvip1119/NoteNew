@@ -21,33 +21,49 @@
             android:layout_width="@dimen/dp48"
             android:layout_height="@dimen/dp48"
             android:layout_alignParentStart="true"
-            android:padding="@dimen/dp8"
             android:layout_centerVertical="true"
+            android:padding="@dimen/dp8"
             android:src="@drawable/ic_profile" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTop"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_toStartOf="@+id/ivAllBox"
+            android:layout_toEndOf="@+id/ivProfile"
+            android:fontFamily="@font/walter_turncoat_regular"
+            android:includeFontPadding="false"
+            android:text="@string/noteLabel"
+            android:textAllCaps="true"
+            android:textColor="@color/primary_current"
+            android:textSize="@dimen/sp30" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dp48"
+            android:layout_height="@dimen/dp48"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:padding="@dimen/dp6"
+            android:padding="@dimen/dp8"
             android:src="@drawable/ic_menu" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivSync"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dp48"
+            android:layout_height="@dimen/dp48"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/dp8"
+            android:layout_marginEnd="@dimen/dp10"
             android:layout_toStartOf="@+id/ivMenu"
-            android:padding="@dimen/dp6"
+            android:padding="@dimen/dp9"
             android:src="@drawable/ic_sync" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivAllBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dp48"
+            android:layout_height="@dimen/dp48"
+            android:layout_marginEnd="@dimen/dp10"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/ivSync"
             android:src="@drawable/ic_allbox" />
@@ -57,6 +73,7 @@
         android:id="@+id/clSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp8"
         android:layout_marginHorizontal="@dimen/dp16"
         android:background="@drawable/bg_layout_search"
         app:layout_constraintTop_toBottomOf="@+id/clTopBar">
@@ -81,7 +98,7 @@
             android:fontFamily="@font/poppins_regular"
             android:gravity="center_vertical"
             android:hint="@string/searchThreeDotLabel"
-            android:minHeight="@dimen/dp45"
+            android:minHeight="@dimen/dp42"
             android:paddingHorizontal="@dimen/dp8"
             android:paddingTop="1dp"
             android:textColor="@color/neutral500"
@@ -103,10 +120,10 @@
         android:id="@+id/vp2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp0"
+        android:layout_marginTop="@dimen/dp6"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@+id/llBottomBar"
         app:layout_constraintTop_toBottomOf="@+id/clSearch" />
-
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llBottomBar"
@@ -115,7 +132,8 @@
         android:background="@drawable/bg_bottom_tab_main"
         android:orientation="horizontal"
         android:paddingHorizontal="@dimen/dp24"
-        android:paddingVertical="@dimen/dp12"
+        android:paddingTop="@dimen/dp12"
+        android:paddingBottom="@dimen/dp16"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <FrameLayout

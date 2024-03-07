@@ -277,7 +277,7 @@ fun Context.sendEmailMore(
 
     disableExposure()
 
-    val title = " iNote - Please tell us your bug or suggestions, we will hear everything!"
+    val title = " [Note] Please tell us your bug or suggestions. We will hear everything!"
 
     val intent = Intent(Intent.ACTION_SENDTO)
     // intent.type = "message/rfc822"

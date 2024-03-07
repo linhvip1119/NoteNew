@@ -6,7 +6,7 @@
     <string name="checklistLabel">Aufführen</string>
     <string name="calendarLabel">Kalender</string>
     <string name="settingLabel">Einstellung</string>
-    <string name="noteLabel">iNote</string>
+    <string name="noteLabel">Note</string>
     <string name="emptyDataLabel">Erstellen Sie erste Notizen</string>
     <string name="emptyDataSearch">Es wird keine Notiz gefunden</string>
     <string name="emptyDataContent">Auch die längste Reise beginnt mit dem ersten Schritt</string>
@@ -44,7 +44,7 @@
     <string name="cancel">Stornieren</string>
     <string name="noteHasBeenReminded">Hinweis wurde erinnert</string>
     <string name="tipsMessage">Benachrichtigung</string>
-    <string name="yoursChangeHaveNotBeen">Die Erinnerung funktioniert nicht, wenn Sie diese Funktion ausschalten</string>
+    <string name="reminderMayNotBe">Die Erinnerung funktioniert nicht, wenn Sie diese Funktion ausschalten</string>
     <string name="backLabel">Komm zurück</string>
     <string name="continueLabel">Weitermachen</string>
     <string name="doesNotRepeat">Nicht -Repetition</string>

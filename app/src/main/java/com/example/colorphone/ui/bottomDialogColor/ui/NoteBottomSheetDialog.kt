@@ -103,7 +103,7 @@ class NoteBottomSheetDialog(
 
             EDIT_NOTE_SCREEN -> {
                 _binding?.tvEdit?.gone()
-                _binding?.tvFilter?.text = context?.getString(R.string.changeColorLabel)
+                _binding?.tvFilter?.text = context?.getString(R.string.label)
             }
         }
 

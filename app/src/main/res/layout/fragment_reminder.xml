@@ -16,6 +16,7 @@
         android:layout_marginHorizontal="@dimen/dp4"
         android:drawableStart="@drawable/ic_back"
         android:drawablePadding="@dimen/dp8"
+        android:includeFontPadding="false"
         android:fontFamily="@font/poppins_semi_bold"
         android:gravity="center"
         android:paddingEnd="30dp"

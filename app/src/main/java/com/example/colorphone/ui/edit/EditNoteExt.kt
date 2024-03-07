@@ -38,7 +38,7 @@ fun EditNoteScreen.getRandomString(length: Int): String {
 fun EditNoteScreen.moveToNext(currentPosition: Int) {
     val viewHolder = binding.rvCheckList.findViewHolderForAdapterPosition(currentPosition + 1) as MakeListVH?
     if (viewHolder != null) {
-        if (viewHolder.binding.checkBox.isChecked) {
+        if (viewHolder.binding.checkBox.isSelected) {
             moveToNext(currentPosition + 1)
         } else viewHolder.binding.editText.requestFocus()
     } else addListItem()

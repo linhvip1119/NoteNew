@@ -36,10 +36,11 @@ class MakeListVH(
             listener.delete(adapterPosition)
         }
 
-        binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
+        binding.checkBox.setOnClickListener {
+            binding.checkBox.isSelected = !binding.checkBox.isSelected
             listener.clickView(CLICK_DELETE_ITEM)
-            binding.editText.isEnabled = !isChecked
-            listener.checkedChanged(adapterPosition, isChecked)
+            binding.editText.isEnabled = !binding.checkBox.isSelected
+            listener.checkedChanged(adapterPosition, binding.checkBox.isSelected)
         }
 
         binding.ivDragHandle.setOnTouchListener { _, event ->
@@ -57,7 +58,7 @@ class MakeListVH(
 //        binding.editText.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
 //            if (hasFocus) v.showKeyboard() else v.hideKeyboard()
 //        }
-            checkBox.isChecked = item.checked
+            checkBox.isSelected = item.checked
 
             ivDragHandle.isEnabled = !onReadMode
             ivCloseDelete.isEnabled = !onReadMode

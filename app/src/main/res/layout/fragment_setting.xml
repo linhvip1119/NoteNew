@@ -15,6 +15,7 @@
         android:clickable="true"
         android:drawableStart="@drawable/ic_back"
         android:drawablePadding="@dimen/dp8"
+        android:includeFontPadding="false"
         android:focusable="true"
         android:fontFamily="@font/poppins_semi_bold"
         android:foreground="?android:attr/selectableItemBackgroundBorderless"

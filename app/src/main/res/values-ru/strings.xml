@@ -6,7 +6,7 @@
     <string name="checklistLabel">Список</string>
     <string name="calendarLabel">Календарь</string>
     <string name="settingLabel">Параметр</string>
-    <string name="noteLabel">iNote</string>
+    <string name="noteLabel">Note</string>
     <string name="emptyDataLabel">Создайте первые заметки</string>
     <string name="emptyDataSearch">Записка не найдено</string>
     <string name="emptyDataContent">Путь в тысячу ли начинается с первого шага</string>
@@ -44,7 +44,7 @@
     <string name="cancel">Отмена</string>
     <string name="noteHasBeenReminded">Напомнили примечание</string>
     <string name="tipsMessage">Уведомление</string>
-    <string name="yoursChangeHaveNotBeen">Напоминание не будет работать, если вы отключите эту функцию</string>
+    <string name="reminderMayNotBe">Напоминание не будет работать, если вы отключите эту функцию</string>
     <string name="backLabel">Вернись</string>
     <string name="continueLabel">Продолжать</string>
     <string name="doesNotRepeat">Непревзойденное</string>

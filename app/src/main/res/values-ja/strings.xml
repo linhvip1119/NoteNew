@@ -45,7 +45,7 @@
     <string name="cancel">キャンセル</string>
     <string name="noteHasBeenReminded">メモは思い出されました</string>
     <string name="tipsMessage">通知</string>
-    <string name="yoursChangeHaveNotBeen">この機能をオフにしても、リマインダーは機能しません</string>
+    <string name="reminderMayNotBe">この機能をオフにしても、リマインダーは機能しません</string>
     <string name="backLabel">戻ってくる</string>
     <string name="continueLabel">続く</string>
     <string name="doesNotRepeat">非繰り返し</string>

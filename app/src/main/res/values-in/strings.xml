@@ -7,7 +7,7 @@
     <string name="checklistLabel">Daftar</string>
     <string name="calendarLabel">Kalender</string>
     <string name="settingLabel">Pengaturan</string>
-    <string name="noteLabel">iNote</string>
+    <string name="noteLabel">Note</string>
     <string name="emptyDataLabel">Buat catatan pertama</string>
     <string name="emptyDataSearch">Tidak ada catatan yang ditemukan</string>
     <string name="emptyDataContent">Perjalanan seribu mil selalu dimulai dengan langkah pertama</string>
@@ -45,7 +45,7 @@
     <string name="cancel">Membatalkan</string>
     <string name="noteHasBeenReminded">Catatan telah diingatkan</string>
     <string name="tipsMessage">Pemberitahuan</string>
-    <string name="yoursChangeHaveNotBeen">Pengingat tidak akan berfungsi jika Anda mematikan fitur ini</string>
+    <string name="reminderMayNotBe">Pengingat tidak akan berfungsi jika Anda mematikan fitur ini</string>
     <string name="backLabel">Kembali</string>
     <string name="continueLabel">Melanjutkan</string>
     <string name="doesNotRepeat">Non -Repetition</string>

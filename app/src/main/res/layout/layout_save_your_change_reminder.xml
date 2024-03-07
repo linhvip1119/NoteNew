@@ -45,7 +45,7 @@
         android:fontFamily="@font/poppins_regular"
         android:gravity="center"
         android:paddingHorizontal="@dimen/dp8"
-        android:text="@string/yoursChangeHaveNotBeen"
+        android:text="@string/reminderMayNotBe"
         android:textColor="@color/neutral500"
         android:textSize="@dimen/sp16"
         app:layout_constraintEnd_toEndOf="parent"

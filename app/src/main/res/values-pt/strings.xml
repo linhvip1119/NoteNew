@@ -6,7 +6,7 @@
     <string name="checklistLabel">Lista</string>
     <string name="calendarLabel">Calendário</string>
     <string name="settingLabel">Contexto</string>
-    <string name="noteLabel">iNote</string>
+    <string name="noteLabel">Note</string>
     <string name="emptyDataLabel">Crie as primeiras notas</string>
     <string name="emptyDataSearch">Nenhuma nota foi encontrada</string>
     <string name="emptyDataContent">Uma viagem de mil milhas começa com um único passo ~</string>
@@ -44,7 +44,7 @@
     <string name="cancel">Cancelar</string>
     <string name="noteHasBeenReminded">Nota foi lembrada</string>
     <string name="tipsMessage">Notificação</string>
-    <string name="yoursChangeHaveNotBeen">O lembrete não funcionará se você desligar esse recurso</string>
+    <string name="reminderMayNotBe">O lembrete não funcionará se você desligar esse recurso</string>
     <string name="backLabel">Voltar</string>
     <string name="continueLabel">Continuar</string>
     <string name="doesNotRepeat">Não repetição</string>

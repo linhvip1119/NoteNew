@@ -5,7 +5,7 @@
     <string name="checklistLabel">Checklist</string>
     <string name="calendarLabel">Calendar</string>
     <string name="settingLabel">Setting</string>
-    <string name="noteLabel">iNote</string>
+    <string name="noteLabel">Note</string>
     <string name="emptyDataLabel">Create your first note</string>
     <string name="emptyDataSearch">No item have found!</string>
     <string name="emptyDataContent">Any notes to add? Add your first note by\ntapping on add button</string>
@@ -43,7 +43,7 @@
     <string name="cancel">Cancel</string>
     <string name="noteHasBeenReminded">Note has been reminded</string>
     <string name="tipsMessage">Tips Message</string>
-    <string name="yoursChangeHaveNotBeen">Reminders may not be in time if you turn it off.</string>
+    <string name="reminderMayNotBe">Reminders may not be in time if you turn it off.</string>
     <string name="backLabel">Back</string>
     <string name="continueLabel">Continue</string>
     <string name="doesNotRepeat">Does not Repeat</string>
@@ -252,4 +252,5 @@
     <string name="stickyNote">Sticky Note</string>
     <string name="toolBar">Tools Widget</string>
     <string name="widgetAddSuccess">Add widget success!</string>
+    <string name="yourChanges">Your changes have not been saved. Do you still want to continue?</string>
 </resources>
