@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/flBg"
     android:layout_width="match_parent"
+    android:layout_gravity="center"
     android:layout_height="wrap_content">
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -10,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp4"
+        android:layout_gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/dark02"
         app:riv_corner_radius="@dimen/dp8" />

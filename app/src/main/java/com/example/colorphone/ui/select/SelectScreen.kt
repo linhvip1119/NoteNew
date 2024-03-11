@@ -154,7 +154,7 @@ class SelectScreen() :
             }
 
             ivColor.setOnClickAnim {
-                showBottomSheet(false, fromScreen = SELECTED_SCREEN) {
+                showBottomSheet(fromScreen = SELECTED_SCREEN) {
                     handleChangeColors(it)
                 }
             }

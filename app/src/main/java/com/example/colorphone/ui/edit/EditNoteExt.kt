@@ -61,8 +61,8 @@ fun EditNoteScreen.addListItem(isShowKeyBoard: Boolean = false) {
 }
 
 fun EditNoteScreen.handleViewText() {
-    binding.etContent.isVisible = isNoteText
-    binding.clMakeList.isVisible = !isNoteText
+    binding.etContent.isVisible = isTypeText
+    binding.clMakeList.isVisible = !isTypeText
 }
 
 fun EditNoteScreen.getDataNote(
@@ -295,9 +295,9 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
 fun EditNoteScreen.swapNote() {
     binding.apply {
         lifecycleScope.launch {
-            isNoteText = !isNoteText
+            isTypeText = !isTypeText
             handleViewText()
-            if (isNoteText) {
+            if (isTypeText) {
                 swapCheckListToText()
             } else {
                 swapTextToCheckList()

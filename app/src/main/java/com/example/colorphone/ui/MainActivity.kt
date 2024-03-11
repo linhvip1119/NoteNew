@@ -37,20 +37,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding?.root)
         Const.notificationOn = prefUtil.statusNotificationBar
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-
-        val code = intent.getIntExtra("123465476456", -1)
-        if (code != -1) {
-            val myPendingIntent = applicationContext?.let {
-                val desFragment = R.id.mainFragment
-                NavDeepLinkBuilder(it).setGraph(R.navigation.nav_graph).setDestination(
-                    desFragment, bundleOf(
-//                    Const.ID_NAVIGATE_EDIT_FROM_ITEM_WIDGET to noteModel.ids,
-//                    Const.TYPE_ITEM_EDIT to noteModel.typeItem
-                    )
-                ).createPendingIntent()
-            }
-            myPendingIntent?.send()
-        }
     }
 
     override fun attachBaseContext(newBase: Context?) {

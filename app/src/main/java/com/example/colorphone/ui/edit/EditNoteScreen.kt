@@ -2,7 +2,6 @@ package com.example.colorphone.ui.edit
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -54,7 +53,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     var currentColor: String = TypeColorNote.BLUE.name
 
-    var isNoteText: Boolean = true
+    var isTypeText: Boolean = true
 
     private var _isAddNote: Boolean = false
 
@@ -93,7 +92,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
 //        isFromWidget = arguments?.getBoolean("ARG_FROM_WIDGET")
 
-        isNoteText = arguments?.getString(Const.TYPE_ITEM_EDIT) == Const.TYPE_NOTE
+        isTypeText = arguments?.getString(Const.TYPE_ITEM_EDIT) == Const.TYPE_NOTE
 
 //        val idsFromWidget = arguments?.getInt(KEY_IDS_NOTE_FROM_WIDGET)
 //
@@ -132,7 +131,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         binding.apply {
 
             ivTypeBox.setPreventDoubleClickScaleView {
-                showBottomSheet(false, currentColor, Const.EDIT_NOTE_SCREEN) {
+                showBottomSheet(currentColor, Const.EDIT_NOTE_SCREEN) {
                     currentColor = it
                     mapIdColor(
                         nameColor = it, isGetIcon = true
@@ -140,9 +139,15 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                         binding.apply {
                             ivTypeBox.setImageResource(icon)
                             if (model?.background != null) {
-                                llItem.setBackgroundResource(model.background!!)
-                                appBar.setBackgroundColor(Color.TRANSPARENT)
-                                clTopBarMenu.setBackgroundColor(Color.TRANSPARENT)
+                                try {
+                                    llItem.setBackgroundResource(model.background!!)
+                                    appBar.setBackgroundColor(Color.TRANSPARENT)
+                                    clTopBarMenu.setBackgroundColor(Color.TRANSPARENT)
+                                } catch (e: Exception) {
+                                    llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
+                                    clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
+
+                                }
                             } else {
                                 llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
                                 clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
@@ -165,7 +170,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             }
 
             etTittle.setOnNextAction {
-                if (isNoteText) {
+                if (isTypeText) {
                     etContent.requestFocus()
                 } else {
                     moveToNext(-1)
@@ -181,11 +186,23 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
             ivBackground.setPreventDoubleClick {
                 showBottomSheetBg() {
-                    model?.background = it.url
-                    binding.apply {
-                        llItem.setBackgroundResource(it.url)
-                        appBar.setBackgroundColor(Color.TRANSPARENT)
-                        clTopBarMenu.setBackgroundColor(Color.TRANSPARENT)
+                    if (it.url != -1) {
+                        model?.background = it.url
+                        binding.apply {
+                            try {
+                                llItem.setBackgroundResource(it.url)
+                                appBar.setBackgroundColor(Color.TRANSPARENT)
+                                clTopBarMenu.setBackgroundColor(Color.TRANSPARENT)
+                            } catch (_: Exception) {
+                            }
+                        }
+                    } else {
+                        model.background = null
+                        mapIdColor(model.typeColor, true) { idIcon, _, _, idColorBody, idBgTopBar ->
+                            ivTypeBox.setImageResource(idIcon)
+                            llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
+                            clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
+                        }
                     }
                 }
             }
@@ -240,7 +257,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     }
 
     private fun saveNote() {
-        val typeDefault = if (isNoteText) TypeItem.TEXT.name else TypeItem.CHECK_LIST.name
+        val typeDefault = if (isTypeText) TypeItem.TEXT.name else TypeItem.CHECK_LIST.name
         if (_isAddNote) {
             viewModelTextNote.addNote(getDataNote("0", "-1", typeDefault)) {
                 model?.ids = it
@@ -268,9 +285,14 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             mapIdColor(currentColor, true) { idIcon, _, _, idColorBody, idBgTopBar ->
                 ivTypeBox.setImageResource(idIcon)
                 if (item.background != null) {
-                    llItem.setBackgroundResource(item.background!!)
-                    appBar.setBackgroundColor(Color.TRANSPARENT)
-                    clTopBarMenu.setBackgroundColor(Color.TRANSPARENT)
+                    try {
+                        llItem.setBackgroundResource(item.background!!)
+                        appBar.setBackgroundColor(Color.TRANSPARENT)
+                        clTopBarMenu.setBackgroundColor(Color.TRANSPARENT)
+                    } catch (e: Exception) {
+                        llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
+                        clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
+                    }
                 } else {
                     llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
                     clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
@@ -314,6 +336,8 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     }
 
     fun setupRecyclerView() {
+
+        model.typeItem = if (isTypeText) TypeItem.TEXT.name else TypeItem.CHECK_LIST.name
         val unit = resources.getDimension(R.dimen.dp1)
         val elevation = unit * 2
 
@@ -337,8 +361,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             override fun checkedChanged(position: Int, checked: Boolean) {
                 try {
                     model.listCheckList?.get(position)?.checked = checked
-                } catch (e: Exception) {
-                    Log.i("TAG", "checkedChanged: fail")
+                } catch (_: Exception) {
                 }
             }
 

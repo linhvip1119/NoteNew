@@ -8,9 +8,11 @@ object Const {
     const val TYPE_NOTE = "TYPE_NOTE"
     const val TYPE_CHECKLIST = "TYPE_CHECKLIST"
 
-    const val EDIT_NOTE_SCREEN = "BASE_EDIT_NOTE_SCREEN"
     const val TEXT_SCREEN = "TEXT_SCREEN"
     const val CHECK_LIST_SCREEN = "CHECK_LIST_SCREEN"
+
+    const val MAIN_SCREEN = "MAIN_SCREEN"
+    const val EDIT_NOTE_SCREEN = "BASE_EDIT_NOTE_SCREEN"
     const val SELECTED_SCREEN = "SELECTED_SCREEN"
     const val SETTING_SCREEN = "SETTING_SCREEN"
 

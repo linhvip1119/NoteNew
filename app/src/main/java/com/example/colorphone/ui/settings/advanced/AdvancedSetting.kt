@@ -62,7 +62,7 @@ class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSetti
             }
 
             ivColor.setOnClickListener {
-                showBottomSheet(false, fromScreen = Const.SETTING_SCREEN) {
+                showBottomSheet(fromScreen = Const.SETTING_SCREEN) {
                     saveTheme(it)
                 }
             }

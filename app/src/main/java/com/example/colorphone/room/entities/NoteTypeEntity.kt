@@ -11,5 +11,5 @@ class NoteTypeEntity(
     @ColumnInfo("ids")
     var id: Int? = null,
     @ColumnInfo("listColor")
-    val listColor: ArrayList<ColorItem>? = null,
+    val listColor: ArrayList<ColorItem> = arrayListOf(),
 )

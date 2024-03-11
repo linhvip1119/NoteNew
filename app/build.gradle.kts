@@ -145,7 +145,7 @@ dependencies {
 
     val billing_version = "6.1.0"
     //   implementation("com.android.billingclient:billing-ktx:$billing_version")
-    implementation("com.github.yalantis:ucrop:2.2.6")
+//    implementation("com.github.yalantis:ucrop:2.2.6")
 
     implementation("org.greenrobot:eventbus:3.3.1")
 
@@ -159,4 +159,10 @@ dependencies {
     implementation("com.google.http-client:google-http-client-gson:1.41.0")
 
     implementation("com.makeramen:roundedimageview:2.3.0")
+
+    // bắt buộc
+//    implementation("dev.keego.haki:haki:6.5.3")
+//
+//    // sử dụng tuỳ sản phẩm yêu cầu
+//    implementation("dev.keego.haki:haki-plugin:6.5.3")
 }

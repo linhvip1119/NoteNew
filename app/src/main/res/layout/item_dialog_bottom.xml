@@ -45,4 +45,18 @@
         app:layout_constraintWidth_min="200dp"
         tools:itemCount="4"
         tools:listitem="@layout/item_type_note" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvItemEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp8"
+        android:overScrollMode="ifContentScrolls"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="254dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFilter"
+        app:layout_constraintWidth_min="200dp"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_type_note" />
 </androidx.constraintlayout.widget.ConstraintLayout>

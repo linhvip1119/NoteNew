@@ -24,5 +24,5 @@ buildscript {
     }
 }
 
-rootProject.name = "ColorPhone"
+rootProject.name = "Note"
 include(":app")

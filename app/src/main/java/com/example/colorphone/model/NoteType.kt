@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class NoteType(
     @SerializedName("ids") var ids: Int? = null,
-    @SerializedName("listColor") var listColor: ArrayList<ColorItem>? = arrayListOf()
+    @SerializedName("listColor") var listColor: ArrayList<ColorItem> = arrayListOf()
 ) : Parcelable
 
 @Parcelize

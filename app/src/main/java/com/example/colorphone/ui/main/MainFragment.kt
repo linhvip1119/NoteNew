@@ -200,7 +200,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             }
 
             binding.ivAllBox.setOnClickAnim {
-                showBottomSheet(true, currentType, Const.TEXT_SCREEN) {
+                showBottomSheet( currentType, Const.MAIN_SCREEN) {
                     mapIdColor(nameColor = it, isGetIcon = true) { icon, _, _, _, _ ->
                         binding.ivAllBox.setImageResource(icon)
                     }

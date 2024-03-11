@@ -210,8 +210,13 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                             ivBg.gone()
                             llBody.setBackgroundResource(bg)
                         } else {
-                            llBody.setBackgroundColor(Color.TRANSPARENT)
-                            ivBg.loadUrl(item.background!!)
+                            try {
+                                ivBg.loadUrl(item.background!!)
+                                llBody.setBackgroundColor(Color.TRANSPARENT)
+                            } catch (_: Exception){
+                                ivBg.gone()
+                                llBody.setBackgroundResource(bg)
+                            }
                         }
                     }) { _, _, idColor, _, _ ->
                         tvTittle.compoundDrawableTintList =
@@ -301,8 +306,13 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                             llBody.setBackgroundResource(bg)
                             ivBg.gone()
                         } else {
-                            llBody.setBackgroundColor(Color.TRANSPARENT)
-                            ivBg.loadUrl(item.background!!)
+                            try {
+                                ivBg.loadUrl(item.background!!)
+                                llBody.setBackgroundColor(Color.TRANSPARENT)
+                            } catch (_: Exception){
+                                ivBg.gone()
+                                llBody.setBackgroundResource(bg)
+                            }
                         }
                     }) { _, _, idColor, _, _ ->
                         tvTittle.compoundDrawableTintList =

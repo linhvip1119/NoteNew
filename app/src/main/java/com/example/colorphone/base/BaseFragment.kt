@@ -121,9 +121,9 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
     }
 
     fun showBottomSheet(
-        showDefaultColor: Boolean = true, currentColor: String? = null, fromScreen: String, colorClick: (String) -> Unit
+        currentColor: String? = null, fromScreen: String, colorClick: (String) -> Unit
     ) {
-        val addPhotoBottomDialogFragment: NoteBottomSheetDialog = NoteBottomSheetDialog.newInstance(showDefaultColor, currentColor, fromScreen, colorClick)
+        val addPhotoBottomDialogFragment: NoteBottomSheetDialog = NoteBottomSheetDialog.newInstance(currentColor, fromScreen, colorClick)
         activity?.supportFragmentManager?.let {
             addPhotoBottomDialogFragment.show(
                 it, "TAG"

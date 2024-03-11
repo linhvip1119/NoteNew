@@ -267,6 +267,7 @@ class TextNoteViewModel @Inject constructor(
 
     fun getBackgroundNote() {
         val l = arrayListOf<Background>()
+
         l.add(Background(Const.COLOR, R.drawable.color01, "color01"))
         l.add(Background(Const.COLOR, R.drawable.color02, "color02"))
         l.add(Background(Const.COLOR, R.drawable.color03, "color03"))
@@ -279,6 +280,7 @@ class TextNoteViewModel @Inject constructor(
         l.add(Background(Const.COLOR, R.drawable.color10, "color10"))
         l.add(Background(Const.COLOR, R.drawable.color11, "color11"))
         l.add(Background(Const.COLOR, R.drawable.color12, "color12"))
+        l.add(Background(Const.COLOR, -1, "defaultColor"))
 
         l.add(Background(Const.PAPER, R.drawable.page01, "paper01"))
         l.add(Background(Const.PAPER, R.drawable.page02, "paper02"))
@@ -307,7 +309,7 @@ class TextNoteViewModel @Inject constructor(
         l.add(Background(Const.DARK, R.drawable.dark07, "dark07"))
         l.add(Background(Const.DARK, R.drawable.dark08, "dark08"))
 
-        backgroundLiveData.value = l
+        backgroundLiveData.value = l.reversed()
 
     }
 }

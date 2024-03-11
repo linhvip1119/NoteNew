@@ -8,7 +8,7 @@ import java.util.Collections
 
 class DragCallbackColor(
     private val elevation: Float,
-    private val adapter: BottomSheetColorAdapter
+    private val adapter: BottomEditColorAdapter
 ) :
     ItemTouchHelper.Callback() {
 

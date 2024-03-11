@@ -18,7 +18,6 @@ import com.bumptech.glide.request.target.AppWidgetTarget
 import com.example.colorphone.R
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.repository.NoteRepository
-import com.example.colorphone.ui.MainActivity
 import com.example.colorphone.ui.settings.widget.remoteService.WidgetService
 import com.example.colorphone.ui.settings.widget.utils.RoundedCornersTransformation
 import com.example.colorphone.util.Const
@@ -197,16 +196,8 @@ class NoteProvider : AppWidgetProvider() {
                 )
             ).createPendingIntent()
         }
-//        val intentWd = Intent(context, MainActivity::class.java)
-//        intentWd.putExtra("123465476456",noteModel.ids)
-//        val pendingIntent = PendingIntent.getActivity(context, 0, intentWd, PendingIntent.FLAG_IMMUTABLE)
 
-        val configIntent = Intent(context, MainActivity::class.java)
-        configIntent.putExtra("123465476456", noteModel.ids)
-        configIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, PendingIntent.FLAG_IMMUTABLE)
-
-        return configPendingIntent
+        return myPendingIntent
     }
 
     private fun setMyActionUpdate(context: Context?, noteModel: NoteModel): PendingIntent? {

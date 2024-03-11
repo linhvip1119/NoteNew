@@ -10,22 +10,22 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colorphone.R
 import com.example.colorphone.databinding.ItemDialogBottomBinding
 import com.example.colorphone.model.ColorItem
 import com.example.colorphone.model.NoteType
-import com.example.colorphone.ui.bottomDialogColor.adapter.BottomSheetColorAdapter
+import com.example.colorphone.ui.bottomDialogColor.adapter.BottomEditColorAdapter
+import com.example.colorphone.ui.bottomDialogColor.adapter.BottomTypeColorAdapter
 import com.example.colorphone.ui.bottomDialogColor.viewmodel.BottomSheetViewModel
+import com.example.colorphone.ui.edit.utils.ListItemListener
 import com.example.colorphone.util.Const.EDIT_NOTE_SCREEN
-import com.example.colorphone.util.Const.SELECTED_SCREEN
+import com.example.colorphone.util.Const.MAIN_SCREEN
 import com.example.colorphone.util.Const.SETTING_SCREEN
-import com.example.colorphone.util.Const.TEXT_SCREEN
 import com.example.colorphone.util.Const.currentType
 import com.example.colorphone.util.PrefUtil
-import com.example.colorphone.util.TypeClick
 import com.example.colorphone.util.TypeColorNote
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.wecan.inote.util.getWidthDevice
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -46,11 +46,17 @@ class NoteBottomSheetDialog(
 
     private var _binding: ItemDialogBottomBinding? = null
 
-    private lateinit var adapterBottom : BottomSheetColorAdapter
+    private lateinit var adapterEdit: BottomEditColorAdapter
+
+    private lateinit var adapterType: BottomTypeColorAdapter
 
     private val _noteTypeViewModel: BottomSheetViewModel by viewModels()
 
-    private var colorItem: NoteType? = null
+    private var colorModel: NoteType = NoteType()
+
+    private var isEdited = false
+
+    private var isOnMainScreen = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -60,9 +66,9 @@ class NoteBottomSheetDialog(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initAdapter()
         initRadius(view)
         initView()
+        initAdapter()
         initRecyclerView()
         observer()
         onListener()
@@ -74,17 +80,34 @@ class NoteBottomSheetDialog(
     }
 
     private fun initAdapter() {
-        val elevation = resources.getDimension(R.dimen.dp1) * 2
-        adapterBottom.apply {
-            mElevation = elevation
-            mIsCanSelected = (fromScreen == SELECTED_SCREEN)
-            isCurrentSelect = when (fromScreen) {
-                TEXT_SCREEN -> currentType
-                EDIT_NOTE_SCREEN -> currentColor ?: currentType
-                SETTING_SCREEN -> context?.let { prefUtil.themeColor }
-                else -> currentType
-            }
+
+        val currentColor = when (fromScreen) {
+            MAIN_SCREEN -> currentType
+            EDIT_NOTE_SCREEN -> currentColor ?: currentType
+            SETTING_SCREEN -> context?.let { prefUtil.themeColor }
+            else -> currentType
         }
+
+        adapterType = BottomTypeColorAdapter(colorModel.listColor.addShowAll(), currentColor) { item ->
+            colorClick(item?.color!!)
+            dismiss()
+        }
+
+        val elevation = resources.getDimension(R.dimen.dp1) * 2
+        adapterEdit = BottomEditColorAdapter(colorModel.listColor, elevation, object : ListItemListener {
+
+            override fun delete(position: Int) {}
+
+            override fun moveToNext(position: Int) {}
+
+            override fun textChanged(position: Int, text: String) {
+                colorModel.listColor.getOrNull(position)?.tittle = text
+            }
+
+            override fun checkedChanged(position: Int, checked: Boolean) {}
+
+            override fun clickView(viewClick: String) {}
+        })
     }
 
     private fun initRadius(view: View) {
@@ -96,54 +119,45 @@ class NoteBottomSheetDialog(
 
     private fun initView() {
 
-        _binding?.tvEdit?.isVisible = fromScreen == TEXT_SCREEN
+        isOnMainScreen = fromScreen == MAIN_SCREEN
 
-        _binding?.tvFilter?.text = if (fromScreen == SETTING_SCREEN) context?.getString(R.string.defaultColor) else context?.getString(R.string.label)
+        _binding?.apply {
+
+            tvEdit.isVisible = isOnMainScreen
+
+            tvFilter.text = if (fromScreen == SETTING_SCREEN) context?.getString(R.string.defaultColor) else context?.getString(R.string.label)
+
+            rvItemType.isVisible = !isEdited
+            rvItemEdit.isVisible = isEdited
+        }
     }
 
     private fun onListener() {
 
         _binding?.apply {
             tvEdit.setOnClickListener {
-                handleViewEdit(tvEdit.text.toString() == context?.getString(R.string.editLabel))
-            }
-        }
-
-        adapterBottom.onClick = { item, type ->
-            when (type) {
-                TypeClick.CLICK_SELECTED -> {
-                    lifecycleScope.launch {
-                        colorClick(item?.color!!)
-                        dismiss()
-                    }
-                }
-
-                TypeClick.CLICK_CHANGE_COLOR_ITEM -> {
-                    colorClick(item?.color!!)
-                    dismiss()
-                }
+                isEdited = !isEdited
+                handleClickEdit()
             }
         }
     }
 
-    private fun handleViewEdit(isEditColor: Boolean) {
+    private fun handleClickEdit() {
         lifecycleScope.launch(Dispatchers.Main) {
-            adapterBottom.isEdited = isEditColor
-            delay(200)
-            _binding?.tvEdit?.text = if (isEditColor) getString(R.string.doneLabel) else getString(R.string.editLabel)
-            if (isEditColor) {
-//                isNotShowDefaultColor = true
+            _binding?.tvEdit?.text = if (isEdited) getString(R.string.doneLabel) else getString(R.string.editLabel)
+            if (!isEdited) {
+                _binding?.rvItemEdit?.isVisible = false
+                _binding?.rvItemType?.isVisible = true
+                _noteTypeViewModel.updateType(colorModel.apply {
+                    listColor.addShowAll()
+                })
+                delay(100)
                 _noteTypeViewModel.getColorType()
             } else {
-//                isNotShowDefaultColor = false
-                _noteTypeViewModel.updateType(colorItem?.apply {
-                    listColor = adapterBottom.listColor.addShowAll()
-                })
-                delay(200)
+                _binding?.rvItemEdit?.isVisible = true
+                _binding?.rvItemType?.isVisible = false
                 _noteTypeViewModel.getColorType()
             }
-            delay(100)
-            _binding?.rvItemType?.scrollToPosition(0)
         }
     }
 
@@ -157,32 +171,37 @@ class NoteBottomSheetDialog(
     }
 
     private fun initRecyclerView() {
-        _binding?.rvItemType?.adapter = adapterBottom
+        _binding?.rvItemType?.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = adapterType
+        }
+        _binding?.rvItemEdit?.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = adapterEdit
+        }
     }
 
     private fun observer() {
         _noteTypeViewModel.colorLD.observe(viewLifecycleOwner) { item ->
             lifecycleScope.launch {
-//                val list = if (isNotShowDefaultColor) item.listColor else item.listColor?.filter { it.color != TypeColorNote.DEFAULT.name }
-                colorItem = item.apply {
-//                    listColor = ArrayList(list ?: arrayListOf())
+                colorModel = item.apply {
+                    listColor = ArrayList(listColor.filter { it.color != TypeColorNote.DEFAULT.name })
                 }
-                adapterBottom.setListColorType(colorItem?.listColor)
-                delay(100)
-                _binding?.rvItemType?.scrollToPosition(0)
+                initAdapter()
+                initRecyclerView()
+//                adapterEdit.setListColorType(ArrayList(item?.listColor?.filter { it.color != TypeColorNote.DEFAULT.name } ?: listOf()))
+//                adapterType.setListColorType(item.listColor)
+                _binding?.rvItemEdit?.scrollToPosition(0)
             }
         }
     }
 
     companion object {
         fun newInstance(
-            showColorDefault: Boolean, currentColor: String? = null, fromScreen: String, colorClick: (String) -> Unit
+            currentColor: String? = null, fromScreen: String, colorClick: (String) -> Unit
         ): NoteBottomSheetDialog {
             return NoteBottomSheetDialog(currentColor, fromScreen, colorClick)
         }
-
-        const val KEY_STATUS_TYPE = "KEY_STATUS_TYPE"
-        const val KEY_SELECTED_TYPE = "KEY_SELECTED_TYPE"
     }
 
     override fun onDestroyView() {

@@ -116,7 +116,11 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(FragmentSettingBind
     private fun initViewInfoAccount() {
         val user = prefUtil.statusEmailUser
         binding.apply {
-            user?.avatar?.let { ivAvatarUser.loadUrl(it, 120.px) }
+            try {
+                user?.avatar?.let { ivAvatarUser.loadUrl(it, 120.px) }
+            } catch (e: Exception) {
+                ivAvatarUser.loadUrl(R.drawable.icons_google_svg, 120.px)
+            }
             tvNameAccount.text = user?.name
             tvEmailAccount.text = user?.email
             tvButtonSync.apply {
