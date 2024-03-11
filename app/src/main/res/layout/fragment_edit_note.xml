@@ -4,34 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/llItem"
     android:layout_width="match_parent"
+    android:background="@drawable/dark02"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:background="@color/primaryBody">
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:fitsSystemWindows="true">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/llAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:background="@color/primaryBody">
-
-            <!--            <View-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="@dimen/dp1"-->
-            <!--                android:alpha="0.4"-->
-            <!--                android:background="@color/neutral500" />-->
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/clTopBarMenu"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:background="@color/primaryBody">
+                android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivVComplete"
@@ -107,7 +100,6 @@
 
 
     </com.google.android.material.appbar.AppBarLayout>
-
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

@@ -17,6 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.makeramen.roundedimageview.RoundedImageView
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -219,5 +220,11 @@ fun AppCompatImageView.loadUrl(url: Any, radius: Int) {
                 RequestOptions().transform(CenterCrop())
                         .transform(RoundedCorners(radius))
             )
+            .into(this)
+}
+
+fun RoundedImageView.loadUrl(url: Int) {
+    Glide.with(this)
+            .load(url)
             .into(this)
 }

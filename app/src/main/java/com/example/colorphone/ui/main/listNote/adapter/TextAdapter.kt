@@ -1,5 +1,6 @@
 package com.example.colorphone.ui.main.listNote.adapter
 
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +19,12 @@ import com.example.colorphone.model.NoteModel
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.TypeView
 import com.example.colorphone.util.ext.convertLongToDateYYMMDD
+import com.example.colorphone.util.ext.loadUrl
 import com.wecan.inote.util.changeBackgroundColor
 import com.wecan.inote.util.gone
 import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.mapIdColorWidget
+import com.wecan.inote.util.px
 import com.wecan.inote.util.setBgItemNote
 import com.wecan.inote.util.show
 
@@ -50,7 +53,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
         isLockNote = isLock
     }
 
-     fun getListSelected(): ArrayList<NoteModel> = ArrayList(currentList.filter { it.isSelected })
+    fun getListSelected(): ArrayList<NoteModel> = ArrayList(currentList.filter { it.isSelected })
 
     fun updateListAfterArchive() {
         listLocal.apply {
@@ -154,7 +157,11 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                 item.typeColor?.let {
                     mapIdColor(it) { _, _, idColor, idColorBody, _ ->
                         startView.changeBackgroundColor(idColor)
-                        llBody.changeBackgroundColor(idColorBody)
+                        if (item.background == null) {
+                            llBody.changeBackgroundColor(idColorBody)
+                        } else {
+                            llBody.setBackgroundResource(item.background!!)
+                        }
                         ivPinned.compoundDrawableTintList =
                             ContextCompat.getColorStateList(root.context, idColor)
                     }
@@ -173,7 +180,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                     isVisible = item.title.isNullOrEmpty()
                     text =
                         if (typeItem == TypeItem.TEXT.name) item.content else item.listCheckList?.firstOrNull()?.body
-                            ?: ""
+                                ?: ""
                 }
                 tvDate.text = convertLongToDateYYMMDD(item.dateCreateNote ?: 0)
                 viewBgSelected.isVisible = item.isSelected
@@ -182,7 +189,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                         viewBgSelected.isVisible = !viewBgSelected.isVisible
                         item.isSelected = viewBgSelected.isVisible
                         onSelectItem?.invoke(currentList.filter { it.isSelected }.size,
-                            currentList.firstOrNull { it.isSelected })
+                                             currentList.firstOrNull { it.isSelected })
                         onClickSelectedEvent?.invoke()
                     } else {
                         mOnClickItem?.invoke(item)
@@ -199,7 +206,13 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
             binding.apply {
                 item.typeColor.let {
                     mapIdColor(it, bgColor = { bg ->
-                        llBody.setBackgroundResource(bg)
+                        if (item.background == null) {
+                            ivBg.gone()
+                            llBody.setBackgroundResource(bg)
+                        } else {
+                            llBody.setBackgroundColor(Color.TRANSPARENT)
+                            ivBg.loadUrl(item.background!!)
+                        }
                     }) { _, _, idColor, _, _ ->
                         tvTittle.compoundDrawableTintList =
                             ContextCompat.getColorStateList(root.context, idColor)
@@ -247,7 +260,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                                     viewBgSelected.isVisible = !viewBgSelected.isVisible
                                     item.isSelected = viewBgSelected.isVisible
                                     onSelectItem?.invoke(currentList.filter { it.isSelected }.size,
-                                        currentList.firstOrNull { it.isSelected })
+                                                         currentList.firstOrNull { it.isSelected })
                                     onClickSelectedEvent?.invoke()
                                 } else {
                                     mOnClickItem?.invoke(item)
@@ -267,7 +280,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                         viewBgSelected.isVisible = !viewBgSelected.isVisible
                         item.isSelected = viewBgSelected.isVisible
                         onSelectItem?.invoke(currentList.filter { it.isSelected }.size,
-                            currentList.firstOrNull { it.isSelected })
+                                             currentList.firstOrNull { it.isSelected })
                         onClickSelectedEvent?.invoke()
                     } else {
                         mOnClickItem?.invoke(item)
@@ -284,7 +297,13 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
             binding.apply {
                 item.typeColor?.let {
                     mapIdColor(it, bgColor = { bg ->
-                        llBody.setBackgroundResource(bg)
+                        if (item.background == null) {
+                            llBody.setBackgroundResource(bg)
+                            ivBg.gone()
+                        } else {
+                            llBody.setBackgroundColor(Color.TRANSPARENT)
+                            ivBg.loadUrl(item.background!!)
+                        }
                     }) { _, _, idColor, _, _ ->
                         tvTittle.compoundDrawableTintList =
                             ContextCompat.getColorStateList(root.context, idColor)
@@ -332,7 +351,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                                     viewBgSelected.isVisible = !viewBgSelected.isVisible
                                     item.isSelected = viewBgSelected.isVisible
                                     onSelectItem?.invoke(currentList.filter { it.isSelected }.size,
-                                        currentList.firstOrNull { it.isSelected })
+                                                         currentList.firstOrNull { it.isSelected })
                                     onClickSelectedEvent?.invoke()
                                 } else {
                                     mOnClickItem?.invoke(item)
@@ -352,7 +371,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                         viewBgSelected.isVisible = !viewBgSelected.isVisible
                         item.isSelected = viewBgSelected.isVisible
                         onSelectItem?.invoke(currentList.filter { it.isSelected }.size,
-                            currentList.firstOrNull { it.isSelected })
+                                             currentList.firstOrNull { it.isSelected })
                         onClickSelectedEvent?.invoke()
                     } else {
                         mOnClickItem?.invoke(item)
@@ -375,6 +394,6 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
             oldItem.ids == newItem.ids
 
         override fun areContentsTheSame(oldItem: NoteModel, newItem: NoteModel) =
-            oldItem.title == newItem.title && oldItem.dateCreateNote == newItem.dateCreateNote && oldItem.typeColor == newItem.typeColor && oldItem.content == newItem.content && oldItem.isArchive == newItem.isArchive && oldItem.isPinned == newItem.isPinned && oldItem.isDelete == newItem.isDelete && oldItem.isSelected == newItem.isSelected && oldItem.datePinned == newItem.datePinned && oldItem.modifiedTime == newItem.modifiedTime
+            oldItem.title == newItem.title && oldItem.background == newItem.background && oldItem.dateCreateNote == newItem.dateCreateNote && oldItem.typeColor == newItem.typeColor && oldItem.content == newItem.content && oldItem.isArchive == newItem.isArchive && oldItem.isPinned == newItem.isPinned && oldItem.isDelete == newItem.isDelete && oldItem.isSelected == newItem.isSelected && oldItem.datePinned == newItem.datePinned && oldItem.modifiedTime == newItem.modifiedTime
     }
 }

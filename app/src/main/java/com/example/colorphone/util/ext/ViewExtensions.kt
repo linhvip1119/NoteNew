@@ -19,7 +19,6 @@ import android.text.SpannableString
 import android.text.format.Formatter
 import android.text.style.ForegroundColorSpan
 import android.util.DisplayMetrics
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.KeyEvent
@@ -433,7 +432,7 @@ fun ItemOptionViewBinding.bindViewMenuSort(sortType: String) {
     tvItemFour.apply {
         show()
         setDrawableLeft(R.drawable.ic_color_sort)
-        text = root.context.getString(R.string.color)
+        text = root.context.getString(R.string.label)
         isSelected = sortType == SortType.COLOR.name
         setOpacitySelect()
     }
@@ -729,6 +728,16 @@ fun MenuItem.setColorSelect(context: Context) {
 
 fun Window.setSoftInputResize() {
     setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+}
+
+fun Context.getDisplayWidth(): Int? {
+    val displayMetrics = resources?.displayMetrics
+    return displayMetrics?.widthPixels
+}
+
+fun Context.getDisplayHeight(): Int {
+    val displayMetrics = resources.displayMetrics
+    return displayMetrics.heightPixels
 }
 
 val Float.px: Float get() = (this * Resources.getSystem().displayMetrics.density)

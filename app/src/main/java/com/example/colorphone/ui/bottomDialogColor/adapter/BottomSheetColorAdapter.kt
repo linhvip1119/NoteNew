@@ -16,6 +16,7 @@ import com.example.colorphone.model.ColorItem
 import com.example.colorphone.util.Const.currentType
 import com.example.colorphone.util.TypeClick
 import com.example.colorphone.util.TypeColorNote
+import com.wecan.inote.util.getDisplayWidth
 import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.setWidth
 
@@ -24,7 +25,6 @@ class BottomSheetColorAdapter() :
     var listColor: ArrayList<ColorItem> = arrayListOf()
     var mIsCanSelected: Boolean? = null
     var mElevation: Float = 0F
-    var mWidthDevice: Int? = null
     var isEdited = false
     var isCurrentSelect: String? = currentType
     var onClick: ((model: ColorItem?, typeClick: TypeClick) -> Unit)? = null
@@ -92,7 +92,7 @@ class BottomSheetColorAdapter() :
                 }
 
                 llItemType.apply {
-                    mWidthDevice?.div(1.2)?.toInt()?.let { setWidth(it) }
+                    root.context.getDisplayWidth()?.div(1.2)?.toInt()?.let { setWidth(it) }
                     isSelected =
                         if (mIsCanSelected == true) false else isCurrentSelect == item.color
                 }

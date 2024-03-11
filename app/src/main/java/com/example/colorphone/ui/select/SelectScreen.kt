@@ -271,7 +271,8 @@ class SelectScreen() :
                         item.repeatValue,
                         item.isAlarm,
                         item.isLock,
-                        item.isSelected
+                        item.background,
+                        item.isSelected,
                     )
                 )
             }
@@ -295,6 +296,7 @@ class SelectScreen() :
                         item.repeatValue,
                         item.isAlarm,
                         item.isLock,
+                        item.background,
                         item.isSelected
                     )
                 )

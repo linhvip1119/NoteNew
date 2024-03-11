@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/flBg"
-    android:background="@drawable/bg_item_background"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/ivBg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp4"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_login_sync_now" />
+        android:src="@drawable/dark02"
+        app:riv_corner_radius="@dimen/dp8" />
 
 </FrameLayout>

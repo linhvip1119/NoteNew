@@ -6,6 +6,19 @@
     android:layout_height="wrap_content"
     android:background="@color/neutral0">
 
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ivBg"
+        android:layout_width="@dimen/dp0"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/llBody"
+        android:layout_alignTop="@+id/llBody"
+        android:layout_alignEnd="@+id/llBody"
+        android:layout_alignBottom="@+id/llBody"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:riv_corner_radius="@dimen/dp16"
+        tools:srcCompat="@drawable/dark02" />
+
     <RelativeLayout
         android:id="@+id/llBody"
         android:layout_width="match_parent"
@@ -14,8 +27,7 @@
         android:layout_margin="@dimen/dp6"
         android:foreground="?android:attr/selectableItemBackground"
         android:paddingHorizontal="12dp"
-        android:paddingVertical="@dimen/dp6"
-        tools:background="@color/orangeBody">
+        android:paddingVertical="@dimen/dp6">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTittle"
@@ -67,9 +79,9 @@
             android:id="@+id/ivReminderTime"
             android:layout_width="@dimen/dp14"
             android:layout_height="@dimen/dp14"
+            android:layout_alignTop="@+id/tvDate"
             android:layout_alignParentStart="true"
             android:layout_centerHorizontal="true"
-            android:layout_alignTop="@+id/tvDate"
             android:layout_centerVertical="true"
             android:padding="@dimen/dp2"
             android:scaleType="fitXY"
@@ -79,12 +91,12 @@
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/llCheckList"
             android:layout_alignParentEnd="true"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/dp2"
             android:fontFamily="@font/poppins_regular"
             android:gravity="end"
-            android:layout_below="@+id/llCheckList"
             android:textColor="@color/colorSubEvery"
             android:textSize="@dimen/sp9"
             tools:text="00:99:88" />
@@ -95,11 +107,11 @@
         android:id="@+id/viewBgSelected"
         android:layout_width="@dimen/dp0"
         android:layout_height="@dimen/dp0"
-        android:background="@drawable/bg_item_selected"
-        android:layout_alignTop="@+id/llBody"
-        android:layout_alignBottom="@+id/llBody"
         android:layout_alignStart="@+id/llBody"
+        android:layout_alignTop="@+id/llBody"
         android:layout_alignEnd="@+id/llBody"
+        android:layout_alignBottom="@+id/llBody"
+        android:background="@drawable/bg_item_selected"
         android:visibility="visible" />
 
     <androidx.appcompat.widget.AppCompatTextView

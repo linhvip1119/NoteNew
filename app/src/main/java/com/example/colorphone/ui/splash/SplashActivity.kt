@@ -6,10 +6,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.example.colorphone.databinding.SplashActivityBinding
 import com.example.colorphone.ui.MainActivity
-import kotlinx.coroutines.launch
 
 class SplashActivity : AppCompatActivity() {
 
@@ -28,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
 
     fun init() {
         binding?.progressBar?.max = 100
-        val i = 5000 / 100
+        val i = TIME_SHOW / 100
         val j = 100 / i
 
         val handler = Handler(Looper.getMainLooper())

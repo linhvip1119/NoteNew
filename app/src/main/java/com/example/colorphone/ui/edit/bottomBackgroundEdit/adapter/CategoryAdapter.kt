@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.colorphone.databinding.ItemCategoryBinding
 import com.example.colorphone.model.CategoryNote
+import com.wecan.inote.util.setPreventDoubleClick
 
 class CategoryAdapter(val onClick: (CategoryNote) -> Unit) :
     ListAdapter<CategoryNote, CategoryAdapter.CategoryNoteVH>(DiffCallback()) {
@@ -34,7 +35,12 @@ class CategoryAdapter(val onClick: (CategoryNote) -> Unit) :
         fun bind(item: CategoryNote) {
             binding.apply {
                 tvName.text = item.name
-                ivBgSelected.visibility = if (item.isSelected) View.INVISIBLE else View.VISIBLE
+                ivBgSelected.visibility = if (!item.isSelected) View.INVISIBLE else View.VISIBLE
+                root.setPreventDoubleClick {
+                    if (!item.isSelected){
+                        onClick(item)
+                    }
+                }
             }
         }
     }

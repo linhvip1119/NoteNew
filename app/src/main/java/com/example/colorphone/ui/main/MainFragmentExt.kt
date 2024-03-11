@@ -17,7 +17,6 @@ import com.example.colorphone.util.ext.showDialogOptionSoft
 import com.example.colorphone.util.ext.showDialogOptionView
 import com.wecan.inote.util.px
 import com.wecan.inote.util.setPreventDoubleClick
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 fun MainFragment.navToSelectScreen() {
@@ -36,7 +35,6 @@ fun MainFragment.openDialogView() {
     }
 }
 
-@OptIn(ExperimentalCoroutinesApi::class)
 fun MainFragment.handleDialogSoft() {
     context?.showDialogOptionSoft(prefUtil.sortType.toString()) {
         when (it) {

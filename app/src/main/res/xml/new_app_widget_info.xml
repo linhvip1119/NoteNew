@@ -3,12 +3,12 @@
     android:description="@string/app_widget_description"
     android:initialKeyguardLayout="@layout/item_note_widget"
     android:initialLayout="@layout/item_note_widget"
-    android:minWidth="120dp"
-    android:minHeight="@dimen/dp60"
+    android:minWidth="@dimen/dp90"
+    android:minHeight="@dimen/dp120"
     android:minResizeWidth="@dimen/dp60"
     android:minResizeHeight="@dimen/dp30"
     android:previewImage="@drawable/image_text"
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="2"
     android:targetCellHeight="2"
-    android:widgetCategory="keyguard|home_screen" />
+    android:widgetCategory="home_screen" />

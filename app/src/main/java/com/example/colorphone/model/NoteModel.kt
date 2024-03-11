@@ -28,6 +28,7 @@ data class NoteModel(
     var repeatValue: Int? = null,
     var isAlarm: Boolean? = false,
     var isLock: String? = "0",
+    var background: Int? = null,
     @Transient var isSelected: Boolean = false,
 ) : Parcelable {
     fun uniqueWorkName() = "Reminder_$ids"

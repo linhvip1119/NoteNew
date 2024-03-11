@@ -28,4 +28,5 @@ class NoteInfoEntity(
     @ColumnInfo(name = "repeat") var valueRepeat: Int? = null,
     @ColumnInfo(name = "isAlarm") var isAlarm: Boolean? = false,
     @ColumnInfo(name = "lock") var isLock: String? = "0",
+    @ColumnInfo(name = "background") var background: Int? = null,
 )

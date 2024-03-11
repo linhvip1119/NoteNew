@@ -113,7 +113,9 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
     }
 
     open fun setUpGoogle() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestScopes(Scope(Scopes.DRIVE_FILE)).requestEmail().build()
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestScopes(Scope(Scopes.DRIVE_FILE)).requestEmail().build()
 
         googleSignInClient = activity?.let { GoogleSignIn.getClient(it, gso) }
     }
@@ -288,6 +290,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                     model.isDelete = item.isDelete
                                                     model.datePinned = item.datePinned
                                                     model.isLock = item.isLock
+                                                    model.background = item.background
                                                     countUpdate++
 
                                                     viewModelTextNote.updateNote(model) {
@@ -308,6 +311,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                     model.isDelete = item.isDelete
                                                     model.datePinned = item.datePinned
                                                     model.isLock = item.isLock
+                                                    model.background = item.background
                                                     countUpdate++
                                                     viewModelTextNote.updateNote(model) {
                                                         countThread++

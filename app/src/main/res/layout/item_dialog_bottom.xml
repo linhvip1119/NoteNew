@@ -1,54 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet_radius_top"
+    android:paddingHorizontal="@dimen/dp30"
+    android:paddingVertical="@dimen/dp16">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/label"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:paddingStart="@dimen/dp8"
+        android:text="@string/editLabel"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp20"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFilter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvFilter" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvItemType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_bottom_sheet_radius_top"
-        android:paddingHorizontal="@dimen/dp30"
-        android:paddingVertical="@dimen/dp16">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:text="@string/label"
-            android:textColor="@color/neutral500"
-            android:textSize="@dimen/sp20"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:paddingStart="@dimen/dp8"
-            android:text="@string/editLabel"
-            android:textColor="@color/neutral500"
-            android:textSize="@dimen/sp20"
-            app:layout_constraintBottom_toBottomOf="@+id/tvFilter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvFilter" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvItemType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp8"
-            android:overScrollMode="ifContentScrolls"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="254dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvFilter"
-            app:layout_constraintWidth_min="200dp"
-            tools:itemCount="4"
-            tools:listitem="@layout/item_type_note" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.appcompat.widget.LinearLayoutCompat>
+        android:layout_marginTop="@dimen/dp8"
+        android:overScrollMode="ifContentScrolls"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="254dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFilter"
+        app:layout_constraintWidth_min="200dp"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_type_note" />
+</androidx.constraintlayout.widget.ConstraintLayout>

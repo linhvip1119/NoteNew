@@ -79,7 +79,7 @@
         android:id="@+id/widgetFragment"
         android:name="com.example.colorphone.ui.settings.widget.WidgetFragment"
         android:label="widget fragment"
-        tools:layout="@layout/fragment_widget" >
+        tools:layout="@layout/fragment_widget">
         <action
             android:id="@+id/action_widgetFragment_to_ltNoteAddWidget"
             app:destination="@id/ltNoteAddWidget" />

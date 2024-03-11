@@ -62,4 +62,9 @@ object Const {
 
     //email
     const val EMAIL_FEEDBACK = "contact@keego.dev"
+
+    const val COLOR = 0
+    const val PAPER = 1
+    const val CUTE = 2
+    const val DARK = 3
 }

@@ -80,7 +80,8 @@ fun EditNoteScreen.getDataNote(
     }
     return NoteModel(
         ids = idReCreateNoteWidget ?: model?.ids, token = token, isUpdate = update, content = content, title = title, typeItem = typeNote, listCheckList = ArrayList(items ?: arrayListOf()), dateCreateNote = dateNote, isPinned = isPinned, datePinned = getDatePinned(isPinned),
-        typeColor = currentColor, modifiedTime = modifiedTime, isArchive = model?.isArchive, isDelete = model?.isDelete, dateReminder = model?.dateReminder, typeRepeat = model?.typeRepeat, repeatValue = model?.repeatValue, isAlarm = model?.isAlarm, isLock = model?.isLock
+        typeColor = currentColor, modifiedTime = modifiedTime, isArchive = model?.isArchive, isDelete = model?.isDelete, dateReminder = model?.dateReminder, typeRepeat = model?.typeRepeat, repeatValue = model?.repeatValue, isAlarm = model?.isAlarm, isLock = model?.isLock,
+        background = model?.background
     )
 }
 
@@ -90,7 +91,7 @@ fun EditNoteScreen.handleUpdateNote(typeDefault: String, isLocking: Boolean = fa
     val content = binding.etContent.text.toString()
     val isPinned = model?.isPinned ?: false
     if (typeDefault == TypeItem.TEXT.name) {
-        if (!isSame(title, content, isPinned, typeDefault, currentColor) || isLocking) {
+        if (!isSame(title, content, isPinned, typeDefault, currentColor, model.background) || isLocking) {
             viewModelTextNote.updateNote(
                 getDataNote(
                     "0",
@@ -103,7 +104,7 @@ fun EditNoteScreen.handleUpdateNote(typeDefault: String, isLocking: Boolean = fa
         }
 
     } else {
-        if (!isSameCheckList(title, isPinned, typeDefault, currentColor) || isLocking) {
+        if (!isSameCheckList(title, isPinned, typeDefault, currentColor, model?.background) || isLocking) {
             for (item in listCheckList) {
                 val model = model.listCheckList?.find { it.token == item.token }
                 if (model?.body != item.body || model.checked != item.checked) {
@@ -123,18 +124,18 @@ fun EditNoteScreen.handleUpdateNote(typeDefault: String, isLocking: Boolean = fa
 }
 
 fun EditNoteScreen.isSame(
-    title: String, content: String, isPinned: Boolean, typeNote: String, typeColor: String
+    title: String, content: String, isPinned: Boolean, typeNote: String, typeColor: String, background: Int?
 ): Boolean {
     Log.d("TAVBNNN", title)
     modelOld?.let {
         Log.d("TAVBNNN", it.title.toString())
-        return !(it.title != title || it.content != content || it.isPinned != isPinned || it.typeColor != typeColor || it.typeItem != typeNote)
+        return !(it.title != title || it.content != content || it.isPinned != isPinned || it.typeColor != typeColor || it.typeItem != typeNote || it.background != background)
     }
     return false
 }
 
 fun EditNoteScreen.isSameCheckList(
-    title: String, isPinned: Boolean, typeNote: String, typeColor: String
+    title: String, isPinned: Boolean, typeNote: String, typeColor: String, background: Int?
 ): Boolean {
     if (listCheckList.size != modelOld?.listCheckList?.size) return false
     for (item in listCheckList) {
@@ -144,7 +145,7 @@ fun EditNoteScreen.isSameCheckList(
         }
     }
     modelOld?.let {
-        return !(it.title != title || it.isPinned != isPinned || it.typeColor != typeColor || it.typeItem != typeNote)
+        return !(it.title != title || it.isPinned != isPinned || it.typeColor != typeColor || it.typeItem != typeNote || it.background != background)
     }
     return false
 }

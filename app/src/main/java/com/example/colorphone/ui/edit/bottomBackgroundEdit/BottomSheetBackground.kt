@@ -8,35 +8,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.colorphone.databinding.BottomSheetBackgroundEditBinding
-import com.example.colorphone.model.NoteType
+import com.example.colorphone.model.Background
 import com.example.colorphone.ui.bottomDialogColor.viewmodel.BottomSheetViewModel
-import com.example.colorphone.ui.edit.bottomBackgroundEdit.adapter.BackgroundAdapter
-import com.example.colorphone.ui.edit.bottomBackgroundEdit.adapter.CategoryAdapter
+import com.example.colorphone.ui.edit.bottomBackgroundEdit.adapter.FragmentPagerAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.tabs.TabLayoutMediator
+import com.wecan.inote.util.getDisplayWidth
+import com.wecan.inote.util.px
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @OptIn(ExperimentalCoroutinesApi::class)
+@AndroidEntryPoint
 class BottomSheetBackground(
-    private var colorClick: (String) -> Unit
+    private var bgClick: (Background) -> Unit
 ) :
     BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetBackgroundEditBinding? = null
 
-    private lateinit var adapterCategory: CategoryAdapter
-
-    private lateinit var adapterBackground: BackgroundAdapter
-
     private val bottomViewModel: BottomSheetViewModel by viewModels()
-
-    private var colorItem: NoteType? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,13 +40,28 @@ class BottomSheetBackground(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         handleRadiusTop(view)
-        initRecyclerCategory()
-        observer()
-        getData()
+        initView()
     }
 
-    private fun getData() {
-        bottomViewModel.getColorType()
+    private fun initView() {
+        _binding?.llBottom?.layoutParams?.apply {
+            context?.getDisplayWidth()?.div(2)?.let { height = it + 60.px }
+        }
+
+        val adapter = FragmentPagerAdapter(this) {
+            bgClick(it)
+        }
+        _binding?.viewPager?.adapter = adapter
+
+        context?.let {
+            bottomViewModel.getCategoryBg(it) {
+                _binding?.apply {
+                    TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                        tab.text = it.getOrNull(position)?.name
+                    }.attach()
+                }
+            }
+        }
     }
 
     private fun handleRadiusTop(view: View) {
@@ -64,34 +71,16 @@ class BottomSheetBackground(
         bottomSheet.setBackgroundColor(Color.TRANSPARENT)
     }
 
-    private fun initRecyclerCategory() {
-        adapterCategory = CategoryAdapter {
-
-        }
-        _binding?.rvCategory?.apply {
-            layoutManager = GridLayoutManager(context, 4)
-            adapter = adapterCategory
-        }
-    }
-
-    private fun initView() {
-
-    }
-
-    private fun observer() {
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
         fun newInstance(
-            colorClick: (String) -> Unit
+            colorClick: (Background) -> Unit
         ): BottomSheetBackground {
             return BottomSheetBackground(colorClick)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

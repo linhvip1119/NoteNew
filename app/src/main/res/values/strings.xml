@@ -253,4 +253,7 @@
     <string name="toolBar">Tools Widget</string>
     <string name="widgetAddSuccess">Add widget success!</string>
     <string name="yourChanges">Your changes have not been saved. Do you still want to continue?</string>
+    <string name="paper">Paper</string>
+    <string name="cute">Cute</string>
+    <string name="dark">Dark</string>
 </resources>

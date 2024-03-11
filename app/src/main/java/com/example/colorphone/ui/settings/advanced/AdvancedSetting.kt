@@ -127,7 +127,7 @@ class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSetti
             activity?.startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://sites.google.com/view/tool-mobile-app/Policy/notes-sticky-note")
+                    Uri.parse("https://keego.dev/policy/")
                 )
             )
         } catch (_: Exception) {

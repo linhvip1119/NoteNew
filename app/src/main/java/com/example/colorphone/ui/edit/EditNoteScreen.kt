@@ -1,5 +1,6 @@
 package com.example.colorphone.ui.edit
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,9 +14,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentEditNoteBinding
+import com.example.colorphone.model.Background
 import com.example.colorphone.model.CheckList
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.ui.edit.adapter.MakeListAdapter
+import com.example.colorphone.ui.edit.bottomBackgroundEdit.BottomSheetBackground
 import com.example.colorphone.ui.edit.utils.ListItemListener
 import com.example.colorphone.ui.edit.utils.TextViewUndoRedo
 import com.example.colorphone.util.Const
@@ -27,6 +30,7 @@ import com.example.colorphone.util.ext.hideKeyboard
 import com.wecan.inote.util.changeBackgroundColor
 import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.setOnNextAction
+import com.wecan.inote.util.setPreventDoubleClick
 import com.wecan.inote.util.setPreventDoubleClickScaleView
 import com.wecan.inote.util.showCustomToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -135,9 +139,14 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                     ) { icon, _, _, idColorBody, idBgTopBar ->
                         binding.apply {
                             ivTypeBox.setImageResource(icon)
-                            llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
-                            llAppBar.setBackgroundResource(idColorBody)
-                            clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
+                            if (model?.background != null) {
+                                llItem.setBackgroundResource(model.background!!)
+                                appBar.setBackgroundColor(Color.TRANSPARENT)
+                                clTopBarMenu.setBackgroundColor(Color.TRANSPARENT)
+                            } else {
+                                llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
+                                clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
+                            }
                         }
                     }
                 }
@@ -170,6 +179,17 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                 handleEnableIconDo()
             }
 
+            ivBackground.setPreventDoubleClick {
+                showBottomSheetBg() {
+                    model?.background = it.url
+                    binding.apply {
+                        llItem.setBackgroundResource(it.url)
+                        appBar.setBackgroundColor(Color.TRANSPARENT)
+                        clTopBarMenu.setBackgroundColor(Color.TRANSPARENT)
+                    }
+                }
+            }
+
             activity?.onBackPressedDispatcher?.addCallback(this@EditNoteScreen, true) {
                 jobAddWidget?.cancel()
                 navController?.popBackStack()
@@ -200,6 +220,15 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             handeReadMode()
         }
 
+    }
+
+    private fun showBottomSheetBg(colorClick: (Background) -> Unit) {
+        val addPhotoBottomDialogFragment: BottomSheetBackground = BottomSheetBackground.newInstance(colorClick)
+        activity?.supportFragmentManager?.let {
+            addPhotoBottomDialogFragment.show(
+                it, "TAG"
+            )
+        }
     }
 
     fun handleSaveNote(onComplete: () -> Unit) {
@@ -238,9 +267,14 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             currentColor = item.typeColor
             mapIdColor(currentColor, true) { idIcon, _, _, idColorBody, idBgTopBar ->
                 ivTypeBox.setImageResource(idIcon)
-                llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
-                llAppBar.setBackgroundResource(idColorBody)
-                clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
+                if (item.background != null) {
+                    llItem.setBackgroundResource(item.background!!)
+                    appBar.setBackgroundColor(Color.TRANSPARENT)
+                    clTopBarMenu.setBackgroundColor(Color.TRANSPARENT)
+                } else {
+                    llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
+                    clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
+                }
             }
             if (item?.title.isNullOrEmpty()) {
                 etTittle.hint = getString(R.string.headingLabel)

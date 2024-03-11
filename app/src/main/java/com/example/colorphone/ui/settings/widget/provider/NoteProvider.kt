@@ -12,10 +12,15 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions.bitmapTransform
+import com.bumptech.glide.request.target.AppWidgetTarget
 import com.example.colorphone.R
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.repository.NoteRepository
+import com.example.colorphone.ui.MainActivity
 import com.example.colorphone.ui.settings.widget.remoteService.WidgetService
+import com.example.colorphone.ui.settings.widget.utils.RoundedCornersTransformation
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.ACTION_UPDATE_WIDGET_EDIT
 import com.example.colorphone.util.Const.DELETE_NOTE_WIDGET
@@ -26,6 +31,7 @@ import com.example.colorphone.util.RequestPinWidget
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.ext.convertLongToDateYYMMDD
 import com.wecan.inote.util.mapIdColorWidget
+import com.wecan.inote.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -47,11 +53,6 @@ class NoteProvider : AppWidgetProvider() {
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         val listIds = appWidgetManager.getAppWidgetIds(ComponentName(context, this::class.java))
         prefUtil.newIdNoteWidget = listIds.lastOrNull() ?: -1
-
-//        val widgetManager = AppWidgetManager.getInstance(context.applicationContext)
-//        widgetManager.notifyAppWidgetViewDataChanged(
-//            widgetManager.getAppWidgetIds(ComponentName(context.applicationContext.packageName, NoteProvider::class.java.name)), R.id.llCheckListWidget
-//        )
     }
 
     override fun onEnabled(context: Context?) {
@@ -76,7 +77,7 @@ class NoteProvider : AppWidgetProvider() {
         val views = RemoteViews(context.packageName, R.layout.item_note_widget)
         getDataCustomizeWithId(idNote) { noteModel ->
 
-            views.initRemoteView(noteModel)
+            views.initRemoteView(context, noteModel)
 
             val serviceIntent = Intent(context, WidgetService::class.java)
             serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, prefUtil.newIdNoteWidget)
@@ -116,21 +117,48 @@ class NoteProvider : AppWidgetProvider() {
         }
     }
 
-    private fun RemoteViews.initRemoteView(noteModel: NoteModel) {
+    private fun RemoteViews.initRemoteView(context: Context, noteModel: NoteModel) {
+
         this.setTextViewText(R.id.tvTittleWidget, noteModel.title)
+
         this.setTextViewText(R.id.tvTittleWidget31, noteModel.title)
+
         this.setViewVisibility(
             R.id.tvTittleWidget, if (Build.VERSION.SDK_INT < 31) View.VISIBLE else View.GONE
         )
+
         this.setViewVisibility(
             R.id.tvTittleWidget31, if (Build.VERSION.SDK_INT >= 31) View.VISIBLE else View.GONE
         )
+
         this.setTextViewText(
             R.id.tvDateWidget, convertLongToDateYYMMDD(noteModel.modifiedTime ?: 0)
         )
+
         mapIdColorWidget(noteModel.typeColor) { idColorBody, idIcon ->
             this.setInt(R.id.ivColorWidget, "setBackgroundResource", idIcon)
-            this.setInt(R.id.llBodyWidget, "setBackgroundResource", idColorBody)
+
+            if (noteModel.background != null) {
+                val appWidgetTarget =
+                    AppWidgetTarget(context, R.id.ivBgWidget, this, prefUtil.getIdWidgetNote(noteModel.ids!!))
+
+                Glide.with(context)
+                        .asBitmap()
+                        .load(noteModel.background)
+                        .override(120.px, 160.px)
+                        .apply(
+                            bitmapTransform(
+                                RoundedCornersTransformation(
+                                    16.px, 4,
+                                    RoundedCornersTransformation.CornerType.ALL
+                                )
+                            )
+                        )
+                        .into(appWidgetTarget)
+            } else {
+                this.setViewVisibility(R.id.ivBgWidget, View.GONE)
+                this.setInt(R.id.llBodyWidget, "setBackgroundResource", idColorBody)
+            }
         }
 
         if (noteModel.typeItem == TypeItem.TEXT.name) {
@@ -169,7 +197,16 @@ class NoteProvider : AppWidgetProvider() {
                 )
             ).createPendingIntent()
         }
-        return myPendingIntent
+//        val intentWd = Intent(context, MainActivity::class.java)
+//        intentWd.putExtra("123465476456",noteModel.ids)
+//        val pendingIntent = PendingIntent.getActivity(context, 0, intentWd, PendingIntent.FLAG_IMMUTABLE)
+
+        val configIntent = Intent(context, MainActivity::class.java)
+        configIntent.putExtra("123465476456", noteModel.ids)
+        configIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, PendingIntent.FLAG_IMMUTABLE)
+
+        return configPendingIntent
     }
 
     private fun setMyActionUpdate(context: Context?, noteModel: NoteModel): PendingIntent? {

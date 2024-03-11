@@ -28,7 +28,8 @@ class NoteCacheMapper @Inject constructor() : EntityMapper<NoteInfoEntity, NoteM
                 typeRepeat,
                 valueRepeat,
                 isAlarm,
-                isLock
+                isLock,
+                background
             )
         }
     }
@@ -49,7 +50,7 @@ class NoteCacheMapper @Inject constructor() : EntityMapper<NoteInfoEntity, NoteM
                 typeColor,
                 isArchive,
                 modifiedTime,
-                isDelete, dateReminder, typeRepeat, repeatValue, isAlarm, isLock
+                isDelete, dateReminder, typeRepeat, repeatValue, isAlarm, isLock, background
             )
         }
     }

@@ -267,4 +267,22 @@
         <item name="appWidgetPadding">16dp</item>
     </style>
 
+
+    <style name="TextSelected" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/neutral500</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="fontFamily">@font/poppins_semi_bold</item>
+    </style>
+
+    <style name="TextUnSelected" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/neutral500</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="fontFamily">@font/poppins_semi_bold</item>
+    </style>
+
 </resources>

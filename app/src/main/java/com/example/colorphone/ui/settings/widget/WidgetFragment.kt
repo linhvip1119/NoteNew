@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ import com.example.colorphone.util.Const
 import com.example.colorphone.util.RequestPinWidget
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.ext.convertLongToDateYYMMDD
+import com.example.colorphone.util.ext.loadUrl
 import com.wecan.inote.util.changeBackgroundColor
 import com.wecan.inote.util.gone
 import com.wecan.inote.util.mapIdColor
@@ -55,7 +57,12 @@ class WidgetFragment : BaseFragment<FragmentWidgetBinding>(FragmentWidgetBinding
             item?.typeColor?.let {
                 rootLayout.changeBackgroundColor(R.color.neutral100)
                 mapIdColor(it) { _, _, idColor, idColorBody, _ ->
-                    llBody.changeBackgroundColor(idColorBody)
+                    if (item.background != null) {
+                        llBody.setBackgroundColor(Color.TRANSPARENT)
+                        ivBg.loadUrl(item.background!!)
+                    } else {
+                        llBody.changeBackgroundColor(idColorBody)
+                    }
                     tvTittle.compoundDrawableTintList =
                         ContextCompat.getColorStateList(root.context, idColor)
                 }

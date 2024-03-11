@@ -18,8 +18,8 @@ android {
         applicationId = "dev.note.notebook.notepad.wisenotes"
         minSdk = 24
         targetSdk = 33
-        versionCode = 3
-        versionName = "1.0.2"
+        versionCode = 4
+        versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -157,4 +157,6 @@ dependencies {
     implementation("com.google.api-client:google-api-client-android:1.26.0")
     implementation("com.google.apis:google-api-services-drive:v3-rev136-1.25.0")
     implementation("com.google.http-client:google-http-client-gson:1.41.0")
+
+    implementation("com.makeramen:roundedimageview:2.3.0")
 }

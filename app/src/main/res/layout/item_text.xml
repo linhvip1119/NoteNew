@@ -7,14 +7,25 @@
     android:layout_height="208dp"
     android:background="@color/neutral0">
 
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ivBg"
+        android:layout_width="@dimen/dp0"
+        android:layout_height="@dimen/dp0"
+        android:layout_alignStart="@+id/llBody"
+        android:layout_alignTop="@+id/llBody"
+        android:layout_alignEnd="@+id/llBody"
+        android:layout_alignBottom="@+id/llBody"
+        android:scaleType="fitXY"
+        app:riv_corner_radius="@dimen/dp16"
+        tools:srcCompat="@drawable/dark02" />
+
     <RelativeLayout
         android:id="@+id/llBody"
         android:layout_width="match_parent"
         android:layout_height="188dp"
         android:layout_margin="@dimen/dp6"
         android:paddingHorizontal="12dp"
-        android:paddingVertical="@dimen/dp10"
-        tools:background="@color/orangeBody">
+        android:paddingVertical="@dimen/dp10">
 
         <TextView
             android:id="@+id/tvTittle"
@@ -98,13 +109,13 @@
         android:id="@+id/viewBgSelected"
         android:layout_width="@dimen/dp0"
         android:layout_height="@dimen/dp0"
-        android:background="@drawable/bg_item_selected"
-        android:layout_alignTop="@+id/llBody"
-        android:layout_alignBottom="@+id/llBody"
         android:layout_alignStart="@+id/llBody"
+        android:layout_alignTop="@+id/llBody"
         android:layout_alignEnd="@+id/llBody"
+        android:layout_alignBottom="@+id/llBody"
+        android:background="@drawable/bg_item_selected"
         android:visibility="gone"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/ivColorWidget"

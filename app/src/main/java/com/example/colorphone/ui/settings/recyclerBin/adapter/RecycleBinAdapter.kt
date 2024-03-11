@@ -1,5 +1,6 @@
 package com.example.colorphone.ui.settings.recyclerBin.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -16,6 +17,7 @@ import com.example.colorphone.model.NoteModel
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.TypeView
 import com.example.colorphone.util.ext.convertLongToDateYYMMDD
+import com.example.colorphone.util.ext.loadUrl
 import com.wecan.inote.util.changeBackgroundColor
 import com.wecan.inote.util.gone
 import com.wecan.inote.util.mapIdColor
@@ -23,8 +25,7 @@ import com.wecan.inote.util.mapIdColorWidget
 import com.wecan.inote.util.setBgItemNote
 import com.wecan.inote.util.show
 
-class RecycleBinAdapter(val isStatusSelected: Boolean? = false) :
-    ListAdapter<NoteModel, RecyclerView.ViewHolder>(DiffCallback()) {
+class RecycleBinAdapter(val isStatusSelected: Boolean? = false) : ListAdapter<NoteModel, RecyclerView.ViewHolder>(DiffCallback()) {
 
     var isDarkTheme = false
 
@@ -41,8 +42,7 @@ class RecycleBinAdapter(val isStatusSelected: Boolean? = false) :
     private var listLocal = mutableListOf<NoteModel>()
 
     fun getListSelected(): ArrayList<NoteModel> = ArrayList(currentList.filter { it.isSelected })
-    fun getListNotSelected(): ArrayList<NoteModel> =
-        ArrayList(currentList.filter { !it.isSelected })
+    fun getListNotSelected(): ArrayList<NoteModel> = ArrayList(currentList.filter { !it.isSelected })
 
     fun updateListAfterUnArchive() {
         listLocal.apply {
@@ -120,16 +120,17 @@ class RecycleBinAdapter(val isStatusSelected: Boolean? = false) :
         notifyDataSetChanged()
     }
 
-    inner class TextListViewHolder(private val binding: ItemTextListBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class TextListViewHolder(private val binding: ItemTextListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NoteModel) {
             binding.apply {
                 item.typeColor?.let {
-                    mapIdColor(it, bgColor = { bg ->
-                        llBody.setBackgroundResource(bg)
-                    }) { _, _, idColor, idColorBody, _ ->
+                    mapIdColor(it) { _, _, idColor, idColorBody, _ ->
                         startView.changeBackgroundColor(idColor)
-                        llBody.changeBackgroundColor(idColorBody)
+                        if (item.background != null) {
+                            llBody.setBackgroundResource(item.background!!)
+                        } else {
+                            llBody.changeBackgroundColor(idColorBody)
+                        }
                     }
                     viewBgSelected.setBgItemNote(isDarkTheme, it)
                 }
@@ -141,9 +142,7 @@ class RecycleBinAdapter(val isStatusSelected: Boolean? = false) :
                 }
                 tvContent.apply {
                     isVisible = item.title.isNullOrEmpty()
-                    text =
-                        if (typeItem == TypeItem.TEXT.name) item.content else item.listCheckList?.firstOrNull()?.body
-                            ?: ""
+                    text = if (typeItem == TypeItem.TEXT.name) item.content else item.listCheckList?.firstOrNull()?.body ?: ""
                 }
                 tvDate.text = convertLongToDateYYMMDD(item.dateCreateNote ?: 0)
                 viewBgSelected.isVisible = item.isSelected
@@ -161,22 +160,22 @@ class RecycleBinAdapter(val isStatusSelected: Boolean? = false) :
         }
     }
 
-    inner class TextGridViewHolder(private val binding: ItemTextBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class TextGridViewHolder(private val binding: ItemTextBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NoteModel) {
             binding.apply {
                 item.typeColor?.let {
                     mapIdColor(it, bgColor = { bg ->
-                        llBody.setBackgroundResource(bg)
+                        if (item.background != null) {
+                            llBody.setBackgroundColor(Color.TRANSPARENT)
+                            ivBg.loadUrl(item.background!!)
+                        } else {
+                            llBody.setBackgroundResource(bg)
+                            ivBg.gone()
+                        }
                     }) { _, _, idColor, _, _ ->
-                        tvTittle.compoundDrawableTintList =
-                            ContextCompat.getColorStateList(root.context, idColor)
-                        ivPinned.compoundDrawableTintList =
-                            ContextCompat.getColorStateList(root.context, idColor)
+                        tvTittle.compoundDrawableTintList = ContextCompat.getColorStateList(root.context, idColor)
+                        ivPinned.compoundDrawableTintList = ContextCompat.getColorStateList(root.context, idColor)
 
-                    }
-                    mapIdColorWidget(item.typeColor) { _, idIcon ->
-                        ivColorWidget.setBackgroundResource(idIcon)
                     }
                     mapIdColorWidget(item.typeColor) { _, idIcon ->
                         ivColorWidget.setBackgroundResource(idIcon)
@@ -196,8 +195,7 @@ class RecycleBinAdapter(val isStatusSelected: Boolean? = false) :
                     llCheckList.show()
                     llCheckList.removeAllViews()
                     item.listCheckList?.take(5)?.forEach {
-                        val binding =
-                            ItemCheckListBinding.inflate(LayoutInflater.from(root.context))
+                        val binding = ItemCheckListBinding.inflate(LayoutInflater.from(root.context))
                         binding.apply {
                             ivCheckBox.setImageResource(if (it.checked) R.drawable.ic_checkbox_true_15dp else R.drawable.ic_checkbox_false_15dp)
                             editText.text = it.body
@@ -234,16 +232,20 @@ class RecycleBinAdapter(val isStatusSelected: Boolean? = false) :
         }
     }
 
-    inner class TextDetailsViewHolder(private val binding: ItemTextDetailsBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class TextDetailsViewHolder(private val binding: ItemTextDetailsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NoteModel) {
             binding.apply {
                 item.typeColor?.let {
                     mapIdColor(it, bgColor = { bg ->
-                        llBody.setBackgroundResource(bg)
+                        if (item.background != null) {
+                            llBody.setBackgroundColor(Color.TRANSPARENT)
+                            ivBg.loadUrl(item.background!!)
+                        } else {
+                            ivBg.gone()
+                            llBody.setBackgroundResource(bg)
+                        }
                     }) { _, _, idColor, idColorBody, _ ->
-                        tvTittle.compoundDrawableTintList =
-                            ContextCompat.getColorStateList(root.context, idColor)
+                        tvTittle.compoundDrawableTintList = ContextCompat.getColorStateList(root.context, idColor)
                     }
                     mapIdColorWidget(item.typeColor) { _, idIcon ->
                         ivColorWidget.setBackgroundResource(idIcon)
@@ -263,8 +265,7 @@ class RecycleBinAdapter(val isStatusSelected: Boolean? = false) :
                     llCheckList.show()
                     llCheckList.removeAllViews()
                     item.listCheckList?.take(6)?.forEach {
-                        val binding =
-                            ItemCheckListBinding.inflate(LayoutInflater.from(root.context))
+                        val binding = ItemCheckListBinding.inflate(LayoutInflater.from(root.context))
                         binding.apply {
                             ivCheckBox.setImageResource(if (it.checked) R.drawable.ic_checkbox_true_15dp else R.drawable.ic_checkbox_false_15dp)
                             editText.text = it.body
@@ -296,10 +297,9 @@ class RecycleBinAdapter(val isStatusSelected: Boolean? = false) :
     }
 
     private class DiffCallback : DiffUtil.ItemCallback<NoteModel>() {
-        override fun areItemsTheSame(oldItem: NoteModel, newItem: NoteModel) =
-            oldItem.ids == newItem.ids
+        override fun areItemsTheSame(oldItem: NoteModel, newItem: NoteModel) = oldItem.ids == newItem.ids
 
         override fun areContentsTheSame(oldItem: NoteModel, newItem: NoteModel) =
-            oldItem.title == newItem.title && oldItem.dateCreateNote == newItem.dateCreateNote && oldItem.typeColor == newItem.typeColor && oldItem.content == newItem.content && oldItem.isArchive == newItem.isArchive && oldItem.isPinned == newItem.isPinned && oldItem.isDelete == newItem.isDelete && oldItem.isSelected == newItem.isSelected && oldItem.datePinned == newItem.datePinned && oldItem.modifiedTime == newItem.modifiedTime
+            oldItem.title == newItem.title && oldItem.dateCreateNote == newItem.dateCreateNote && oldItem.typeColor == newItem.typeColor && oldItem.content == newItem.content && oldItem.isArchive == newItem.isArchive && oldItem.isPinned == newItem.isPinned && oldItem.isDelete == newItem.isDelete && oldItem.isSelected == newItem.isSelected && oldItem.datePinned == newItem.datePinned && oldItem.modifiedTime == newItem.modifiedTime && oldItem.background == newItem.background
     }
 }

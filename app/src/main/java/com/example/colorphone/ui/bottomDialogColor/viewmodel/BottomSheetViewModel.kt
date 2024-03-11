@@ -5,9 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.colorphone.R
+import com.example.colorphone.model.Background
+import com.example.colorphone.model.CategoryNote
 import com.example.colorphone.model.LanguageModel
 import com.example.colorphone.model.NoteType
 import com.example.colorphone.repository.NoteTypeRepository
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +28,6 @@ class BottomSheetViewModel @Inject constructor(private val noteRepository: NoteT
 
     val languageModelLiveData: MutableLiveData<List<LanguageModel>> = MutableLiveData()
 
-    val colorBackgroundLiveData: MutableLiveData<List<String>> = MutableLiveData()
 
     fun getColorType() {
         viewModelScope.launch {
@@ -71,8 +73,15 @@ class BottomSheetViewModel @Inject constructor(private val noteRepository: NoteT
         languageModelLiveData.postValue(list)
     }
 
-    fun getColorBg() {
-        val listColor = arrayListOf("C7E7FF", "E1FFE7", "FFE0E0", "ECDFFF","FFE1C6", "FFDBEC","F2F2F2", "F7FFE0",)
-        colorBackgroundLiveData
+    fun getCategoryBg(context: Context, call: (ArrayList<CategoryNote>) -> Unit) {
+        context.apply {
+            val list = arrayListOf(
+                CategoryNote(Const.COLOR, getString(R.string.color), isSelected = true),
+                CategoryNote(Const.PAPER, getString(R.string.paper)),
+                CategoryNote(Const.CUTE, getString(R.string.cute)),
+                CategoryNote(Const.DARK, getString(R.string.dark))
+            )
+            call(list)
+        }
     }
 }

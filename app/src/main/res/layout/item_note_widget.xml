@@ -3,17 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
+    android:foreground="?android:attr/selectableItemBackgroundBorderless"
     android:orientation="vertical"
     android:padding="@dimen/dp3">
+
+    <ImageView
+        android:id="@+id/ivBgWidget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:padding="@dimen/dp3"
+        app:srcCompat="@drawable/dark02" />
 
     <RelativeLayout
         android:id="@+id/llBodyWidget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp3"
-        android:paddingVertical="@dimen/dp4"
-        tools:background="@drawable/bg_note_blink">
+        android:paddingVertical="@dimen/dp4">
 
         <TextView
             android:id="@+id/tvTittleWidget"

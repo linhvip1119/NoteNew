@@ -5,9 +5,12 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.colorphone.R
+import com.example.colorphone.model.Background
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.repository.MailRepository
 import com.example.colorphone.repository.NoteRepository
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.DataState
 import com.example.colorphone.util.SortType
 import com.example.colorphone.util.ext.getCurrentTimeToLong
@@ -258,5 +261,53 @@ class TextNoteViewModel @Inject constructor(
         viewModelScope.launch {
             mailNoteRepository.sendmail(otp, mail)
         }
+    }
+
+    val backgroundLiveData: MutableLiveData<List<Background>> = MutableLiveData()
+
+    fun getBackgroundNote() {
+        val l = arrayListOf<Background>()
+        l.add(Background(Const.COLOR, R.drawable.color01, "color01"))
+        l.add(Background(Const.COLOR, R.drawable.color02, "color02"))
+        l.add(Background(Const.COLOR, R.drawable.color03, "color03"))
+        l.add(Background(Const.COLOR, R.drawable.color04, "color04"))
+        l.add(Background(Const.COLOR, R.drawable.color05, "color05"))
+        l.add(Background(Const.COLOR, R.drawable.color06, "color06"))
+        l.add(Background(Const.COLOR, R.drawable.color07, "color07"))
+        l.add(Background(Const.COLOR, R.drawable.color08, "color08"))
+        l.add(Background(Const.COLOR, R.drawable.color09, "color09"))
+        l.add(Background(Const.COLOR, R.drawable.color10, "color10"))
+        l.add(Background(Const.COLOR, R.drawable.color11, "color11"))
+        l.add(Background(Const.COLOR, R.drawable.color12, "color12"))
+
+        l.add(Background(Const.PAPER, R.drawable.page01, "paper01"))
+        l.add(Background(Const.PAPER, R.drawable.page02, "paper02"))
+        l.add(Background(Const.PAPER, R.drawable.page03, "paper03"))
+        l.add(Background(Const.PAPER, R.drawable.page04, "paper04"))
+        l.add(Background(Const.PAPER, R.drawable.page05, "paper05"))
+        l.add(Background(Const.PAPER, R.drawable.page06, "paper06"))
+        l.add(Background(Const.PAPER, R.drawable.page07, "paper07"))
+        l.add(Background(Const.PAPER, R.drawable.page08, "paper08"))
+
+        l.add(Background(Const.CUTE, R.drawable.cute01, "cute01"))
+        l.add(Background(Const.CUTE, R.drawable.cute02, "cute02"))
+        l.add(Background(Const.CUTE, R.drawable.cute03, "cute03"))
+        l.add(Background(Const.CUTE, R.drawable.cute04, "cute04"))
+        l.add(Background(Const.CUTE, R.drawable.cute05, "cute05"))
+        l.add(Background(Const.CUTE, R.drawable.cute06, "cute06"))
+        l.add(Background(Const.CUTE, R.drawable.cute07, "cute07"))
+        l.add(Background(Const.CUTE, R.drawable.cute08, "cute08"))
+
+        l.add(Background(Const.DARK, R.drawable.dark01, "dark01"))
+        l.add(Background(Const.DARK, R.drawable.dark02, "dark02"))
+        l.add(Background(Const.DARK, R.drawable.dark03, "dark03"))
+        l.add(Background(Const.DARK, R.drawable.dark04, "dark04"))
+        l.add(Background(Const.DARK, R.drawable.dark05, "dark05"))
+        l.add(Background(Const.DARK, R.drawable.dark06, "dark06"))
+        l.add(Background(Const.DARK, R.drawable.dark07, "dark07"))
+        l.add(Background(Const.DARK, R.drawable.dark08, "dark08"))
+
+        backgroundLiveData.value = l
+
     }
 }

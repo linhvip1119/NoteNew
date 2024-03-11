@@ -22,6 +22,7 @@
         android:id="@+id/ivBgSelected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dp4"
         android:scaleType="fitXY"
         android:src="@drawable/bg_select_category" />
 
