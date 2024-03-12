@@ -324,6 +324,8 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                     context?.let { ct ->
                         Toast(context).showCustomToast(ct, ct.getString(R.string.widgetAddSuccess))
                     }
+                    delay(200)
+                    updateWidgetWithId(model)
                 }
             }
         }

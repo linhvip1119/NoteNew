@@ -38,7 +38,6 @@ class MakeListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MakeListVH {
         val inflater = LayoutInflater.from(parent.context)
         val binding = RecyclerListItemBinding.inflate(inflater, parent, false)
-        binding.root.background = parent.background
         return MakeListVH(binding, listener, touchHelper)
     }
 

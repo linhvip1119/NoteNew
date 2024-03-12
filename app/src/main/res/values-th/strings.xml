@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">iNote</string>
+    <string name="app_name">Note</string>
     <string name="hello_blank_fragment">สวัสดี!</string>
     <string name="textLabel">ข้อความ</string>
     <string name="checklistLabel">รายการ</string>
@@ -123,7 +123,7 @@
     <string name="areYouSureLogout">คุณต้องการออกจากระบบแน่นอน?</string>
     <string name="signInAndSync">เข้าสู่ระบบและบันทึกการซิงค์</string>
     <string name="loginSuccessLabel">เข้าสู่ระบบได้สำเร็จ</string>
-    <string name="doYouLikeiNote">คุณชอบ Inote ไหม?</string>
+    <string name="doYouLikeiNote">คุณชอบ note ไหม?</string>
     <string name="tellMeYourInconvenience">โปรดบอกความไม่สะดวกของคุณ ... \ n</string>
     <string name="submitLabel">ส่ง</string>
     <string name="rating">การให้คะแนน</string>

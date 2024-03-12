@@ -131,14 +131,8 @@ class ListNoteScreen(type: String) : BaseFragment<FragmentBaseListBinding>(Fragm
     private fun toggleRecyclerView(noteList: List<NoteModel>, isSearch: Boolean = false) {
         binding.apply {
             rv.isVisible = noteList.isNotEmpty()
-            binding.clNoData.isVisible = noteList.isEmpty()
-            if (noteList.isEmpty()) {
-                ivNoData.isVisible = !isSearch
-                tvEmptyData.isVisible = !isSearch
-                tvEmptyContent.isVisible = !isSearch
-                ivSearchNoData.isVisible = isSearch
-                tvEmptySearch.isVisible = isSearch
-            }
+            groupEmptyData.isVisible = noteList.isEmpty() && !isSearch
+            groupEmptySearch.isVisible = noteList.isEmpty() && isSearch
         }
     }
 

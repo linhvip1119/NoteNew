@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="none">Aucun</string>
-    <string name="app_name">iNote</string>
+    <string name="app_name">Note</string>
     <string name="hello_blank_fragment">Bonjour!</string>
     <string name="textLabel">TXT</string>
     <string name="checklistLabel">Checklist</string>
@@ -124,7 +124,7 @@
     <string name="areYouSureLogout">Vous voulez vraiment vous déconnecter?</string>
     <string name="signInAndSync">Remarques de connexion et de synchronisation</string>
     <string name="loginSuccessLabel">Connecté avec succès</string>
-    <string name="doYouLikeiNote">Aimez-vous Inote?</string>
+    <string name="doYouLikeiNote">Aimez-vous Note?</string>
     <string name="tellMeYourInconvenience">Veuillez nous dire votre inconvénient ... \ n</string>
     <string name="submitLabel">Soumettre</string>
     <string name="rating">Notation</string>

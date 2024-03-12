@@ -290,6 +290,7 @@ class TextNoteViewModel @Inject constructor(
         l.add(Background(Const.PAPER, R.drawable.page06, "paper06"))
         l.add(Background(Const.PAPER, R.drawable.page07, "paper07"))
         l.add(Background(Const.PAPER, R.drawable.page08, "paper08"))
+        l.add(Background(Const.PAPER, -1, "defaultColor"))
 
         l.add(Background(Const.CUTE, R.drawable.cute01, "cute01"))
         l.add(Background(Const.CUTE, R.drawable.cute02, "cute02"))
@@ -299,6 +300,7 @@ class TextNoteViewModel @Inject constructor(
         l.add(Background(Const.CUTE, R.drawable.cute06, "cute06"))
         l.add(Background(Const.CUTE, R.drawable.cute07, "cute07"))
         l.add(Background(Const.CUTE, R.drawable.cute08, "cute08"))
+        l.add(Background(Const.CUTE, -1, "defaultColor"))
 
         l.add(Background(Const.DARK, R.drawable.dark01, "dark01"))
         l.add(Background(Const.DARK, R.drawable.dark02, "dark02"))
@@ -308,6 +310,7 @@ class TextNoteViewModel @Inject constructor(
         l.add(Background(Const.DARK, R.drawable.dark06, "dark06"))
         l.add(Background(Const.DARK, R.drawable.dark07, "dark07"))
         l.add(Background(Const.DARK, R.drawable.dark08, "dark08"))
+        l.add(Background(Const.DARK, -1, "defaultColor"))
 
         backgroundLiveData.value = l.reversed()
 

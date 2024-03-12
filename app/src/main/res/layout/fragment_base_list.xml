@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,79 +11,96 @@
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="8dp"
         android:layout_marginHorizontal="@dimen/dp8"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
 
-    <RelativeLayout
-        android:id="@+id/clNoData"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivNoData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/dp6"
+        android:src="@drawable/ic_empty_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/glCenterEmpty" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivNoData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:padding="@dimen/dp6"
-            android:src="@drawable/ic_empty_image"
-            android:visibility="gone" />
+    <TextView
+        android:id="@+id/tvEmptyData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:gravity="center"
+        android:text="@string/emptyDataLabel"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivNoData" />
 
-        <TextView
-            android:id="@+id/tvEmptyData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ivNoData"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:gravity="center"
-            android:text="@string/emptyDataLabel"
-            android:textColor="@color/neutral500"
-            android:textSize="@dimen/sp16"
-            android:visibility="gone" />
+    <TextView
+        android:id="@+id/tvEmptyContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp1"
+        android:alpha="0.6"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="@string/emptyDataContent"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmptyData" />
 
-        <TextView
-            android:id="@+id/tvEmptyContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvEmptyData"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp1"
-            android:alpha="0.6"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:text="@string/emptyDataContent"
-            android:textColor="@color/neutral500"
-            android:textSize="@dimen/sp14"
-            android:visibility="gone" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivSearchNoData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/dp6"
+        android:src="@drawable/ic_search_empty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/glCenterEmpty" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivSearchNoData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:padding="@dimen/dp6"
-            android:src="@drawable/ic_search_empty" />
+    <TextView
+        android:id="@+id/tvEmptySearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp16"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:gravity="center"
+        android:text="@string/emptyDataSearch"
+        android:textColor="@color/neutral500"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivSearchNoData" />
 
-        <TextView
-            android:id="@+id/tvEmptySearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ivSearchNoData"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp24"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:gravity="center"
-            android:text="@string/emptyDataSearch"
-            android:textColor="@color/neutral500"
-            android:textSize="@dimen/sp16" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCenterEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupEmptyData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="ivNoData, tvEmptyData, tvEmptyContent" />
 
-    </RelativeLayout>
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupEmptySearch"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="ivSearchNoData, tvEmptySearch" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,7 @@ import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentMainBinding
 import com.example.colorphone.model.ColorItem
+import com.example.colorphone.model.NoteModel
 import com.example.colorphone.model.NoteType
 import com.example.colorphone.ui.MainActivity
 import com.example.colorphone.ui.bottomDialogColor.viewmodel.BottomSheetViewModel
@@ -25,6 +26,7 @@ import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
 import com.example.colorphone.util.Const.currentType
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.TypeItem
+import com.example.colorphone.util.ext.getCurrentTimeToLong
 import com.example.colorphone.util.ext.hideKeyboard
 import com.example.colorphone.util.ext.loadUrl
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -200,7 +202,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             }
 
             binding.ivAllBox.setOnClickAnim {
-                showBottomSheet( currentType, Const.MAIN_SCREEN) {
+                showBottomSheet(currentType, Const.MAIN_SCREEN) {
                     mapIdColor(nameColor = it, isGetIcon = true) { icon, _, _, _, _ ->
                         binding.ivAllBox.setImageResource(icon)
                     }
@@ -279,6 +281,17 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private fun addListColorType() {
         if (!prefUtil.isLoggedIn) {
+
+            viewModelTextNote.addNote(
+                NoteModel(
+                    title = getString(R.string.welcome),
+                    content = getString(R.string.simpleButElegant),
+                    dateCreateNote = getCurrentTimeToLong(),
+                    isPinned = true,
+                    modifiedTime = getCurrentTimeToLong()
+                )
+            ) {}
+
             val listTypeNote: ArrayList<ColorItem> = arrayListOf(
                 ColorItem(
                     tittle = getString(R.string.allNotesLabel),

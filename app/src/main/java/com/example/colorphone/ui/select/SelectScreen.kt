@@ -231,9 +231,12 @@ class SelectScreen() :
         jobAddWidget = lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 RequestPinWidget.noteWidgetSuccess.filter { state -> state }.take(1).collectLatest {
+                    delay(400)
                     context?.let { ct ->
                         Toast(context).showCustomToast(ct, ct.getString(R.string.widgetAddSuccess))
                     }
+                    delay(200)
+                    updateWidgetWithId(note)
                 }
             }
         }

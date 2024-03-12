@@ -232,7 +232,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                 Log.i("niksfhunwensdf", "0: $idFile")
                                 withContext(Dispatchers.IO) {
                                     Log.i("niksfhunwensdf", "1: $id")
-                                    repository?.uploadFile(idFile, "iNote", noteData.toString())
+                                    repository?.uploadFile(idFile, "Note", noteData.toString())
                                     Log.i("niksfhunwensdf", "2: $id")
                                     withContext(Dispatchers.Main) {
                                         Log.i("niksfhunwensdf", "3: $id")
@@ -357,7 +357,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                                 lifecycleScope.launch(Dispatchers.IO) {
                                                                     try {
                                                                         repository?.uploadFile(
-                                                                            id, "iNote", noteData.toString()
+                                                                            id, "Note", noteData.toString()
                                                                         )
                                                                         withContext(Dispatchers.Main) {
                                                                             if (count > 0) {

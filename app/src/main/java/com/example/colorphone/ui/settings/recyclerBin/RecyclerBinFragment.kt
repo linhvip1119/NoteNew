@@ -74,8 +74,7 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
                 TypeView.List.value -> GridLayoutManager(context, 1)
                 TypeView.Grid.value -> GridLayoutManager(context, 2)
                 TypeView.Details.value -> StaggeredGridLayoutManager(
-                    2,
-                    StaggeredGridLayoutManager.VERTICAL
+                    2, StaggeredGridLayoutManager.VERTICAL
                 )
 
                 else -> StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -153,9 +152,7 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
     @OptIn(ExperimentalCoroutinesApi::class)
     private fun handleDeleteNote() {
         context?.showAlertDialog(
-            getString(R.string.permanentDelete),
-            getString(R.string.areYouSureDelete),
-            getString(R.string.deleteLabel)
+            getString(R.string.permanentDelete), getString(R.string.areYouSureDelete), getString(R.string.deleteLabel)
         ) {
             if (prefUtil.statusEmailUser != null) {
                 val dialogProgress = ProgressDialog(context)
@@ -173,8 +170,7 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
                                 _adapterText.getListSelected().forEach {
                                     lifecycleScope.launch {
                                         it.ids?.let { it1 ->
-                                            viewModelTextNote.delete(it1) {
-                                            }
+                                            viewModelTextNote.delete(it1) {}
                                         }
                                     }
                                 }
@@ -202,14 +198,10 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
                                     }
                                 }
 
-                                val noteData = DataConverter().fromListNote(
-                                    list?.let { ArrayList(it) }
-                                )
+                                val noteData = DataConverter().fromListNote(list?.let { ArrayList(it) })
                                 if (id.isNotEmpty()) {
                                     repository?.uploadFile(
-                                        id,
-                                        "iNote",
-                                        noteData.toString()
+                                        id, "Note", noteData.toString()
                                     )
                                 }
                                 withContext(Dispatchers.Main) {
@@ -219,18 +211,17 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
                                 }
                             }
                         }
-                    }catch (e: UserRecoverableAuthIOException){
+                    } catch (e: UserRecoverableAuthIOException) {
                         launcher.launch(e.intent)
                     }
 
                 }
 
-            }else{
+            } else {
                 _adapterText.getListSelected().forEach {
                     lifecycleScope.launch {
                         it.ids?.let { it1 ->
-                            viewModelTextNote.delete(it1) {
-                            }
+                            viewModelTextNote.delete(it1) {}
                         }
                     }
                 }
@@ -247,6 +238,11 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
             llBottomSelected.isVisible = size > 0
             changeCheckBox(size == _adapterText.itemCount)
             isSelectedAll = size == _adapterText.itemCount
+            tvBack.text = if (size > 0) size.toString().plus(" ").plus(getText(R.string.selectedLabel)) else {
+                if (isArchiveScreen) context?.getString(R.string.archiveLabel) else context?.getString(
+                    R.string.recycleBin
+                )
+            }
         }
     }
 
@@ -258,19 +254,16 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
 
     private fun initView() {
         binding.apply {
-            tvBack.text =
-                if (isArchiveScreen) context?.getString(R.string.archiveLabel) else context?.getString(
-                    R.string.recycleBin
-                )
-            ivUnArchive.text =
-                if (isArchiveScreen) context?.getString(R.string.unArchiveLabel) else context?.getString(
-                    R.string.restore
-                )
+            tvBack.text = if (isArchiveScreen) context?.getString(R.string.archiveLabel) else context?.getString(
+                R.string.recycleBin
+            )
+            ivUnArchive.text = if (isArchiveScreen) context?.getString(R.string.unArchiveLabel) else context?.getString(
+                R.string.restore
+            )
             ivUnArchive.isEnabled = true
             ivDelete.isEnabled = true
 
-            tvEmptyData.text =
-                if (isArchiveScreen) getString(R.string.yourArchiveNote) else getString(R.string.yourDeletedNote)
+            tvEmptyData.text = if (isArchiveScreen) getString(R.string.yourArchiveNote) else getString(R.string.yourDeletedNote)
             ivNoData.setImageResource(if (isArchiveScreen) R.drawable.ic_empty_archive else R.drawable.ic_empty_recycler_bin)
         }
     }

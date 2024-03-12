@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">iNote</string>
+    <string name="app_name">Note</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="textLabel">Text</string>
     <string name="checklistLabel">Checklist</string>
@@ -121,7 +121,7 @@
     <string name="areYouSureLogout">Are you sure you want to logout?</string>
     <string name="signInAndSync">Sign in and Sync your data</string>
     <string name="loginSuccessLabel">Login success!</string>
-    <string name="doYouLikeiNote">Do you like iNote?</string>
+    <string name="doYouLikeiNote">Do you like Note?</string>
     <string name="tellMeYourInconvenience">Please tell us your inconvenience...\n</string>
     <string name="submitLabel">Submit</string>
     <string name="rating">Rating</string>
@@ -256,4 +256,6 @@
     <string name="paper">Paper</string>
     <string name="cute">Cute</string>
     <string name="dark">Dark</string>
+    <string name="welcome">Welcome!</string>
+    <string name="simpleButElegant">Simple but Elegant &amp; Useful.\n\nTake Quick Note, Checklist and More!</string>
 </resources>

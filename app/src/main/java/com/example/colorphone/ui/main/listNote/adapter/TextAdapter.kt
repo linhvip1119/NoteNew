@@ -170,7 +170,15 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                 if (isLockNote) {
                     ivLock.isVisible = item.isLock()
                 }
+
+                val colorText = ContextCompat.getColor(root.context, if (item.background != null) R.color.neutral500 else R.color.neutral500every)
+                tvTittle.setTextColor(colorText)
+                tvContent.setTextColor(colorText)
+                tvDate.setTextColor(colorText)
+
                 ivReminderTime.isVisible = item.isAlarm == true
+                ivReminderTime.setImageResource(if (item.background != null) R.drawable.ic_reminder_time_bg else R.drawable.ic_reminder_time)
+
                 ivPinned.isVisible = item.isPinned == true
                 tvTittle.apply {
                     isVisible = !item.title.isNullOrEmpty()
@@ -213,7 +221,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                             try {
                                 ivBg.loadUrl(item.background!!)
                                 llBody.setBackgroundColor(Color.TRANSPARENT)
-                            } catch (_: Exception){
+                            } catch (_: Exception) {
                                 ivBg.gone()
                                 llBody.setBackgroundResource(bg)
                             }
@@ -229,8 +237,15 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                 mapIdColorWidget(item.typeColor) { _, idIcon ->
                     ivColorWidget.setBackgroundResource(idIcon)
                 }
-                Log.i("456234", "bind: ${item.ids}")
+
+                val colorText = ContextCompat.getColor(root.context, if (item.background != null) R.color.neutral500 else R.color.neutral500every)
+                tvTittle.setTextColor(colorText)
+                tvContent.setTextColor(colorText)
+                tvDate.setTextColor(colorText)
+
                 ivReminderTime.isVisible = item.isAlarm == true
+                ivReminderTime.setImageResource(if (item.background != null) R.drawable.ic_reminder_time_bg else R.drawable.ic_reminder_time)
+
                 ivPinned.isVisible = item.isPinned == true
                 tvTittle.text = item.title
                 tvDate.text = convertLongToDateYYMMDD(item.dateCreateNote ?: 0)
@@ -258,8 +273,11 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                         val binding =
                             ItemCheckListBinding.inflate(LayoutInflater.from(root.context))
                         binding.apply {
-                            ivCheckBox.setImageResource(if (it.checked) R.drawable.ic_checkbox_true_15dp else R.drawable.ic_checkbox_false_15dp)
+                            val checkedTrue = if (item.background != null) R.drawable.ic_checkbox_true_15dp_bg else R.drawable.ic_checkbox_true_15dp
+                            val checkedFalse = if (item.background != null) R.drawable.ic_checkbox_false_15dp_bg else R.drawable.ic_checkbox_false_15dp
+                            ivCheckBox.setImageResource(if (it.checked) checkedTrue else checkedFalse)
                             editText.text = it.body
+                            editText.setTextColor(colorText)
                             editText.setOnClickListener {
                                 if (isStatusSelected == true) {
                                     viewBgSelected.isVisible = !viewBgSelected.isVisible
@@ -309,7 +327,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                             try {
                                 ivBg.loadUrl(item.background!!)
                                 llBody.setBackgroundColor(Color.TRANSPARENT)
-                            } catch (_: Exception){
+                            } catch (_: Exception) {
                                 ivBg.gone()
                                 llBody.setBackgroundResource(bg)
                             }
@@ -326,9 +344,18 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                     }
                     viewBgSelected.setBgItemNote(isDarkTheme, it)
                 }
+
+                val colorText = ContextCompat.getColor(root.context, if (item.background != null) R.color.neutral500 else R.color.neutral500every)
+                tvTittle.setTextColor(colorText)
+                tvContent.setTextColor(colorText)
+                tvDate.setTextColor(colorText)
+
                 ivPinned.isVisible = item.isPinned == true
                 tvTittle.text = item.title
+
                 ivReminderTime.isVisible = item.isAlarm == true
+                ivReminderTime.setImageResource(if (item.background != null) R.drawable.ic_reminder_time_bg else R.drawable.ic_reminder_time)
+
                 tvDate.text = convertLongToDateYYMMDD(item.dateCreateNote ?: 0)
                 if (typeItem == TypeItem.TEXT.name) {
                     tvContent.text = item.content
@@ -354,17 +381,22 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                         val binding =
                             ItemCheckListBinding.inflate(LayoutInflater.from(root.context))
                         binding.apply {
-                            ivCheckBox.setImageResource(if (it.checked) R.drawable.ic_checkbox_true_15dp else R.drawable.ic_checkbox_false_15dp)
-                            editText.text = it.body
-                            editText.setOnClickListener {
-                                if (isStatusSelected == true) {
-                                    viewBgSelected.isVisible = !viewBgSelected.isVisible
-                                    item.isSelected = viewBgSelected.isVisible
-                                    onSelectItem?.invoke(currentList.filter { it.isSelected }.size,
-                                                         currentList.firstOrNull { it.isSelected })
-                                    onClickSelectedEvent?.invoke()
-                                } else {
-                                    mOnClickItem?.invoke(item)
+                            val checkedTrue = if (item.background != null) R.drawable.ic_checkbox_true_15dp_bg else R.drawable.ic_checkbox_true_15dp
+                            val checkedFalse = if (item.background != null) R.drawable.ic_checkbox_false_15dp_bg else R.drawable.ic_checkbox_false_15dp
+                            ivCheckBox.setImageResource(if (it.checked) checkedTrue else checkedFalse)
+                            editText.apply {
+                                setTextColor(colorText)
+                                text = it.body
+                                setOnClickListener {
+                                    if (isStatusSelected == true) {
+                                        viewBgSelected.isVisible = !viewBgSelected.isVisible
+                                        item.isSelected = viewBgSelected.isVisible
+                                        onSelectItem?.invoke(currentList.filter { it.isSelected }.size,
+                                                             currentList.firstOrNull { it.isSelected })
+                                        onClickSelectedEvent?.invoke()
+                                    } else {
+                                        mOnClickItem?.invoke(item)
+                                    }
                                 }
                             }
                             if (isStatusSelected == false) editText.setOnLongClickItem(

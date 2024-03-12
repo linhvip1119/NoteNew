@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="none">Tidak ada</string>
-    <string name="app_name">iNote</string>
+    <string name="app_name">Note</string>
     <string name="hello_blank_fragment">Halo!</string>
     <string name="textLabel">TXT</string>
     <string name="checklistLabel">Daftar</string>
@@ -124,7 +124,7 @@
     <string name="areYouSureLogout">Anda pasti ingin keluar?</string>
     <string name="signInAndSync">Catatan Masuk dan Sinkronisasi</string>
     <string name="loginSuccessLabel">Masuk dengan sukses</string>
-    <string name="doYouLikeiNote">Apakah Anda suka Inote?</string>
+    <string name="doYouLikeiNote">Apakah Anda suka Note?</string>
     <string name="tellMeYourInconvenience">Tolong beri tahu kami ketidaknyamanan Anda ... \ n</string>
     <string name="submitLabel">Kirim</string>
     <string name="rating">Peringkat</string>
@@ -153,7 +153,7 @@
     <string name="permanentDelete">Dihapus secara permanen</string>
     <string name="nowYouCanSync">Sekarang Anda dapat menyinkronkan dan menyimpan catatan</string>
     <string name="loginSyncNow">Login &amp; Sync Now</string>
-    <string name="weTryEvery">Kami selalu mencoba setiap hari untuk membawa versi inoted yang lebih baik untuk Anda!</string>
+    <string name="weTryEvery">Kami selalu mencoba setiap hari untuk membawa versi Noted yang lebih baik untuk Anda!</string>
     <string name="ifYouLike">Jika Anda suka Inote, bisakah Anda memberi kami 5 bintang?</string>
     <string name="ifJustTake">Mungkin hanya membutuhkan beberapa detik, tetapi itu akan menjadi motivasi besar bagi kita!</string>
     <string name="thankYouSupport">Terima kasih banyak atas kebaikan Anda!</string>

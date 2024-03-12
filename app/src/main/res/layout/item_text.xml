@@ -115,7 +115,7 @@
         android:layout_alignBottom="@+id/llBody"
         android:background="@drawable/bg_item_selected"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 
     <ImageView
         android:id="@+id/ivColorWidget"

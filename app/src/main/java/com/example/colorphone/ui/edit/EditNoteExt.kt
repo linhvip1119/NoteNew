@@ -396,15 +396,16 @@ fun EditNoteScreen.handleRedoUndo() {
     binding.ivRedo.setOnClickListener {
         if (isFocusTittle) helperTittle?.redo() else helperContent?.redo()
     }
+
     binding.ivUndo.setOnClickListener {
         if (isFocusTittle) helperTittle?.undo() else helperContent?.undo()
     }
 
-    binding.etTittle.apply {
-        onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            isFocusTittle = hasFocus
-        }
+    binding.etTittle.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+        isFocusTittle = hasFocus
+        handleEnableIconDo()
     }
+
     binding.etContent.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
         if (hasFocus) v.showKeyboard() else v.hideKeyboard()
         isFocusContent = hasFocus

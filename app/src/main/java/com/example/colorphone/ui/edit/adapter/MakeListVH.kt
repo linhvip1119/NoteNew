@@ -14,7 +14,6 @@ import com.example.colorphone.ui.edit.utils.ListItemListener
 import com.wecan.inote.util.setOnClickAnim
 import com.wecan.inote.util.setOnNextAction
 
-@SuppressLint("ClickableViewAccessibility")
 class MakeListVH(
     val binding: RecyclerListItemBinding,
     listener: ListItemListener,
@@ -62,7 +61,7 @@ class MakeListVH(
 
             ivDragHandle.isEnabled = !onReadMode
             ivCloseDelete.isEnabled = !onReadMode
-            editText.isEnabled = !onReadMode
+            editText.isEnabled = !onReadMode && !binding.checkBox.isSelected
             checkBox.isEnabled = !onReadMode
         }
 

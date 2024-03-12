@@ -97,14 +97,16 @@ class ListNoteAddWidget : BaseFragment<FragmentListNoteAddWidgetBinding>(Fragmen
         jobAddWidget = lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 RequestPinWidget.noteWidgetSuccess.filter { state -> state }.take(1).collectLatest {
+                    delay(1500)
                     binding.apply {
-                        delay(2500)
                         viewLoadWidget.gone()
                         progressBar.gone()
                     }
                     context?.let { ct ->
                         Toast(context).showCustomToast(ct, ct.getString(R.string.widgetAddSuccess))
                     }
+                    delay(200)
+                    updateWidgetWithId(note)
                 }
             }
         }

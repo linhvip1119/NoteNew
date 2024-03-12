@@ -40,7 +40,7 @@ constructor(
         }
 
     var typeView: String
-        get() = sharedPreferences.getString("typeView", TypeView.Details.value) ?: TypeView.Details.value
+        get() = sharedPreferences.getString("typeView", TypeView.Grid.value) ?: TypeView.Grid.value
         set(value) {
             editor.putString("typeView", value).commit()
         }

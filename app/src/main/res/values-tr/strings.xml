@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">iNote</string>
+    <string name="app_name">Note</string>
     <string name="hello_blank_fragment">Merhaba!</string>
     <string name="textLabel">TXT</string>
     <string name="checklistLabel">Liste</string>

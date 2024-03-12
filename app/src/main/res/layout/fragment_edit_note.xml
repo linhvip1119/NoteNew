@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/llItem"
     android:layout_width="match_parent"
-    android:background="@drawable/dark02"
     android:layout_height="match_parent"
+    android:background="@drawable/dark02"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -73,8 +73,8 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/ivBackground"
                     android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/ivBackground"
                     android:layout_toEndOf="@+id/ivVComplete"
                     android:gravity="center">
 
@@ -129,9 +129,8 @@
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
                     android:fontFamily="@font/poppins_semi_bold"
-                    android:gravity="center_vertical"
+                    android:gravity="bottom"
                     android:imeOptions="actionNext"
-                    android:includeFontPadding="false"
                     android:inputType="textCapSentences"
                     android:maxLines="1"
                     android:minLines="1"
@@ -169,7 +168,7 @@
                     android:textColor="@color/neutral500"
                     android:textSize="@dimen/sp14"
                     tools:text="@string/textDemo"
-                    tools:visibility="gone" />
+                    tools:visibility="visible" />
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
@@ -181,7 +180,7 @@
             android:paddingHorizontal="@dimen/dp10"
             android:paddingBottom="@dimen/dp6"
             android:visibility="gone"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCheckList"

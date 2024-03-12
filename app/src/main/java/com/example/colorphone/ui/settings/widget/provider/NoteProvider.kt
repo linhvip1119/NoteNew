@@ -56,10 +56,10 @@ class NoteProvider : AppWidgetProvider() {
 
     override fun onEnabled(context: Context?) {
         super.onEnabled(context)
-        val widgetManager = AppWidgetManager.getInstance(context?.applicationContext)
-        widgetManager.notifyAppWidgetViewDataChanged(
-            widgetManager.getAppWidgetIds(ComponentName(context?.applicationContext!!.packageName, NoteProvider::class.java.name)), R.id.llCheckListWidget
-        )
+//        val widgetManager = AppWidgetManager.getInstance(context?.applicationContext)
+//        widgetManager.notifyAppWidgetViewDataChanged(
+//            widgetManager.getAppWidgetIds(ComponentName(context?.applicationContext!!.packageName, NoteProvider::class.java.name)), R.id.llCheckListWidget
+//        )
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -95,10 +95,10 @@ class NoteProvider : AppWidgetProvider() {
 
             if (actionUpdate == Const.ADD_NOTE_WIDGET) {
                 CoroutineScope(Dispatchers.Main).launch {
-                    AppWidgetManager.getInstance(context).updateAppWidget(prefUtil.newIdNoteWidget, views)
                     if (noteModel.typeItem == TypeItem.CHECK_LIST.name) {
                         AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(prefUtil.getIdWidgetNote(idNote), R.id.llCheckListWidget)
                     }
+                    AppWidgetManager.getInstance(context).updateAppWidget(prefUtil.newIdNoteWidget, views)
                     prefUtil.setIdWidgetNote(idNote, prefUtil.newIdNoteWidget)
                     prefUtil.newIdNoteWidget = -1
                     RequestPinWidget.publishEventNote(true)
@@ -110,7 +110,7 @@ class NoteProvider : AppWidgetProvider() {
                     AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(prefUtil.getIdWidgetNote(idNote), R.id.llCheckListWidget)
                 }
                 CoroutineScope(Dispatchers.Main).launch {
-                    RequestPinWidget.publishEventNote(true)
+                    RequestPinWidget.publishUpdateNote(true)
                 }
             }
         }
