@@ -3,7 +3,17 @@
 //import android.app.Application
 //import android.content.Context
 //import androidx.startup.Initializer
+//import com.example.colorphone.BuildConfig
+//import com.example.colorphone.R
 //import dev.keego.haki.Haki
+//import dev.keego.haki.ads.HakiInterstitial
+//import dev.keego.haki.ads.adapter.admob.AdmobInterstitial
+//import dev.keego.haki.ads.adapter.empty.EmptyInterstitial
+//import dev.keego.haki.ads.adapter.offline.OfflineAds
+//import dev.keego.haki.plugin.TimberPlugin
+//import kotlinx.coroutines.flow.MutableStateFlow
+//import kotlin.time.Duration.Companion.seconds
+//
 //
 //class HakiOS : Initializer<Unit> {
 //    override fun create(context: Context) {
@@ -19,14 +29,14 @@
 //                    /**
 //                     * 2 plugin ở dưới thì không cần thiết, chỉ cần khi có yêu cầu
 //                     */
-//                    register(BillingV6Plugin)
-//                    register(
-//                        AdjustPlugin(
-//                            "your_adjust_token",
-//                            if (BuildConfig.DEBUG) AdjustConfig.ENVIRONMENT_SANDBOX
-//                            else AdjustConfig.ENVIRONMENT_PRODUCTION
-//                        )
-//                    )
+////                    register(BillingV6Plugin)
+////                    register(
+////                        AdjustPlugin(
+////                            "your_adjust_token",
+////                            if (BuildConfig.DEBUG) AdjustConfig.ENVIRONMENT_SANDBOX
+////                            else AdjustConfig.ENVIRONMENT_PRODUCTION
+////                        )
+////                    )
 //                }
 //                .ads {
 //
@@ -35,16 +45,14 @@
 //                     */
 //                    appOpenManager.apply {
 //                        // Bỏ qua các activity không muốn hiển thị quảng cáo App Open khi quay lại app
-//                        ignore(SplashActivity::class.java)
-//                        ignore(R.id.fragment_home)
+//                        ignore(R.id.splashFragment)
 //                    }
 //                    /**
 //                     * [Không cần thiết] Config Consent
 //                     */
 //                    consent.apply {
 //                        // Bỏ qua các activity không muốn hiển thị Consent GDPR, tránh khó chịu cho người dùng
-//                        ignore(SplashActivity::class.java)
-//                        ignore(R.id.navigation_home)
+//                        ignore(R.id.splashFragment)
 //                    }
 //
 //                    /**

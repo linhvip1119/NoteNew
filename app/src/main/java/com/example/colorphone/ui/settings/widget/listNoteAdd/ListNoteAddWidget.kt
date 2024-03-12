@@ -64,6 +64,7 @@ class ListNoteAddWidget : BaseFragment<FragmentListNoteAddWidgetBinding>(Fragmen
                     getData()
                 }
             }
+
             tvChecklist.setOnClickListener {
                 lifecycleScope.launch {
                     tvText.isSelected = false
