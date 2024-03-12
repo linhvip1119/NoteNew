@@ -185,7 +185,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             }
 
             ivBackground.setPreventDoubleClick {
-                showBottomSheetBg() {
+                showBottomSheetBg(model.background ?: -1) {
                     if (it.url != -1) {
                         model?.background = it.url
                         binding.apply {
@@ -239,8 +239,8 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     }
 
-    private fun showBottomSheetBg(colorClick: (Background) -> Unit) {
-        val addPhotoBottomDialogFragment: BottomSheetBackground = BottomSheetBackground.newInstance(colorClick)
+    private fun showBottomSheetBg(currentBg: Int, colorClick: (Background) -> Unit) {
+        val addPhotoBottomDialogFragment: BottomSheetBackground = BottomSheetBackground.newInstance(currentBg, colorClick)
         activity?.supportFragmentManager?.let {
             addPhotoBottomDialogFragment.show(
                 it, "TAG"

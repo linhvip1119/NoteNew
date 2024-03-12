@@ -13,10 +13,11 @@ import com.example.colorphone.model.Background
 import com.example.colorphone.util.ext.loadUrl
 import com.wecan.inote.util.getDisplayWidth
 import com.wecan.inote.util.px
-import com.wecan.inote.util.setWidth
 
 class BackgroundAdapter(val onClick: (Background) -> Unit) :
     ListAdapter<Background, BackgroundAdapter.BackgroundVH>(DiffCallback()) {
+
+    var currentBackgroundId: Int = -1
 
     private class DiffCallback : DiffUtil.ItemCallback<Background>() {
         override fun areItemsTheSame(oldItem: Background, newItem: Background) =
@@ -49,8 +50,10 @@ class BackgroundAdapter(val onClick: (Background) -> Unit) :
 
             }
             binding.apply {
-                if (item.url != -1){
+//                ivBg.isSelected = item.url == currentBackgroundId
+                if (item.url != -1) {
                     ivBg.loadUrl(item.url)
+//                    ivBg.setBackgroundResource(0)
                 } else {
                     ivBg.loadUrl(R.drawable.bg_default)
                 }

@@ -88,7 +88,9 @@ class NoteBottomSheetDialog(
             else -> currentType
         }
 
-        adapterType = BottomTypeColorAdapter(colorModel.listColor.addShowAll(), currentColor) { item ->
+        val listShow = if (isOnMainScreen) colorModel.listColor.addShowAll() else colorModel.listColor
+
+        adapterType = BottomTypeColorAdapter(listShow, currentColor) { item ->
             colorClick(item?.color!!)
             dismiss()
         }

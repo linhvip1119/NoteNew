@@ -1,18 +1,16 @@
 package com.example.colorphone.ui.edit.bottomBackgroundEdit.vp2
 
-import android.util.Log
 import android.view.View
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentListBackgroundBinding
 import com.example.colorphone.model.Background
-import com.example.colorphone.ui.bottomDialogColor.viewmodel.BottomSheetViewModel
 import com.example.colorphone.ui.edit.bottomBackgroundEdit.adapter.BackgroundAdapter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ListBackgroundFragment(
+    private var currentBg: Int,
     private var currentCate: Int,
     private var bgClick: (Background) -> Unit
 ) : BaseFragment<FragmentListBackgroundBinding>(FragmentListBackgroundBinding::inflate) {
@@ -37,6 +35,7 @@ class ListBackgroundFragment(
         adapterBackground = BackgroundAdapter {
             bgClick(it)
         }
+//        adapterBackground.currentBackgroundId = currentBg
         binding.rvBg.apply {
             layoutManager = GridLayoutManager(context, 4)
             adapter = adapterBackground

@@ -22,6 +22,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
 class BottomSheetBackground(
+    private var currentBg: Int,
     private var bgClick: (Background) -> Unit
 ) :
     BottomSheetDialogFragment() {
@@ -48,7 +49,7 @@ class BottomSheetBackground(
             context?.getDisplayWidth()?.div(2)?.let { height = it + 60.px }
         }
 
-        val adapter = FragmentPagerAdapter(this) {
+        val adapter = FragmentPagerAdapter(this, currentBg) {
             bgClick(it)
         }
         _binding?.viewPager?.adapter = adapter
@@ -78,9 +79,10 @@ class BottomSheetBackground(
 
     companion object {
         fun newInstance(
+            currentBg: Int,
             colorClick: (Background) -> Unit
         ): BottomSheetBackground {
-            return BottomSheetBackground(colorClick)
+            return BottomSheetBackground(currentBg, colorClick)
         }
     }
 }

@@ -181,14 +181,14 @@ class WidgetFragment : BaseFragment<FragmentWidgetBinding>(FragmentWidgetBinding
                     ct, R.drawable.bg_item_widget_selected
                 ) else ContextCompat.getDrawable(ct, R.drawable.bg_item_widget)
 
-                tvNoteTool.setTextColor(ContextCompat.getColor(context!!, if (llItem.isSelected) R.color.neutral200 else R.color.primary_current))
+                tvNoteTool.setTextColor(ContextCompat.getColor(requireContext(), if (llItem.isSelected) R.color.neutral200 else R.color.primary_current))
 
                 ivWidgetBarr.background = if (ivWidgetBarr.isSelected) ContextCompat.getDrawable(
                     ct, R.drawable.bg_item_widget_selected
                 ) else ContextCompat.getDrawable(ct, R.drawable.bg_item_widget)
 
 
-                tvStickyNote.setTextColor(ContextCompat.getColor(context!!, if (!llItem.isSelected) R.color.neutral200 else R.color.primary_current))
+                tvStickyNote.setTextColor(ContextCompat.getColor(requireContext(), if (!llItem.isSelected) R.color.neutral200 else R.color.primary_current))
 
                 tvAddToHome.background = if (tvAddToHome.isSelected) ContextCompat.getDrawable(
                     ct, R.drawable.bg_button_add_to_home_selected
