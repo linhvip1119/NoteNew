@@ -6,10 +6,14 @@ import android.view.View
 import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.SplashFragmentBinding
+import dev.keego.haki.Haki
+import dev.keego.haki.appopen
 
 class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding::inflate) {
 
     private var currentProcess = 0
+
+    private var isFullProgress = false
     override fun init(view: View) {
         init()
     }
@@ -30,15 +34,23 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
                 binding.progressBar?.progress = currentProcess
                 if (currentProcess == 100) {
                     handler.removeCallbacksAndMessages(null)
-                    navigationWithAnim(R.id.mainFragment)
+//                    if (!isFullProgress) {
+//                        isFullProgress = true
+//                        navigationWithAnim(R.id.action_splashFragment_to_mainFragment)
+//                    }
                 } else {
                     handler.postDelayed(this, 100)
                 }
             }
         }, 100)
+        Haki.placement("scSplash_OpenApp").appopen().forceShow(requireActivity()) {
+//            if (isFullProgress) {
+                navigationWithAnim(R.id.action_splashFragment_to_mainFragment)
+//            }
+        }
     }
 
     companion object {
-        const val TIME_SHOW = 500
+        const val TIME_SHOW = 5000
     }
 }

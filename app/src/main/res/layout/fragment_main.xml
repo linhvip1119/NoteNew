@@ -63,8 +63,8 @@
             android:id="@+id/ivAllBox"
             android:layout_width="@dimen/dp48"
             android:layout_height="@dimen/dp48"
-            android:layout_marginEnd="@dimen/dp10"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp10"
             android:layout_toStartOf="@+id/ivSync"
             android:src="@drawable/ic_allbox" />
     </RelativeLayout>
@@ -73,8 +73,8 @@
         android:id="@+id/clSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp8"
         android:layout_marginHorizontal="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp8"
         android:background="@drawable/bg_layout_search"
         app:layout_constraintTop_toBottomOf="@+id/clTopBar">
 
@@ -116,6 +116,15 @@
             android:src="@drawable/ic_close_search" />
     </RelativeLayout>
 
+    <include
+        android:id="@+id/flBanner1"
+        layout="@layout/item_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp6"
+        app:layout_constraintTop_toBottomOf="@+id/clSearch"
+        tools:layout_height="50dp" />
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp2"
         android:layout_width="match_parent"
@@ -123,7 +132,7 @@
         android:layout_marginTop="@dimen/dp6"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@+id/llBottomBar"
-        app:layout_constraintTop_toBottomOf="@+id/clSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/flBanner1" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llBottomBar"
@@ -134,7 +143,7 @@
         android:paddingHorizontal="@dimen/dp24"
         android:paddingTop="@dimen/dp12"
         android:paddingBottom="@dimen/dp16"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/flBanner2">
 
         <FrameLayout
             android:id="@+id/flNote"
@@ -189,6 +198,14 @@
                 android:textSize="@dimen/sp16" />
         </FrameLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <include
+        android:id="@+id/flBanner2"
+        layout="@layout/item_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_height="50dp" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivFloatButton"

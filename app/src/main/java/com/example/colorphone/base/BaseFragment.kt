@@ -114,7 +114,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
 
     open fun setUpGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestScopes(Scope(Scopes.DRIVE_FILE)).requestEmail().build()
 
         googleSignInClient = activity?.let { GoogleSignIn.getClient(it, gso) }
@@ -232,7 +232,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                 Log.i("niksfhunwensdf", "0: $idFile")
                                 withContext(Dispatchers.IO) {
                                     Log.i("niksfhunwensdf", "1: $id")
-                                    repository?.uploadFile(idFile, "Note", noteData.toString())
+                                    repository?.uploadFile(idFile, "iNote", noteData.toString())
                                     Log.i("niksfhunwensdf", "2: $id")
                                     withContext(Dispatchers.Main) {
                                         Log.i("niksfhunwensdf", "3: $id")
@@ -357,7 +357,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                                 lifecycleScope.launch(Dispatchers.IO) {
                                                                     try {
                                                                         repository?.uploadFile(
-                                                                            id, "Note", noteData.toString()
+                                                                            id, "iNote", noteData.toString()
                                                                         )
                                                                         withContext(Dispatchers.Main) {
                                                                             if (count > 0) {

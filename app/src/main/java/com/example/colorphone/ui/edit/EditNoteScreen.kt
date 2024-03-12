@@ -33,6 +33,10 @@ import com.wecan.inote.util.setPreventDoubleClick
 import com.wecan.inote.util.setPreventDoubleClickScaleView
 import com.wecan.inote.util.showCustomToast
 import dagger.hilt.android.AndroidEntryPoint
+import dev.keego.haki.Haki
+import dev.keego.haki.ads.base.AdResult
+import dev.keego.haki.banner
+import dev.keego.haki.interstitial
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -85,36 +89,14 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     }
 
     private fun handleArgumentsListener() {
-//        isFromCreateNote = arguments?.getBoolean(TextFragment.ARG_CREATE_NOTE)
         _isAddNote = arguments?.getInt(KEY_ID_DATA_NOTE, -1) == -1
         idNoteEdited = arguments?.getInt(KEY_ID_DATA_NOTE, -1) ?: -1
 
-
-//        isFromWidget = arguments?.getBoolean("ARG_FROM_WIDGET")
-
         isTypeText = arguments?.getString(Const.TYPE_ITEM_EDIT) == Const.TYPE_NOTE
-
-//        val idsFromWidget = arguments?.getInt(KEY_IDS_NOTE_FROM_WIDGET)
-//
-//        if (isFromWidget == true) {
-//            idsFromWidget?.let {
-//                viewModelTextNote.getNoteWithIds(it)
-//            }
-//        }
-//
-//        val id = arguments?.getInt(DATA_ITEM_NOTE)
-//        if (id != null) {
-//            viewModelTextNote.getNoteWithIds(id)
-//        }
-//
-//        currentColor = arguments?.getString(CURRENT_TYPE) ?: TypeColorNote.A_ORANGE.name
-//
-//        arguments?.getInt(UPDATE_WIDGET_IDS).apply {
-//            idReCreateNoteWidget = if (this == 0) null else this
-//        }
     }
 
     override fun init(view: View) {
+        loadAdsBanner()
         handleViewText()
         if (idNoteEdited != -1) {
             viewModelTextNote.getNoteWithIds(idNoteEdited)
@@ -125,6 +107,10 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         onListener()
         handleRedoUndo()
         handleEnableIconDo()
+    }
+
+    private fun loadAdsBanner() {
+        binding.iclBanner.flBanner.addView(Haki.placement("scEditNote_INLINE_Top").banner().getView(requireActivity()))
     }
 
     private fun onListener() {
@@ -177,8 +163,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                 }
             }
 
-            etContent.setOnClickListener {
-            }
+            etContent.setOnClickListener {}
 
             etContent.doAfterTextChanged {
                 handleEnableIconDo()
@@ -208,8 +193,10 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             }
 
             activity?.onBackPressedDispatcher?.addCallback(this@EditNoteScreen, true) {
-                jobAddWidget?.cancel()
-                navController?.popBackStack()
+                showInter("EditNote_Back_Click", "EditChecklist_Back_Click") {
+                    jobAddWidget?.cancel()
+                    navController?.popBackStack()
+                }
             }
         }
 
@@ -221,14 +208,15 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         binding.ivVComplete.setOnClickListener {
             binding.apply {
                 etContent.clearFocus()
-                etTittle.clearFocus()
+                etTittle.clearFocus() 
                 activity?.hideKeyboard()
             }
             isBackPress = true
             handleSaveNote {
-//                    showAds()
-                navController?.popBackStack()
-                jobAddWidget?.cancel()
+                showInter("EditNote_Save_Click", "EditChecklist_Save_Click") {
+                    jobAddWidget?.cancel()
+                    navController?.popBackStack()
+                }
             }
         }
 
@@ -236,7 +224,13 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             onReadMode = !onReadMode
             handeReadMode()
         }
+    }
 
+    private fun showInter(key1: String, key2: String, call: (AdResult) -> Unit) {
+        val k = if (model.typeItem == TypeItem.TEXT.name) key1 else key2
+        Haki.placement(k).interstitial().show(requireActivity()) {
+            call(it)
+        }
     }
 
     private fun showBottomSheetBg(currentBg: Int, colorClick: (Background) -> Unit) {

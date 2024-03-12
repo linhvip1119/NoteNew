@@ -21,6 +21,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <include
+                android:id="@+id/iclBanner"
+                layout="@layout/item_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/clSearch"
+                tools:layout_height="50dp" />
+
             <RelativeLayout
                 android:id="@+id/clTopBarMenu"
                 android:layout_width="match_parent"

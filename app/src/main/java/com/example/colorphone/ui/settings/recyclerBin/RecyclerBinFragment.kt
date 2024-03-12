@@ -201,7 +201,7 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
                                 val noteData = DataConverter().fromListNote(list?.let { ArrayList(it) })
                                 if (id.isNotEmpty()) {
                                     repository?.uploadFile(
-                                        id, "Note", noteData.toString()
+                                        id, "iNote", noteData.toString()
                                     )
                                 }
                                 withContext(Dispatchers.Main) {

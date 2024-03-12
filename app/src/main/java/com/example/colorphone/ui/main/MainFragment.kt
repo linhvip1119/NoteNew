@@ -38,6 +38,8 @@ import com.wecan.inote.util.px
 import com.wecan.inote.util.setOnClickAnim
 import com.wecan.inote.util.setPreventDoubleClick
 import dagger.hilt.android.AndroidEntryPoint
+import dev.keego.haki.Haki
+import dev.keego.haki.banner
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.Locale
 
@@ -132,6 +134,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     }
 
     override fun init(view: View) {
+        loadAdsBanner()
         initView()
         addListColorType()
         initBottomBar()
@@ -139,6 +142,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         onListener()
         onSearchNote()
         setUpGoogle()
+    }
+
+    private fun loadAdsBanner() {
+        activity?.let { ac ->
+            binding.flBanner1.flBanner.addView(Haki.placement("scMain_INLINE_Middle").banner().getView(ac))
+            binding.flBanner2.flBanner.addView(Haki.placement("scMain_INLINE_Bottom").banner().getView(ac))
+        }
     }
 
     private fun initView() {

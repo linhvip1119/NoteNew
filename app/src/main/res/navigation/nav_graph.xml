@@ -9,7 +9,11 @@
         android:id="@+id/splashFragment"
         android:name="com.example.colorphone.ui.splash.SplashFragment"
         android:label="splash fragment"
-        tools:layout="@layout/splash_fragment" />
+        tools:layout="@layout/splash_fragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/mainFragment"
