@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import com.example.colorphone.R
 import com.example.colorphone.databinding.RowBinding
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.CURRENT_TYPE_ITEM
 import com.example.colorphone.util.SortType
 import com.example.colorphone.util.TypeItem
@@ -27,6 +28,7 @@ fun MainFragment.navToSelectScreen() {
 }
 
 fun MainFragment.openDialogView() {
+    Const.checking("MainView_Show")
     context?.showDialogOptionView(prefUtil.typeView) {
         lifecycleScope.launch {
             prefUtil.typeView = it.value
@@ -36,24 +38,29 @@ fun MainFragment.openDialogView() {
 }
 
 fun MainFragment.handleDialogSoft() {
+    Const.checking("MainSort_Show")
     context?.showDialogOptionSoft(prefUtil.sortType.toString()) {
         when (it) {
             SortType.MODIFIED_TIME.name -> {
+                Const.checking("MainSort_ModifiedTime_Click")
                 prefUtil.sortType = SortType.MODIFIED_TIME.name
                 shareViewModel.setSortText(SortType.MODIFIED_TIME.name)
             }
 
             SortType.CREATE_TIME.name -> {
+                Const.checking("MainSort_CreateTime_Click")
                 prefUtil.sortType = SortType.CREATE_TIME.name
                 shareViewModel.setSortText(SortType.CREATE_TIME.name)
             }
 
             SortType.REMINDER_TIME.name -> {
+                Const.checking("MainSort_ReminderTime_Click")
                 prefUtil.sortType = SortType.REMINDER_TIME.name
                 shareViewModel.setSortText(SortType.REMINDER_TIME.name)
             }
 
             SortType.COLOR.name -> {
+                Const.checking("MainSort_Label_Click")
                 prefUtil.sortType = SortType.COLOR.name
                 shareViewModel.setSortText(SortType.COLOR.name)
             }
@@ -80,14 +87,17 @@ fun MainFragment.initiatePopupMenu(): PopupWindow? {
         )
         menuBinding.apply {
             tvSelect.setPreventDoubleClick {
+                Const.checking("MainExtend_Select_Click")
                 navToSelectScreen()
                 mDropdown?.dismiss()
             }
             tvView.setPreventDoubleClick {
+                Const.checking("MainExtend_View_Click")
                 openDialogView()
                 mDropdown?.dismiss()
             }
             tvSort.setPreventDoubleClick {
+                Const.checking("MainExtend_Sort_Click")
                 handleDialogSoft()
                 mDropdown?.dismiss()
             }
@@ -97,6 +107,7 @@ fun MainFragment.initiatePopupMenu(): PopupWindow? {
             FrameLayout.LayoutParams.WRAP_CONTENT, true
         )
         mDropdown?.showAsDropDown(binding.ivSync, (-20).px, (-5).px)
+        Const.checking("MainExtend_Show")
     } catch (e: java.lang.Exception) {
         e.printStackTrace()
     }

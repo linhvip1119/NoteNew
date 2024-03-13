@@ -89,7 +89,9 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     }
 
     private fun handleArgumentsListener() {
+
         _isAddNote = arguments?.getInt(KEY_ID_DATA_NOTE, -1) == -1
+
         idNoteEdited = arguments?.getInt(KEY_ID_DATA_NOTE, -1) ?: -1
 
         isTypeText = arguments?.getString(Const.TYPE_ITEM_EDIT) == Const.TYPE_NOTE
@@ -107,6 +109,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         onListener()
         handleRedoUndo()
         handleEnableIconDo()
+        checking("EditNote_Show", "EditList_Show")
     }
 
     private fun loadAdsBanner() {
@@ -117,6 +120,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         binding.apply {
 
             ivTypeBox.setPreventDoubleClickScaleView {
+                checking("EditNote_Label_Click", "EditList_Label_Click")
                 showBottomSheet(currentColor, Const.EDIT_NOTE_SCREEN) {
                     currentColor = it
                     mapIdColor(
@@ -140,10 +144,37 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                             }
                         }
                     }
+                    check(
+                        if (isTypeText) {
+                            when (it) {
+                                TypeColorNote.A_ORANGE.name -> "EditNote_Label_Orange_Show"
+                                TypeColorNote.B_GREEN.name -> "EditNote_Label_Green_Show"
+                                TypeColorNote.BLUE.name -> "EditNote_Label_Blue_Show"
+                                TypeColorNote.F_PRIMARY.name -> "EditNote_Label_Purple_Show"
+                                TypeColorNote.BLINK.name -> "MainLabel_Pink_Click"
+                                TypeColorNote.GRAY.name -> "EditNote_Label_Gray_Show"
+                                TypeColorNote.D_RED.name -> "EditNote_Label_Red_Show"
+                                else -> ""
+                            }
+                        } else {
+                            when (it) {
+                                TypeColorNote.A_ORANGE.name -> "EditList_Label_Orange_Click"
+                                TypeColorNote.B_GREEN.name -> "EditList_Label_Green_Click"
+                                TypeColorNote.BLUE.name -> "EditList_Label_Blue_Click"
+                                TypeColorNote.F_PRIMARY.name -> "EditList_Label_Purple_Click"
+                                TypeColorNote.BLINK.name -> "EditList_Label_Pink_Click"
+                                TypeColorNote.GRAY.name -> "EditList_Label_Gray_Click"
+                                TypeColorNote.D_RED.name -> "EditList_Label_Red_Click"
+                                else -> ""
+                            }
+                        }
+                    )
                 }
+                checking("EditNote_Label_Show", "EditList_Label_Show")
             }
 
             ivMenu.setPreventDoubleClickScaleView {
+                checking("EditNote_Extend_Click", "EditList_Extend_Click")
                 initiatePopupMenu()
             }
 
@@ -151,8 +182,8 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                 addListItem()
             }
 
-            etTittle.setOnClickListener {
-
+            etTittle.setPreventDoubleClick {
+                checking("EditNote_Heading_Click", "EditList_Heading_Click")
             }
 
             etTittle.setOnNextAction {
@@ -163,13 +194,16 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                 }
             }
 
-            etContent.setOnClickListener {}
+            etContent.setPreventDoubleClick {
+                check("EditNote_Filing_Click")
+            }
 
             etContent.doAfterTextChanged {
                 handleEnableIconDo()
             }
 
             ivBackground.setPreventDoubleClick {
+                checking("EditNote_Background_Click", "EditList_Background_Click")
                 showBottomSheetBg(model.background ?: -1) {
                     if (it.url != -1) {
                         model?.background = it.url
@@ -188,6 +222,10 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                             llItem.changeBackgroundColor(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
                             clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
                         }
+                    }
+
+                    Haki.tracker.track(if (isTypeText) "EditNote_Background_Item_Click" else "EditList_Background_Item_Click") {
+                        param("EditNote_Background_Item_Click", it.name)
                     }
                 }
             }
@@ -208,7 +246,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         binding.ivVComplete.setOnClickListener {
             binding.apply {
                 etContent.clearFocus()
-                etTittle.clearFocus() 
+                etTittle.clearFocus()
                 activity?.hideKeyboard()
             }
             isBackPress = true
@@ -221,6 +259,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         }
 
         binding.ivReadMode.setOnClickListener {
+            checking("EditNote_ReadMode_Click", "EditList_ReadMode_Click")
             onReadMode = !onReadMode
             handeReadMode()
         }
@@ -234,11 +273,12 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     }
 
     private fun showBottomSheetBg(currentBg: Int, colorClick: (Background) -> Unit) {
-        val addPhotoBottomDialogFragment: BottomSheetBackground = BottomSheetBackground.newInstance(currentBg, colorClick)
+        val addPhotoBottomDialogFragment: BottomSheetBackground = BottomSheetBackground.newInstance(isTypeText, currentBg, colorClick)
         activity?.supportFragmentManager?.let {
             addPhotoBottomDialogFragment.show(
                 it, "TAG"
             )
+            checking("EditNote_Background_Show", "EditList_Background_Show")
         }
     }
 

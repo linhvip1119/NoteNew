@@ -27,6 +27,7 @@ import com.example.colorphone.databinding.FragmentReminderBinding
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.ui.reminder.workHelper.ReminderWorkerNotification
 import com.example.colorphone.ui.select.SelectScreen.Companion.ITEM_FROM_SELECTED_SCREEN
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.CHANNEL_ID_ONE_TIME_WORK
 import com.example.colorphone.util.Const.CHANNEL_ID_PERIOD_WORK
 import com.example.colorphone.util.Const.FORMAT_DATE_REMINDER
@@ -37,6 +38,7 @@ import com.example.colorphone.util.Const.MESSAGE
 import com.example.colorphone.util.Const.TITTLE
 import com.example.colorphone.util.Const.TYPE_ITEM
 import com.example.colorphone.util.Const.TYPE_WORKER
+import com.example.colorphone.util.Const.checking
 import com.example.colorphone.util.RepeatType
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.ext.convertDateStringToLong
@@ -64,6 +66,7 @@ class ReminderFragment : BaseFragment<FragmentReminderBinding>(FragmentReminderB
     override fun init(view: View) {
         onListener()
         onBackPressHandle()
+        Const.checking("Reminder_Show")
     }
 
     private var chosenYear = 0
@@ -196,30 +199,37 @@ class ReminderFragment : BaseFragment<FragmentReminderBinding>(FragmentReminderB
     private fun onListener() {
         binding.apply {
             tvBack.setOnClickListener {
+                Const.checking("Reminder_Back_Click")
                 showDialog()
             }
 
             tvDateValue.setOnClickListener {
+                Const.checking("Reminder_Date_Click")
                 openCalendar()
             }
 
             tvReminderTimeValue.setOnClickListener {
+                Const.checking("Reminder_ReminderTime_Click")
                 openTimePicker()
             }
 
             tvRepeatValue.setOnClickListener {
+                Const.checking("Reminder_Repeat_Click")
                 showPopupMenu()
             }
 
             switchAlarmValue.setOnCheckedChangeListener { buttonView, isChecked ->
+                Const.checking("Reminder_Alarm_Click")
             }
 
             tvButtonSave.setOnClickListener {
                 saveTimeUpdate()
+                Const.checking("Reminder_Apply_Click")
             }
 
             tvButtonCancel.setOnClickListener {
                 showDialog()
+                Const.checking("Reminder_Cancel_Click")
             }
         }
     }
@@ -233,6 +243,7 @@ class ReminderFragment : BaseFragment<FragmentReminderBinding>(FragmentReminderB
             val item: MenuItem = popupMenu.menu.getItem(getIndexSelectedMenu())
             context?.let { item.setColorSelect(it) }
             popupMenu.show()
+            checking("Reminder_diaRepeat_Show")
         }
     }
 
@@ -242,6 +253,7 @@ class ReminderFragment : BaseFragment<FragmentReminderBinding>(FragmentReminderB
                 binding.tvRepeatValue.text = getString(R.string.doesNotRepeat)
                 mTypeRepeat = RepeatType.DOES_NOT_REPEAT.name
                 mValueRepeat = 1
+                checking("Reminder_diaRepeat_NotRepeat_Click")
                 return true
             }
 
@@ -249,6 +261,7 @@ class ReminderFragment : BaseFragment<FragmentReminderBinding>(FragmentReminderB
                 binding.tvRepeatValue.text = getString(R.string.daily)
                 mTypeRepeat = RepeatType.DAILY.name
                 mValueRepeat = 1
+                checking("Reminder_diaRepeat_Daily_Click")
                 return true
             }
 
@@ -256,6 +269,7 @@ class ReminderFragment : BaseFragment<FragmentReminderBinding>(FragmentReminderB
                 binding.tvRepeatValue.text = getString(R.string.weekly)
                 mTypeRepeat = RepeatType.WEEKLY.name
                 mValueRepeat = 1
+                checking("Reminder_diaRepeat_Weekly_Click")
                 return true
             }
 
@@ -263,6 +277,7 @@ class ReminderFragment : BaseFragment<FragmentReminderBinding>(FragmentReminderB
                 binding.tvRepeatValue.text = getString(R.string.monthly)
                 mTypeRepeat = RepeatType.MONTHLY.name
                 mValueRepeat = 1
+                checking("Reminder_diaRepeat_Monthly_Click")
                 return true
             }
 
@@ -273,7 +288,8 @@ class ReminderFragment : BaseFragment<FragmentReminderBinding>(FragmentReminderB
                     RepeatType.MORE_DAYS.name -> RepeatType.MORE_DAYS.name
                     else -> null
                 }
-                context?.showAlertDialogRepeatDaily(initType, mValueRepeat, onClickView = {}) { value, type ->
+                checking("Reminder_diaRepeat_Custom_Click")
+                context?.showAlertDialogRepeatDaily(initType, mValueRepeat) { value, type ->
                     mTypeRepeat = type
                     mValueRepeat = value
                     binding.tvRepeatValue.text = getRepeatValue(value)

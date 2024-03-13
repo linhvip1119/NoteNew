@@ -6,6 +6,8 @@ import android.view.View
 import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.SplashFragmentBinding
+import com.example.colorphone.util.Const
+import com.wecan.inote.util.haveNetworkConnection
 import dev.keego.haki.Haki
 import dev.keego.haki.appopen
 
@@ -15,7 +17,11 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
 
     private var isFullProgress = false
     override fun init(view: View) {
+        Const.checking("Splash_Show")
         init()
+        if(context?.haveNetworkConnection() != true){
+            Const.checking("Splash_NoInternet_Show")
+        }
     }
 
     override fun onSubscribeObserver(view: View) {
@@ -43,9 +49,10 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
                 }
             }
         }, 100)
-        Haki.placement("scSplash_OpenApp").appopen().forceShow(requireActivity()) {
+        Haki.placement("scSplash_OpenApp").appopen().forceShow(requireActivity(), dialog = null) {
 //            if (isFullProgress) {
-                navigationWithAnim(R.id.action_splashFragment_to_mainFragment)
+            Const.checking("Splash_Navigate")
+            navigationWithAnim(R.id.action_splashFragment_to_mainFragment)
 //            }
         }
     }

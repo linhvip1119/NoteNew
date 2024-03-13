@@ -1,5 +1,7 @@
 package com.example.colorphone.util
 
+import dev.keego.haki.Haki
+
 object Const {
     const val CHANNEL_ID_PERIOD_WORK = "PERIODIC_APP_UPDATES"
     const val CHANNEL_ID_ONE_TIME_WORK = "INSTANT_APP_UPDATES"
@@ -69,4 +71,8 @@ object Const {
     const val PAPER = 1
     const val CUTE = 2
     const val DARK = 3
+
+    fun checking(key: String) {
+        Haki.tracker.track(key)
+    }
 }

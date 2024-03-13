@@ -19,6 +19,7 @@ import com.example.colorphone.model.NoteModel
 import com.example.colorphone.ui.edit.adapter.MakeListVH
 import com.example.colorphone.ui.edit.utils.TextViewUndoRedo
 import com.example.colorphone.ui.select.SelectScreen.Companion.ITEM_FROM_SELECTED_SCREEN
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.ext.getCurrentTimeToLong
 import com.example.colorphone.util.ext.hideKeyboard
@@ -190,6 +191,7 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
                             model?.isPinned == true
                         )
                     }
+                    checking("EditNote_Extend_Pin_Click", "EditList_Extend_Pin_Click")
                     mDropdown?.dismiss()
                 }
             }
@@ -204,6 +206,7 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
                             ITEM_FROM_SELECTED_SCREEN to model?.ids
                         )
                     )
+                    checking("EditNote_Extend_Reminder_Click", "EditList_Extend_Reminder_Click")
                     mDropdown?.dismiss()
                 }
             }
@@ -216,6 +219,7 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
                     handleSaveNote {
                         addPhotoWidget(model)
                     }
+                    checking("EditNote_Extend_AddToHome_Click", "EditList_Extend_AddToHome_Click")
                     mDropdown?.dismiss()
                 }
             }
@@ -226,6 +230,7 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
 
                 root.setOnClickListener {
                     swapNote()
+                    checking("EditNote_Extend_SwapToList_Click", "EditList_Extend_SwapToText_Click")
                     mDropdown?.dismiss()
                 }
             }
@@ -244,6 +249,7 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
                             getString(R.string.noteArchiveLabel).plus(".")
                         )
                     }
+                    checking("EditNote_Extend_Archive_Click", "EditList_Extend_Archive_Click")
                     mDropdown?.dismiss()
                     navController?.popBackStack()
                 }
@@ -255,6 +261,7 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
 
                 root.setOnClickListener {
                     shareNote()
+                    checking("EditNote_Extend_Share_Click", "EditList_Extend_Share_Click")
                     mDropdown?.dismiss()
                 }
             }
@@ -272,6 +279,7 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
                             it, getString(R.string.noteDeletedLabel).plus(".")
                         )
                     }
+                    checking("EditNote_Extend_Delete_Click", "EditList_Extend_Delete_Click")
                     navController?.popBackStack()
                     mDropdown?.dismiss()
                 }
@@ -286,6 +294,7 @@ fun EditNoteScreen.initiatePopupMenu(): PopupWindow? {
             FrameLayout.LayoutParams.WRAP_CONTENT, true
         )
         mDropdown.showAsDropDown(binding.ivMenu, 0, 0, Gravity.END)
+        checking("EditNote_Extend_Show", "EditList_Extend_Show")
     } catch (e: Exception) {
         e.printStackTrace()
     }
@@ -351,8 +360,10 @@ fun EditNoteScreen.handeReadMode() {
         if (onReadMode) {
             ivUndo.isEnabled = !onReadMode
             ivRedo.isEnabled = !onReadMode
+            checking("EditNote_Extend_ReadModeON_Click", "EditList_ReadModeON_Click")
         } else {
             handleEnableIconDo()
+            checking("EditNote_Extend_ReadModeOFF_Click", "EditList_ReadModeOFF_Click")
         }
 
         tvAddItem.isEnabled = !onReadMode
@@ -395,10 +406,12 @@ fun EditNoteScreen.handleRedoUndo() {
 
     binding.ivRedo.setOnClickListener {
         if (isFocusTittle) helperTittle?.redo() else helperContent?.redo()
+        checking("EditList_Redo_Click", "EditList_Redo_Click")
     }
 
     binding.ivUndo.setOnClickListener {
         if (isFocusTittle) helperTittle?.undo() else helperContent?.undo()
+        checking("EditNote_Undo_Click", "EditList_Undo_Click")
     }
 
     binding.etTittle.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
@@ -410,4 +423,8 @@ fun EditNoteScreen.handleRedoUndo() {
         if (hasFocus) v.showKeyboard() else v.hideKeyboard()
         isFocusContent = hasFocus
     }
+}
+
+fun EditNoteScreen.checking(key1: String, key2: String) {
+    check(if (isTypeText) key1 else key2)
 }

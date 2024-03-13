@@ -4,5 +4,5 @@
     android:layout_width="match_parent"
     android:id="@+id/flBanner"
     android:layout_height="wrap_content"
-    android:background="@color/neutral300"
+    android:background="@color/colorBgBanner"
     tools:layout_height="50dp" />

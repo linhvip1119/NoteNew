@@ -12,7 +12,9 @@ import com.example.colorphone.databinding.BottomSheetBackgroundEditBinding
 import com.example.colorphone.model.Background
 import com.example.colorphone.ui.bottomDialogColor.viewmodel.BottomSheetViewModel
 import com.example.colorphone.ui.edit.bottomBackgroundEdit.adapter.FragmentPagerAdapter
+import com.example.colorphone.util.Const
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wecan.inote.util.getDisplayWidth
 import com.wecan.inote.util.px
@@ -22,6 +24,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
 class BottomSheetBackground(
+    private var isNoteText: Boolean = false,
     private var currentBg: Int,
     private var bgClick: (Background) -> Unit
 ) :
@@ -42,6 +45,7 @@ class BottomSheetBackground(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         handleRadiusTop(view)
         initView()
+        checking("EditNote_Background_Show", "EditList_Background_Show")
     }
 
     private fun initView() {
@@ -63,6 +67,33 @@ class BottomSheetBackground(
                 }
             }
         }
+        _binding?.tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab) {
+                    _binding?.tabLayout?.getTabAt(0) -> {
+                        checking("EditNote_Background_Color_Click", "EditList_Background_Color_Click")
+                    }
+
+                    _binding?.tabLayout?.getTabAt(1) -> {
+                        checking("EditNote_Background_Paper_Click", "EditList_Background_Paper_Click")
+                    }
+
+                    _binding?.tabLayout?.getTabAt(2) -> {
+                        checking("EditNote_Background_Cute_Click", "EditList_Background_Cute_Click")
+                    }
+
+                    _binding?.tabLayout?.getTabAt(3) -> {
+                        checking("EditNote_Background_Dark_Click", "EditList_Background_Dark_Click")
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        })
     }
 
     private fun handleRadiusTop(view: View) {
@@ -77,12 +108,17 @@ class BottomSheetBackground(
         _binding = null
     }
 
+    fun checking(key1: String, key2: String) {
+        Const.checking(if (isNoteText) key1 else key2)
+    }
+
     companion object {
         fun newInstance(
+            isNoteText: Boolean = false,
             currentBg: Int,
             colorClick: (Background) -> Unit
         ): BottomSheetBackground {
-            return BottomSheetBackground(currentBg, colorClick)
+            return BottomSheetBackground(isNoteText, currentBg, colorClick)
         }
     }
 }

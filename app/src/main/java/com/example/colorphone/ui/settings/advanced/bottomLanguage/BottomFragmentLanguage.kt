@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colorphone.R
 import com.example.colorphone.databinding.FragmentBottomLanguageBinding
 import com.example.colorphone.ui.bottomDialogColor.viewmodel.BottomSheetViewModel
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.PrefUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -51,11 +52,14 @@ class BottomFragmentLanguage() : BottomSheetDialogFragment() {
         _noteTypeViewModel.apply {
             context?.getListLanguage()
         }
+        Const.checking("Advanced_Language_Show")
     }
 
     private fun setUpRv() {
         _adapter = BottomLanguageAdapter {
             context?.let { it1 -> PrefUtils.languageApp(it1, it.name) }
+            val text = "Advanced_Language_${it.name}_Click"
+            Const.checking(text)
             dismiss()
             activity?.apply {
                 finish()

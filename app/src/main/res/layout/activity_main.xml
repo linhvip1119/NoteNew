@@ -7,10 +7,10 @@
     tools:context="com.example.colorphone.ui.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:name="com.example.colorphone.base.MainNavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.colorphone.base.MainNavHostFragment"
-        android:id="@+id/fragmentContainer"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 </LinearLayout>

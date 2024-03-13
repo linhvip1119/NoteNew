@@ -59,6 +59,8 @@
     <color name="bgSelectedIap">#B00E0E</color>
     <color name="bgTextColorIap">#FFCD4F</color>
 
+    <color name="colorBgBanner">#E5E5E5</color>
+
     <color name="bgBottomTab">#FFFFFF</color>
     <color name="bgShadowBottomTab">#12000000</color>
     <color name="bgBottomColor">#FFFFFF</color>

@@ -19,7 +19,6 @@ import com.example.colorphone.util.Const.NOTE_FROM_LONG_CLICK
 import com.example.colorphone.util.Const.POSITION_SELECTED
 import com.example.colorphone.util.Const.TYPE_ITEM_EDIT
 import com.example.colorphone.util.Const.currentType
-import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.SortType
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.TypeItem
@@ -27,7 +26,6 @@ import com.example.colorphone.util.TypeView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.Locale
-import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
@@ -41,7 +39,7 @@ class ListNoteScreen(type: String) : BaseFragment<FragmentBaseListBinding>(Fragm
 
     private var textSearch: String = ""
 
-    private var call : (() -> Unit)? = null
+    private var call: (() -> Unit)? = null
 
     companion object {
         fun newInstance(type: String, text: String, callback: () -> Unit): ListNoteScreen {
@@ -58,6 +56,7 @@ class ListNoteScreen(type: String) : BaseFragment<FragmentBaseListBinding>(Fragm
     }
 
     override fun init(view: View) {
+        Const.checking(if (isNoteType) "Main_tabNote_Show" else "Main_tabChecklist_Show")
         initAdapter()
         setTypeRecyclerView()
         setUpRecyclerView(prefUtil.typeView)
@@ -77,6 +76,7 @@ class ListNoteScreen(type: String) : BaseFragment<FragmentBaseListBinding>(Fragm
 
     private fun onListener() {
         mAdapterText.onLongClickItem = { it, pos ->
+            Const.checking("Main_itemNoteList_Hold")
             navigationWithAnim(
                 R.id.selectFragment,
                 bundleOf(
@@ -88,6 +88,7 @@ class ListNoteScreen(type: String) : BaseFragment<FragmentBaseListBinding>(Fragm
         }
 
         mAdapterText.mOnClickItem = {
+            Const.checking(if (isNoteType) "Main_ItemNote_Click" else "Main_ItemChecklist_Click")
             navigateToEdit(it.ids)
         }
     }

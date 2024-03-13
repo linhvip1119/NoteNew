@@ -12,6 +12,7 @@ import com.example.colorphone.ui.settings.advanced.bottomLanguage.BottomFragment
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.APPLICATION_ID
 import com.example.colorphone.util.PrefUtils
+import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.ext.getTextLanguage
 import com.example.colorphone.util.ext.showAlertDialogTip
 import com.wecan.inote.util.mapIdColor
@@ -21,6 +22,7 @@ class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSetti
     override fun init(view: View) {
         initView()
         onListener()
+        check("Advanced_Show")
     }
 
     private fun initView() {
@@ -42,32 +44,52 @@ class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSetti
         binding.apply {
 
             switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
+                check("Advanced_DarkModeSwitch_Click")
                 changeDarkMode(isChecked)
             }
 
             tvSettings.setOnClickListener {
+                check("Advanced_Back_Click")
                 navController?.popBackStack()
             }
 
             tvPrivacyPolicy.setOnClickListener {
+                check("Advanced_PrivacyPolicy_Click")
                 openPolicy()
             }
 
             tvShare.setOnClickListener {
+                check("Advanced_ShareApp_Click")
                 shareApp()
             }
 
             switchNotifiBar.setOnCheckedChangeListener { _, isChecked ->
+                check("Advanced_NotificationBar_Click")
                 changeNotificationBar(isChecked)
             }
 
             ivColor.setOnClickListener {
+                check("Advanced_ThemeColor_Click")
+                check("Advanced_ThemeColor_Show")
                 showBottomSheet(fromScreen = Const.SETTING_SCREEN) {
                     saveTheme(it)
+                    check(
+                        when (it) {
+                            TypeColorNote.A_ORANGE.name -> "Advanced_ThemeColor_Orange_Click"
+                            TypeColorNote.B_GREEN.name -> "Advanced_ThemeColor_Green_Click"
+                            TypeColorNote.BLUE.name -> "Advanced_ThemeColor_Blue_Click"
+                            TypeColorNote.F_PRIMARY.name -> "Advanced_ThemeColor_Purple_Click"
+                            TypeColorNote.BLINK.name -> "Advanced_ThemeColor_Pink_Click"
+                            TypeColorNote.GRAY.name -> "Advanced_ThemeColor_Gray_Click"
+                            TypeColorNote.D_RED.name -> "Advanced_ThemeColor_Red_Click"
+                            else -> ""
+                        }
+                    )
                 }
             }
 
             tvValueLanguage.setOnClickListener {
+                check("Advanced_Language_Click")
                 showBottomLanguage()
             }
 
@@ -111,10 +133,13 @@ class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSetti
 
     private fun changeNotificationBar(isChecked: Boolean) {
         if (!isChecked) {
-            context?.showAlertDialogTip(context?.getString(R.string.reminderNotBeInTime)
-                                                .toString(), onBack = {
+            check("Advanced_TipsReminder_Show")
+            context?.showAlertDialogTip(context?.getString(R.string.reminderNotBeInTime).toString(),
+              onBack = {
+                  check("Advanced_TipsReminder_Cancel_Click")
                 binding.switchNotifiBar.isChecked = true
             }, onContinue = {
+                check("Advanced_TipsReminder_Continue_Click")
                 prefUtil.statusNotificationBar = false
             })
         } else {

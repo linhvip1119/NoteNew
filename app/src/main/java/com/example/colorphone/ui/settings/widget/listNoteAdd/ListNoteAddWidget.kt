@@ -41,6 +41,7 @@ class ListNoteAddWidget : BaseFragment<FragmentListNoteAddWidgetBinding>(Fragmen
         setUpRecyclerView(prefUtil.typeView)
         onListener()
         getData()
+        check("Widget_SelectStickyNote_Show")
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -52,10 +53,12 @@ class ListNoteAddWidget : BaseFragment<FragmentListNoteAddWidgetBinding>(Fragmen
         binding.apply {
             tvBack.setOnClickListener {
                 jobAddWidget?.cancel()
+                check("Widget_SelectStickyNote_Back_Click")
                 navController?.popBackStack()
             }
 
             tvText.setOnClickListener {
+                check("Widget_SelectStickyNote_tabNote_Click")
                 lifecycleScope.launch {
                     tvText.isSelected = true
                     tvChecklist.isSelected = false
@@ -66,6 +69,7 @@ class ListNoteAddWidget : BaseFragment<FragmentListNoteAddWidgetBinding>(Fragmen
             }
 
             tvChecklist.setOnClickListener {
+                check("Widget_SelectStickyNote_tabList_Click")
                 lifecycleScope.launch {
                     tvText.isSelected = false
                     tvChecklist.isSelected = true
@@ -80,6 +84,7 @@ class ListNoteAddWidget : BaseFragment<FragmentListNoteAddWidgetBinding>(Fragmen
             lifecycleScope.launch(Dispatchers.Main) {
                 setVisibleProgress()
                 addPhotoWidget(it)
+                check(if (typeListItem == TypeItem.TEXT.name) "Widget_SelectStickyNote_Note_Click" else "Widget_SelectStickyNote_Checklist_Click")
             }
         }
 
@@ -108,6 +113,7 @@ class ListNoteAddWidget : BaseFragment<FragmentListNoteAddWidgetBinding>(Fragmen
                     }
                     delay(200)
                     updateWidgetWithId(note)
+                    check("Widget_SelectStickyNote_AddHomeSuc_Click")
                 }
             }
         }

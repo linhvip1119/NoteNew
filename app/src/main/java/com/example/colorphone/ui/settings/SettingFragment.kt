@@ -13,6 +13,7 @@ import com.example.colorphone.R
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentSettingBinding
 import com.example.colorphone.ui.settings.googleDriver.helper.GoogleDriveApiDataRepository
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.EMAIL_FEEDBACK
 import com.example.colorphone.util.Const.KEY_SCREEN_RECYCLER_BIN
 import com.example.colorphone.util.ext.loadUrl
@@ -46,6 +47,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(FragmentSettingBind
         onListener()
         onListenWidget()
         getData()
+        Const.checking("Setting_Show")
     }
 
     private fun onListenWidget() {
@@ -149,33 +151,41 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(FragmentSettingBind
     private fun onListener() {
         binding.apply {
             tvSetting.setOnClickListener {
+                Const.checking("Setting_Back_Click")
                 navController?.popBackStack()
             }
 
             clArchive.setOnClickListener {
+                Const.checking("Setting_Archive_Click")
                 goToListRecycleBin(true)
             }
 
             clRecyclerBin.setOnClickListener {
+                Const.checking("Setting_Trash_Click")
                 goToListRecycleBin(false)
             }
 
             clSettings.setOnClickListener {
+                Const.checking("Setting_Advanced_Click")
                 navigationWithAnim(R.id.action_settingFragment_to_advancedFragment)
             }
 
             clWidgets.setOnClickListener {
+                Const.checking("Setting_Widgets_Click")
                 navigationWithAnim(R.id.action_settingFragment_to_widgetFragment)
             }
 
             clFeedback.setOnClickListener {
+                Const.checking("Setting_Feedback_Click")
                 context?.sendEmailMore(arrayOf(EMAIL_FEEDBACK))
             }
 
             tvButtonSync.setOnClickListener {
                 if (prefUtil.statusEmailUser == null) {
+                    Const.checking("Setting_LogIn_Click")
                     startGoogleDriveSignIn()
                 } else {
+                    Const.checking("Setting_Sync_Click")
                     handleSyncData() {
                         viewModelTextNote.getListRecycleArchive(false, prefUtil.sortType)
                         viewModelTextNote.getListRecycleArchive(true, prefUtil.sortType)
@@ -189,11 +199,17 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(FragmentSettingBind
             }
 
             tvLogOut.setOnClickListener {
+                Const.checking("Setting_LogOut_Click")
+                Const.checking("Setting_diaLogOut_Show")
                 context?.showAlertDialog(
                     getString(R.string.logout),
                     getString(R.string.areYouSureLogout),
-                    getString(R.string.logout)
+                    getString(R.string.logout),
+                    back = {
+                        Const.checking("Setting_diaLogOut_Cancel")
+                    }
                 ) {
+                    Const.checking("Setting_diaLogOut_Click")
                     signOut()
                     prefUtil.statusEmailUser = null
                 }

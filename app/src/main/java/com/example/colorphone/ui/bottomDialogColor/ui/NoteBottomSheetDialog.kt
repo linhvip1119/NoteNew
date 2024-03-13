@@ -19,6 +19,7 @@ import com.example.colorphone.ui.bottomDialogColor.adapter.BottomEditColorAdapte
 import com.example.colorphone.ui.bottomDialogColor.adapter.BottomTypeColorAdapter
 import com.example.colorphone.ui.bottomDialogColor.viewmodel.BottomSheetViewModel
 import com.example.colorphone.ui.edit.utils.ListItemListener
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.EDIT_NOTE_SCREEN
 import com.example.colorphone.util.Const.MAIN_SCREEN
 import com.example.colorphone.util.Const.SETTING_SCREEN
@@ -26,6 +27,7 @@ import com.example.colorphone.util.Const.currentType
 import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.TypeColorNote
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.wecan.inote.util.setPreventDoubleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -137,7 +139,8 @@ class NoteBottomSheetDialog(
     private fun onListener() {
 
         _binding?.apply {
-            tvEdit.setOnClickListener {
+            tvEdit.setPreventDoubleClick {
+                Const.checking(if (!isEdited) "MainLabel_Edit_Click" else "MainLabel_Done_Click")
                 isEdited = !isEdited
                 handleClickEdit()
             }

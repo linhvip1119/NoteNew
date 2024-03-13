@@ -58,4 +58,5 @@
     <color name="bgBottomTab">#2C2C2C</color>
     <color name="bgShadowBottomTab">#292929</color>
     <color name="bgBottomColor">#2C2C2C</color>
+    <color name="colorBgBanner">#2C2C2C</color>
 </resources>

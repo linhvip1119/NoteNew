@@ -44,6 +44,7 @@ class WidgetFragment : BaseFragment<FragmentWidgetBinding>(FragmentWidgetBinding
     override fun init(view: View) {
         onListener()
         viewModelTextNote.getFirstData()
+        check("Widget_Show")
     }
 
     override fun onSubscribeObserver(view: View) {
@@ -95,12 +96,15 @@ class WidgetFragment : BaseFragment<FragmentWidgetBinding>(FragmentWidgetBinding
     private fun onListener() {
         binding.apply {
             llItem.setOnClickListener {
+                check("Widget_StickyNote_Click")
                 handleClickItem(true, !llItem.isSelected)
             }
             ivWidgetBarr.setOnClickListener {
+                check("Widget_NoteTool_Click")
                 handleClickItem(false, !ivWidgetBarr.isSelected)
             }
             tvWidgetBack.setOnClickListener {
+                check("Widget_Back_Click")
                 navController?.popBackStack()
             }
 
@@ -108,6 +112,7 @@ class WidgetFragment : BaseFragment<FragmentWidgetBinding>(FragmentWidgetBinding
                 if (llItem.isSelected) {
                     navigationWithAnim(R.id.action_widgetFragment_to_ltNoteAddWidget)
                 } else {
+                    check("Widget_AddToHome_Click")
                     addWidgetTools()
                 }
             }
@@ -155,7 +160,8 @@ class WidgetFragment : BaseFragment<FragmentWidgetBinding>(FragmentWidgetBinding
                         .take(1)
                         .asLiveData(viewLifecycleOwner.lifecycleScope.coroutineContext)
                         .observe(viewLifecycleOwner) {
-                            Toast(context).showCustomToast(context!!, "add success")
+                            context?.let { it1 -> Toast(context).showCustomToast(it1, getString(R.string.addToolSuccess)) }
+                            check("Widget_AddToHome_Success_Click")
                         }
             }
         }

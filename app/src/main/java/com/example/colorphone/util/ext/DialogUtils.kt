@@ -37,6 +37,7 @@ import com.example.colorphone.databinding.LayoutDialogRepeatDailyBinding
 import com.example.colorphone.databinding.LayoutLoginSuccessBinding
 import com.example.colorphone.databinding.LayoutRatingAppBinding
 import com.example.colorphone.databinding.LayoutSaveYourChangeReminderBinding
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.RepeatType
 import com.example.colorphone.util.SortType
@@ -60,7 +61,7 @@ import kotlinx.coroutines.launch
 
 fun Context.showAlertDialogBackOnReminder(onContinue: (() -> Unit)) {
     val dialog = AlertDialog.Builder(this)
-        .create()
+            .create()
     val binding: LayoutSaveYourChangeReminderBinding =
         LayoutSaveYourChangeReminderBinding.inflate(LayoutInflater.from(this))
     dialog.setView(binding.root)
@@ -69,25 +70,31 @@ fun Context.showAlertDialogBackOnReminder(onContinue: (() -> Unit)) {
         tvTip.gone()
         tvContent.text = getString(R.string.yourChanges)
         tvButtonBack.text = getString(R.string.backLabel)
-        tvButtonBack.setOnClickListener { dialog.dismiss() }
+        tvButtonBack.setOnClickListener {
+            dialog.dismiss()
+            Const.checking("Reminder_diaCustomRepeat_TipBack_Click")
+        }
         tvButtonContinue.setOnClickListener {
             onContinue.invoke()
+            Const.checking("Reminder_diaCustomRepeat_TipContin_Click")
             dialog.dismiss()
         }
     }
     dialog.insetMargin()
     dialog.setCanceledOnTouchOutside(false)
     dialog.show()
+    Const.checking("Reminder_diaCustomRepeat_Tip_Show")
 }
 
 fun Context.showAlertDialog(
     tittle: String,
     content: String,
     textAction: String,
+    back : (() -> Unit),
     callAction: (() -> Unit)
 ) {
     val dialog = AlertDialog.Builder(this)
-        .create()
+            .create()
     val binding: LayoutSaveYourChangeReminderBinding =
         LayoutSaveYourChangeReminderBinding.inflate(LayoutInflater.from(this))
     dialog.setView(binding.root)
@@ -95,7 +102,10 @@ fun Context.showAlertDialog(
         tvTittle.text = tittle
         tvContent.text = content
         tvButtonContinue.text = textAction
-        tvButtonBack.setOnClickListener { dialog.dismiss() }
+        tvButtonBack.setOnClickListener {
+            back()
+            dialog.dismiss()
+        }
         tvButtonContinue.setOnClickListener {
             callAction.invoke()
             dialog.dismiss()
@@ -108,18 +118,19 @@ fun Context.showAlertDialog(
 
 fun Context.showDialogLoginSuccess() {
     val dialog = AlertDialog.Builder(this)
-        .create()
+            .create()
     val binding: LayoutLoginSuccessBinding =
         LayoutLoginSuccessBinding.inflate(LayoutInflater.from(this))
     dialog.setView(binding.root)
     dialog.setCanceledOnTouchOutside(true)
     dialog.insetMargin()
+    Const.checking("Setting_diaLogInSuccess_Show")
     dialog.show()
 }
 
 fun Context.showDialogRating(submit: ((Int) -> Unit)? = null) {
     val dialog = AlertDialog.Builder(this)
-        .create()
+            .create()
     val binding: LayoutRatingAppBinding =
         LayoutRatingAppBinding.inflate(LayoutInflater.from(this))
     dialog.setView(binding.root)
@@ -144,7 +155,7 @@ fun Context.showDialogRating(submit: ((Int) -> Unit)? = null) {
 
 fun Context.showDialogFeedback(feedback: () -> Unit) {
     val dialog = AlertDialog.Builder(this)
-        .create()
+            .create()
     val binding: DialogFeedbackBinding =
         DialogFeedbackBinding.inflate(LayoutInflater.from(this))
     dialog.setView(binding.root)
@@ -188,7 +199,7 @@ fun LayoutRatingAppBinding.handleViewClickStar(pos: Int, submit: ((Int) -> Unit)
 
 fun Context.showDialogAddToWaitingScreen(isAddWidgetBar: Boolean, onContinue: (() -> Unit)) {
     val dialog = AlertDialog.Builder(this)
-        .create()
+            .create()
     val binding: LayoutAddToWaitingScreenBinding =
         LayoutAddToWaitingScreenBinding.inflate(LayoutInflater.from(this))
     dialog.setView(binding.root)
@@ -217,7 +228,7 @@ fun Context.showDialogAddToWaitingScreen(isAddWidgetBar: Boolean, onContinue: ((
 
 fun Context.showAlertDialogTip(message: String, onContinue: (() -> Unit), onBack: (() -> Unit)) {
     val dialog = AlertDialog.Builder(this)
-        .create()
+            .create()
     val binding: LayoutSaveYourChangeReminderBinding =
         LayoutSaveYourChangeReminderBinding.inflate(LayoutInflater.from(this))
     dialog.setView(binding.root)
@@ -225,7 +236,7 @@ fun Context.showAlertDialogTip(message: String, onContinue: (() -> Unit), onBack
         tvTittle.gone()
         tvTip.show()
         tvContent.text = message
-        tvButtonBack.text = this@showAlertDialogTip.getString(R.string.cancel)
+        tvButtonBack.text = getString(R.string.cancel)
         tvButtonBack.setOnClickListener {
             onBack.invoke()
             dialog.dismiss()
@@ -243,14 +254,14 @@ fun Context.showAlertDialogTip(message: String, onContinue: (() -> Unit), onBack
 fun Context.showAlertDialogRepeatDaily(
     typeRepeat: String?,
     valueRepeat: Int? = 1,
-    onClickView: ((String) -> Unit)? = null,
     onContinue: ((value: Int, type: String) -> Unit)
 ) {
     val dialog = AlertDialog.Builder(this)
-        .create()
+            .create()
     val binding: LayoutDialogRepeatDailyBinding =
         LayoutDialogRepeatDailyBinding.inflate(LayoutInflater.from(this))
     dialog.setView(binding.root)
+    Const.checking("Reminder_diaCustomRepeat_Show")
     var mTypeRepeat: String =
         if (typeRepeat.isNullOrEmpty()) RepeatType.MORE_DAYS.name else typeRepeat
     binding.apply {
@@ -262,14 +273,15 @@ fun Context.showAlertDialogRepeatDaily(
             etNumberDaily.setText(if (typeRepeat.isNullOrEmpty()) "15" else valueRepeat.toString())
         }
 
-        etNumberDaily.setOnClickListener { onClickView?.invoke("CustomRep_Filing_Click") }
+        etNumberDaily.setOnClickListener {
+            Const.checking("Reminder_diaCustomRepeat_Days_Click")
+        }
         etNumberDaily.doAfterTextChanged {
             tvButtonContinue.isEnabled = etNumberDaily.text.toString().isNotEmpty()
             tvButtonContinue.alpha = if (etNumberDaily.text.toString().isNotEmpty()) 1f else 0.6f
         }
 
         tvTittle.setOnClickListener {
-            onClickView?.invoke("CustomRep_Frequency_Click")
             val mContext: Context =
                 ContextThemeWrapper(this@showAlertDialogRepeatDaily, R.style.BasePopupMenu)
             val popupMenu =
@@ -279,7 +291,7 @@ fun Context.showAlertDialogRepeatDaily(
             popupMenu.setOnMenuItemClickListener {
                 when (it?.itemId) {
                     R.id.repeatDaily -> {
-                        onClickView?.invoke("CustomRep_Daily_Click")
+                        Const.checking("Reminder_diaCustomRepeat_Daily_Click")
                         tvDaily.text = getString(R.string.days)
                         tvTittle.text = getString(R.string.repeatDaily)
                         mTypeRepeat = RepeatType.MORE_DAYS.name
@@ -287,7 +299,7 @@ fun Context.showAlertDialogRepeatDaily(
                     }
 
                     R.id.repeatWeekly -> {
-                        onClickView?.invoke("CustomRep_Weekly_Click")
+                        Const.checking("Reminder_diaCustomRepeat_Weekly_Click")
                         tvDaily.text = getString(R.string.weeks)
                         tvTittle.text = getString(R.string.repeatWeekly)
                         mTypeRepeat = RepeatType.MORE_WEEKS.name
@@ -295,7 +307,7 @@ fun Context.showAlertDialogRepeatDaily(
                     }
 
                     R.id.repeatMonth -> {
-                        onClickView?.invoke("CustomRep_Monthly_Click")
+                        Const.checking("Reminder_diaCustomRepeat_Monthly_Click")
                         tvDaily.text = getString(R.string.months)
                         tvTittle.text = getString(R.string.repeatMonthly)
                         mTypeRepeat = RepeatType.MORE_MONTH.name
@@ -310,14 +322,14 @@ fun Context.showAlertDialogRepeatDaily(
             popupMenu.show()
         }
         tvButtonBack.setOnClickListener {
-            onClickView?.invoke("CustomRep_Cancel_Click")
+            Const.checking("Reminder_diaCustomRepeat_Cancel_Click")
             dialog.dismiss()
         }
         tvButtonContinue.setOnClickListener {
-            onClickView?.invoke("CustomRep_Save_Click")
+            Const.checking("Reminder_diaCustomRepeat_Save_Click")
             val value =
                 if (etNumberDaily.text.toString().isEmpty()) 1 else etNumberDaily.text.toString()
-                    .toInt()
+                        .toInt()
             onContinue.invoke(value, mTypeRepeat)
             dialog.dismiss()
         }
@@ -346,14 +358,17 @@ fun Context.showDialogOptionView(typeView: String, call: ((TypeView) -> Unit)? =
         tvDetails.setOpacitySelect()
 
         tvList.setOnClickListener {
+            Const.checking("MainView_List_Click")
             call?.invoke(TypeView.List)
             dialog.dismiss()
         }
         tvGrid.setOnClickListener {
+            Const.checking("MainView_Grid_Click")
             call?.invoke(TypeView.Grid)
             dialog.dismiss()
         }
         tvDetails.setOnClickListener {
+            Const.checking("MainView_Detail_Click")
             call?.invoke(TypeView.Details)
             dialog.dismiss()
         }
@@ -405,7 +420,7 @@ fun Context.showDialogOptionSoft(sortType: String, call: ((String) -> Unit)? = n
 
 fun Context.showDialogLoginSyncNow(width: Int?, clickLogin: () -> Unit) {
     val dialog = AlertDialog.Builder(this)
-        .create()
+            .create()
     val binding: DialogLoginSyncNowBinding =
         DialogLoginSyncNowBinding.inflate(LayoutInflater.from(this))
     dialog.setView(binding.root)
@@ -681,8 +696,8 @@ fun Context.showDialogComplete(text: String) {
     val dialog: Dialog
     val view: View = LayoutInflater.from(this).inflate(R.layout.dialog_set_pass_complete, null)
     val builder = android.app.AlertDialog.Builder(this)
-        .setView(view)
-        .setCancelable(false)
+            .setView(view)
+            .setCancelable(false)
 
     dialog = builder.create()
     dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -691,8 +706,8 @@ fun Context.showDialogComplete(text: String) {
         dialog.show()
     }
     Handler(Looper.getMainLooper()).postDelayed({
-        dialog.dismiss()
-    }, 2000)
+                                                    dialog.dismiss()
+                                                }, 2000)
 
 }
 
@@ -700,8 +715,8 @@ fun Context.showDialogRecommendLock(onSetNow: () -> Unit) {
     val dialog: Dialog
     val view: View = LayoutInflater.from(this).inflate(R.layout.dialog_recommend_lock, null)
     val builder = android.app.AlertDialog.Builder(this)
-        .setView(view)
-        .setCancelable(false)
+            .setView(view)
+            .setCancelable(false)
 
     dialog = builder.create()
     dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

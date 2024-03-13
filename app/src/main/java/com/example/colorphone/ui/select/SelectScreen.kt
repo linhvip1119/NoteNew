@@ -25,6 +25,7 @@ import com.example.colorphone.databinding.FragmentSelectScreenBinding
 import com.example.colorphone.databinding.PopupExtendSelectedBinding
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.ui.main.listNote.adapter.TextAdapter
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.CURRENT_TYPE_ITEM
 import com.example.colorphone.util.Const.NOTE_FROM_LONG_CLICK
 import com.example.colorphone.util.Const.POSITION_SELECTED
@@ -79,27 +80,36 @@ class SelectScreen() :
 
     private var mInflater: LayoutInflater? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isTextType =
+            arguments?.getString(CURRENT_TYPE_ITEM) ?: TypeItem.TEXT.name
+        idsFromLongClickItem = arguments?.getInt(NOTE_FROM_LONG_CLICK)
+        posScrollSelected = arguments?.getInt(POSITION_SELECTED)
+    }
 
     override fun init(view: View) {
-        _adapterText = TextAdapter(true)
-        _adapterText.isDarkTheme = prefUtil.isDarkMode
-        _adapterText.typeItem = isTextType
+        Const.checking(if (isTextNote()) "SelectNote_Show" else "SelectList_Show")
+        initAdapter()
         initView()
         setTypeRecyclerView()
         setUpRecyclerView(prefUtil.typeView)
         onBackPressHandle()
         onSearchNote()
         onListener()
+        getData()
+    }
+
+    private fun isTextNote() = run { isTextType == TypeItem.TEXT.name }
+
+    private fun initAdapter() {
+        _adapterText = TextAdapter(true)
+        _adapterText.isDarkTheme = prefUtil.isDarkMode
+        _adapterText.typeItem = isTextType
+    }
+
+    private fun getData() {
         viewModelTextNote.getListTextNote(isTextType, prefUtil.sortType)
-        /*        val account = context?.let { GoogleSignIn.getLastSignedInAccount(it) }
-                if (account != null) {
-                    initializeDriveClient(account)
-                }
-                if (prefUtil.isPremium) {
-                    binding.llTextLockNow.gone()
-                } else {
-                    binding.llTextLockNow.show()
-                }*/
     }
 
     private fun setTypeRecyclerView() {
@@ -109,14 +119,6 @@ class SelectScreen() :
             TypeView.Details.value -> TypeView.Details.type
             else -> TypeView.Grid.type
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        isTextType =
-            arguments?.getString(CURRENT_TYPE_ITEM) ?: TypeItem.TEXT.name
-        idsFromLongClickItem = arguments?.getInt(NOTE_FROM_LONG_CLICK)
-        posScrollSelected = arguments?.getInt(POSITION_SELECTED)
     }
 
     private fun onBackPressHandle() {
@@ -130,13 +132,16 @@ class SelectScreen() :
     private fun onListener() {
         binding.apply {
             ivPinned.setOnClickAnim {
+                Const.checking(if (isTextNote()) "SelectNote_Pin_Click" else "SelectList_Pin_Click")
                 handlePinnedNote()
             }
             ivSelectAll.setOnClickAnim {
+                Const.checking(if (isTextNote()) "SelectNote_SelectAll_Click" else "SelectList_SelectAll_Click")
                 _adapterText.selectAllItem(!ivSelectAll.isSelected)
             }
             tvSelected.setOnClickListener {
                 activity?.hideKeyboard()
+                Const.checking(if (isTextNote()) "SelectNote_Back_Click" else "SelectList_Back_Click")
                 navController?.popBackStack()
             }
 
@@ -145,21 +150,29 @@ class SelectScreen() :
                 activity?.hideKeyboard()
             }
 
+            edtSearch.setPreventDoubleClick {
+                Const.checking(if (isTextNote()) "SelectNote_Search_Click" else "SelectList_Search_Click")
+            }
+
             ivArchive.setOnClickAnim {
+                Const.checking(if (isTextNote()) "SelectNote_Archive_Click" else "SelectList_Archive_Click")
                 handleArchive()
             }
 
             ivDelete.setOnClickAnim {
+                Const.checking(if (isTextNote()) "SelectNote_Delete_Click" else "SelectList_Delete_Click")
                 handleDelete()
             }
 
             ivColor.setOnClickAnim {
+                Const.checking(if (isTextNote()) "SelectNote_Label_Click" else "SelectList_Label_Click")
                 showBottomSheet(fromScreen = SELECTED_SCREEN) {
                     handleChangeColors(it)
                 }
             }
 
             ivExtend.setOnClickAnim {
+                Const.checking(if (isTextNote()) "SelectNote_Extend_Click" else "SelectList_Extend_Click")
                 initPopupExtendMenu()
             }
 
@@ -168,6 +181,7 @@ class SelectScreen() :
             }
 
             ivReminder.setOnClickAnim {
+                Const.checking(if (isTextNote()) "SelectNote_SetReminder_Click" else "SelectList_SetReminder_Click")
                 handleClickReminder()
             }
         }
@@ -176,6 +190,7 @@ class SelectScreen() :
             handleEnableIconButton(size, item)
         }
         _adapterText.onClickSelectedEvent = {
+            Const.checking(if (isTextNote()) "SelectNote_ItemNote_Click" else "SelectList_ItemNote_Click")
         }
     }
 
@@ -194,6 +209,7 @@ class SelectScreen() :
                     ivIcon.setImageResource(R.drawable.ic_add_to_home)
                     tvText.text = getString(R.string.addToHome)
                     root.setPreventDoubleClick {
+                        Const.checking(if (isTextNote()) "SelectNote_diaExtend_AddHome_Click" else "SelectList_diaExtend_AddHome_Click")
                         mDropdown?.dismiss()
                         _adapterText.getListSelected().firstOrNull()?.let { it1 -> addPhotoWidget(it1) }
                     }
@@ -203,6 +219,7 @@ class SelectScreen() :
                     tvText.text = getString(R.string.share)
                     mDropdown?.dismiss()
                     root.setPreventDoubleClick {
+                        Const.checking(if (isTextNote())  "SelectNote_Share_Click" else "SelectList_Share_Click")
                         mDropdown?.dismiss()
                         shareNote()
                     }
@@ -213,6 +230,7 @@ class SelectScreen() :
                 menuBinding.root, FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT, true
             )
+            Const.checking(if (isTextNote())  "SelectNote_diaExtend_Show" else "SelectList_diaExtend_Show")
             mDropdown?.showAsDropDown(binding.ivExtend, (-100).px, (-150).px)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
@@ -237,6 +255,7 @@ class SelectScreen() :
                     }
                     delay(200)
                     updateWidgetWithId(note)
+                    Const.checking(if (isTextNote()) "SelectNote_diaExtend_AddHomeSucc_Click" else "SelectList_diaExtend_AddHomeSucc_Click")
                 }
             }
         }
@@ -430,6 +449,7 @@ class SelectScreen() :
                     }
                     _adapterText.revertListArchive()
                 }
+                Const.checking(if (isTextNote()) "SelectNote_UndoArchive_Click" else "SelectList_UndoArchive_Click")
             }
 
             IS_DELETE -> {
@@ -439,6 +459,7 @@ class SelectScreen() :
                     }
                     _adapterText.revertListArchive()
                 }
+                Const.checking(if (isTextNote()) "SelectNote_UndoNote_Click" else "SelectList_UndoNote_Click")
             }
 
             IS_CHANGE_COLOR -> {
@@ -450,6 +471,7 @@ class SelectScreen() :
                     delay(300)
                     _adapterText.notifyItemRangeChanged(0, _adapterText.itemCount)
                 }
+                Const.checking(if (isTextNote()) "SelectNote_UndoLabel_Click" else "SelectList_UndoLabel_Click")
             }
         }
     }

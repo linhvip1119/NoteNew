@@ -8,9 +8,7 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.navigation.NavController
-import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.findNavController
 import com.example.colorphone.R
 import com.example.colorphone.databinding.ActivityMainBinding

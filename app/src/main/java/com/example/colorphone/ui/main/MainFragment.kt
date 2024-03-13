@@ -134,6 +134,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     }
 
     override fun init(view: View) {
+        check("Main_Show")
         loadAdsBanner()
         initView()
         addListColorType()
@@ -172,34 +173,43 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     private fun onListener() {
         binding.apply {
             flNote.setOnClickListener {
+                check("Main_tabNote_Click")
                 if (currentNote != TEXT_FM) {
                     currentNote = TEXT_FM
                     initBottomBar()
                 }
             }
             flChecklist.setOnClickListener {
+                check("Main_tabChecklist_Click")
                 if (currentNote != CHECKLIST_FM) {
                     currentNote = CHECKLIST_FM
                     initBottomBar()
                 }
             }
 
-            binding.apply {
-                ivCloseSearch.setPreventDoubleClick {
-                    edtSearch.text?.clear()
-                    edtSearch.clearFocus()
-                    activity?.hideKeyboard()
-                }
+            edtSearch.setOnClickListener {
+                check("Main_Search_Click")
             }
 
+            ivCloseSearch.setPreventDoubleClick {
+                edtSearch.text?.clear()
+                edtSearch.clearFocus()
+                activity?.hideKeyboard()
+            }
+
+
             ivMenu.setOnClickAnim {
+                check("Main_Extend_Click")
                 initiatePopupMenu()
             }
+
             ivProfile.setOnClickListener {
+                check("Main_Setting_Click")
                 navigationWithAnim(R.id.action_mainFragment_to_settingFragment)
             }
 
             ivSync.setPreventDoubleClick {
+                check("Main_Sync_Click")
                 if (prefUtil.statusEmailUser == null) {
                     startGoogleDriveSignIn()
                 } else {
@@ -212,15 +222,31 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             }
 
             binding.ivAllBox.setOnClickAnim {
+                check("Main_Label_Click")
+                check("MainLabel_Show")
                 showBottomSheet(currentType, Const.MAIN_SCREEN) {
                     mapIdColor(nameColor = it, isGetIcon = true) { icon, _, _, _, _ ->
                         binding.ivAllBox.setImageResource(icon)
                     }
                     shareViewModel.setFilterColor(it)
+                    check(
+                        when(it){
+                            TypeColorNote.DEFAULT.name -> "MainLabel_AllNote_Click"
+                            TypeColorNote.A_ORANGE.name -> "MainLabel_Orange_Click"
+                            TypeColorNote.B_GREEN.name -> "MainLabel_Green_Click"
+                            TypeColorNote.BLUE.name -> "MainLabel_Blue_Click"
+                            TypeColorNote.F_PRIMARY.name -> "MainLabel_Purple_Click"
+                            TypeColorNote.BLINK.name -> "MainLabel_Pink_Click"
+                            TypeColorNote.GRAY.name -> "MainLabel_Gray_Click"
+                            TypeColorNote.D_RED.name -> "MainLabel_Red_Click"
+                            else -> ""
+                        }
+                    )
                 }
             }
 
             ivFloatButton.setOnClickAnim {
+                check("Main_CreateNew_Click")
                 navigateToCreateNote()
             }
         }

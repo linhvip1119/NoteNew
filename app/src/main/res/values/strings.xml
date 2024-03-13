@@ -269,4 +269,5 @@
     <string name="dark">Dark</string>
     <string name="welcome">Welcome!</string>
     <string name="simpleButElegant">Simple but Elegant &amp; Useful.\n\nTake Quick Note, Checklist and More!</string>
+    <string name="addToolSuccess">Add tools Widget success!</string>
 </resources>

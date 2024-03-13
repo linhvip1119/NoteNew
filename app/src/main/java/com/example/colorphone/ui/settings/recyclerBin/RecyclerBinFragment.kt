@@ -45,6 +45,10 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
         isArchiveScreen = arguments?.getBoolean(Const.KEY_SCREEN_RECYCLER_BIN) == true
     }
 
+    private fun checking(key1: String, key2: String) {
+        check(if (isArchiveScreen) key1 else key2)
+    }
+
     override fun onGoogleDriveSignedInSuccess(driveApi: Drive?) {
         repository = GoogleDriveApiDataRepository(driveApi)
     }
@@ -60,6 +64,7 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
             initializeDriveClient(account)
         }
         viewModelTextNote.getListRecycleArchive(isArchiveScreen, prefUtil.sortType)
+        checking("Archived_Show", "Bin_Show")
     }
 
     private fun setUpRecyclerView() {
@@ -102,6 +107,7 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
         binding.apply {
 
             tvBack.setOnClickListener {
+                checking("Archived_Back_Click", "Bin_Back_Click")
                 handleReloadSettingFm()
             }
 
@@ -111,16 +117,19 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
 
             ivDelete.setOnClickListener {
                 handleDeleteNote()
+                checking("Archived_Delete_Click", "Bin_Delete_Click")
             }
 
             ivSelectAll.setOnClickListener {
                 changeCheckBox(!isSelectedAll)
                 _adapterText.handleListSelectedAll(!isSelectedAll)
+                checking("Archived_SelectAll_Click", "Bin_SelectAll_Click")
             }
         }
 
         _adapterText.onSelectItem = { size ->
             handleSelectItem(size)
+            checking("Archived_Item_Click", "Bin_Item_Click")
         }
     }
 
@@ -135,6 +144,7 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
                     toggleRecyclerView(_adapterText.currentList)
                 }
                 showToast(getString(R.string.noteUnArchiveLabel))
+                check("Archived_Restore_Click")
             }
         } else {
             lifecycleScope.launch {
@@ -145,14 +155,20 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
                     toggleRecyclerView(_adapterText.currentList)
                 }
                 showToast(getString(R.string.noteUnDeleted))
+                check("Bin_Restore_Click")
             }
         }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private fun handleDeleteNote() {
+        checking("Archived_diaPermanentDel_Show", "Bin_diaPermanentDel_Show")
+        checking("Archived_diaPermanentDel_Show", "Bin_diaPermanentDel_Show")
         context?.showAlertDialog(
-            getString(R.string.permanentDelete), getString(R.string.areYouSureDelete), getString(R.string.deleteLabel)
+            getString(R.string.permanentDelete), getString(R.string.areYouSureDelete), getString(R.string.deleteLabel),
+            back = {
+                checking("Archived_diaPermanentDel_Cancel_Click", "Bin_diaPermanentDel_Cancel_Click")
+            }
         ) {
             if (prefUtil.statusEmailUser != null) {
                 val dialogProgress = ProgressDialog(context)
@@ -228,6 +244,7 @@ class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRec
                 _adapterText.updateListDelete()
                 showToast(getString(R.string.noteDeletedLabel).plus("."))
             }
+            checking("Archived_diaPermanentDel_Delete_Click", "Bin_diaPermanentDel_Delete_Click")
         }
     }
 
