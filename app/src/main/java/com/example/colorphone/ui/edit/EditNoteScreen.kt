@@ -267,7 +267,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     private fun showInter(key1: String, key2: String, call: (AdResult) -> Unit) {
         val k = if (model.typeItem == TypeItem.TEXT.name) key1 else key2
-        Haki.placement(k).interstitial().show(requireActivity()) {
+        Haki.placement(k).interstitial().show(requireActivity(), dialog = null) {
             call(it)
         }
     }

@@ -2,11 +2,11 @@
 <resources>
     <!--ad  prod-->
     <string name="no1_app_open_default" translatable="false">ca-app-pub-6969842628973791/6815345239</string>
-    <string name="no1_banner_collapsible_default" translatable="false">0</string>
+    <string name="no1_banner_collapsible_default" translatable="false">ca-app-pub-6969842628973791/4224980530</string>
     <string name="no1_banner_default" translatable="false">ca-app-pub-6969842628973791/7452913138</string>
     <string name="no1_interstitial_default" translatable="false">ca-app-pub-6969842628973791/3252091476</string>
     <string name="no1_native_default" translatable="false">ca-app-pub-6969842628973791/8500548721</string>
-    <string name="no1_rewarded_default" translatable="false"></string>
-    <string name="no1_rewarded_interstitial_default" translatable="false"></string>
+    <string name="no1_rewarded_default" translatable="false">ca-app-pub-6969842628973791/6795303554</string>
+    <string name="no1_rewarded_interstitial_default" translatable="false">ca-app-pub-6969842628973791/6800593862</string>
     <!---->
 </resources>

@@ -14,12 +14,23 @@ android {
     namespace = "com.example.colorphone"
     compileSdk = 34
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("${project.rootDir}/key/note_123456.jks")
+            storePassword = "123456"
+            keyAlias = "key0"
+            keyPassword = "123456"
+        }
+    }
+
     defaultConfig {
         applicationId = "dev.note.notebook.notepad.wisenotes"
         minSdk = 24
         targetSdk = 33
-        versionCode = 7
-        versionName = "1.0.7"
+        versionCode = 8
+        versionName = "1.0.8"
+        resConfigs("en", "es", "pt", "it", "ms", "fil", "th", "ko", "ja", "hi", "pt", "vi", "ru", "uk", "tr", "dz", "ar",
+                   "in", "tl", "de", "zh", "nl", "pl", "sv", "da", "fi", "bn", "mr", "te", "ta", "ur", "cs", "hr", "my", "sw")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,10 +48,12 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+//            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
 
         debug {
@@ -51,6 +64,7 @@ android {
                 serviceCredentialsFile = "$rootDir/firebase/key.json"
                 groups = "tester"
             }
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -76,6 +90,12 @@ android {
             excludes.add("META-INF/notice.txt")
             excludes.add("META-INF/ASL2.0")
             excludes.add("META-INF/*.kotlin_module")
+        }
+    }
+
+    bundle {
+        language {
+            enableSplit = false
         }
     }
 }
@@ -126,23 +146,19 @@ dependencies {
 
     implementation("com.intuit.sdp:sdp-android:1.0.6")
 
-    // implementation("com.zxy.android:recovery:1.0.0")
-
     implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
+
+    implementation("com.google.firebase:firebase-messaging-ktx")
+    implementation("com.google.firebase:firebase-config-ktx")
+    implementation("com.google.firebase:firebase-perf-ktx")
 
     implementation("com.airbnb.android:lottie:6.0.1")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
     ksp("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-process:$lifecycle_version")
-
-    //   implementation ("com.google.android.gms:play-services-ads:22.5.0")
-
-    // implementation("com.google.firebase:firebase-messaging-ktx")
-
-    //  implementation("androidx.tonyodev.fetch2:xfetch2:3.1.6")
 
     val billing_version = "6.1.0"
     //   implementation("com.android.billingclient:billing-ktx:$billing_version")
