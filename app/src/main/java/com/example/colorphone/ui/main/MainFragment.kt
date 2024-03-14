@@ -148,7 +148,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     private fun loadAdsBanner() {
         activity?.let { ac ->
             binding.flBanner1.flBanner.addView(Haki.placement("scMain_INLINE_Middle").banner().getView(ac))
-            binding.flBanner2.flBanner.addView(Haki.placement("scMain_INLINE_Bottom").banner().getView(ac))
+            binding.flBanner2.flBanner.addView(Haki.placement("scMain_INLINE_Bottom", enable = false).banner().getView(ac))
         }
     }
 
@@ -230,7 +230,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                     }
                     shareViewModel.setFilterColor(it)
                     check(
-                        when(it){
+                        when (it) {
                             TypeColorNote.DEFAULT.name -> "MainLabel_AllNote_Click"
                             TypeColorNote.A_ORANGE.name -> "MainLabel_Orange_Click"
                             TypeColorNote.B_GREEN.name -> "MainLabel_Green_Click"

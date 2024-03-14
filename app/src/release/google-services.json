@@ -1,46 +1,39 @@
 {
   "project_info": {
-    "project_number": "769679740468",
-    "project_id": "no1--note",
-    "storage_bucket": "no1--note.appspot.com"
+    "project_number": "1011730641015",
+    "project_id": "no1-note-prod",
+    "storage_bucket": "no1-note-prod.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:769679740468:android:7eca65cea7b27224010461",
+        "mobilesdk_app_id": "1:1011730641015:android:28c797429ffc807318d672",
         "android_client_info": {
           "package_name": "note.notebook.notepad.wisenotes"
         }
       },
       "oauth_client": [
         {
-          "client_id": "769679740468-v9glv4d3vujuto8r8i2vfuvmqd4guove.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.noteNew",
-            "certificate_hash": "dc4ceaa5f4e54fc3468ec72ca9252674da6db574"
-          }
-        },
-        {
-          "client_id": "769679740468-s4q7ato0rng5u7re4ap5avpk29ru5ntc.apps.googleusercontent.com",
+          "client_id": "1011730641015-dks7q9tn4b742m1sjl9vdih4prsqar8v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCeJIjl981z7bhZB6AAeeKl4gWHXST6bRE"
+          "current_key": "AIzaSyD5J-ilVyMqWzSa8A5GNnBNPtTQyDsaDGQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "769679740468-s4q7ato0rng5u7re4ap5avpk29ru5ntc.apps.googleusercontent.com",
+              "client_id": "1011730641015-8slf2c26pj8srqrtv0ub0fq0raadghfp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-6969842628973791~3494251163"
     }
   ],
   "configuration_version": "1"
