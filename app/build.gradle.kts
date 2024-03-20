@@ -28,7 +28,7 @@ android {
         minSdk = 24
         targetSdk = 33
         versionCode = 11
-        versionName = "1.1.1"
+        versionName = "1.1.2"
         resConfigs("en", "es", "pt", "it", "ms", "fil", "th", "ko", "ja", "hi", "pt", "vi", "ru", "uk", "tr", "dz", "ar",
                    "in", "tl", "de", "zh", "nl", "pl", "sv", "da", "fi", "bn", "mr", "te", "ta", "ur", "cs", "hr", "my", "sw")
 
