@@ -290,8 +290,6 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
             activity?.onBackPressedDispatcher?.addCallback(this@EditNoteScreen, true) {
                 showInter(
-                    PlacementAds.PLACEMENT_EDIT_BACK,
-                    PlacementAds.PLACEMENT_EDIT_CHECK_BACK,
                     interBackClick,
                     interBackCheckListClick,
                     TYPE_BACK
@@ -316,8 +314,6 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             isBackPress = true
             handleSaveNote {
                 showInter(
-                    PlacementAds.PLACEMENT_EDIT_SAVE,
-                    PlacementAds.PLACEMENT_EDIT_CHECK_SAVE,
                     interSaveClick,
                     interSaveCheckListClick,
                     TYPE_SAVE
@@ -336,8 +332,6 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     }
 
     private fun showInter(
-        keyEdit: String,
-        keyCheckList: String,
         interBack: InterAdsManager?,
         interSave: InterAdsManager?,
         type: Int,
@@ -346,15 +340,15 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         activity?.let {
             if (model.typeItem == TypeItem.TEXT.name) {
                 if (type == TYPE_BACK) {
-                    showAds(interBack, it, keyEdit, call)
+                    showAds(interBack, it, call)
                 } else {
-                    showAds(interSave, it, keyEdit, call)
+                    showAds(interSave, it, call)
                 }
             } else {
                 if (type == TYPE_BACK) {
-                    showAds(interBack, it, keyCheckList, call)
+                    showAds(interBack, it, call)
                 } else {
-                    showAds(interSave, it, keyCheckList, call)
+                    showAds(interSave, it, call)
                 }
             }
 
@@ -365,11 +359,9 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     private fun showAds(
         interAds: InterAdsManager?,
         it: FragmentActivity,
-        keyEdit: String,
         call: () -> Unit
     ) = interAds?.showInterstitialAd(
         it,
-        AdsConstants.mapRemoteConfigAds[keyEdit],
         {
             call.invoke()
         },
