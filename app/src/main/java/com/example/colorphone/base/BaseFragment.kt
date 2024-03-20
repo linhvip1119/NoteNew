@@ -41,7 +41,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.Scope
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException
-import dev.keego.haki.Haki
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -133,7 +132,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
     }
 
     fun check(key : String){
-        Haki.tracker.track(key)
+        Const.checking(key)
     }
 
     fun addWidget(note: NoteModel, callSuccess: (Boolean) -> Unit) {

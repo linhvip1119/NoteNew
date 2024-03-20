@@ -5,9 +5,11 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.CHANNEL_ID_ONE_TIME_WORK
 import com.example.colorphone.util.Const.CHANNEL_ID_PERIOD_WORK
 import com.example.colorphone.util.PrefUtil
+import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -18,6 +20,7 @@ class MyApplication :Application() {
     lateinit var prefUtil: PrefUtil
     override fun onCreate() {
         super.onCreate()
+        Const.mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         createNotificationChannel()
         if (prefUtil.isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

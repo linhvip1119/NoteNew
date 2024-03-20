@@ -177,33 +177,11 @@ dependencies {
 
     implementation("com.makeramen:roundedimageview:2.3.0")
 
-    //setup haki main
-    implementation("dev.keego.haki:haki:6.5.4")
-    implementation("dev.keego.haki:haki-plugin:6.5.4")
-
-    //ads mediation
-    implementation("com.unity3d.ads:unity-ads:4.9.1")
-    implementation("com.google.ads.mediation:unity:4.9.1.0")
-    implementation("com.applovin.mediation:unityads-adapter:4.9.1.0")
-// ==================================================== Unity ====================================================
-
-// ==================================================== ironSource ====================================================
-    implementation("com.google.ads.mediation:ironsource:7.5.2.0")
-    implementation("com.applovin.mediation:ironsource-adapter:7.4.0.0.1")
-// ==================================================== ironSource ====================================================
-
-// ==================================================== Meta ====================================================
-    implementation("com.google.ads.mediation:facebook:6.16.0.0")
-    implementation("com.applovin.mediation:facebook-adapter:6.15.0.0")
-// ==================================================== Meta ====================================================
-
-// ==================================================== Pangle ====================================================
-    implementation("com.google.ads.mediation:pangle:5.5.0.8.0")
-    implementation("com.applovin.mediation:bytedance-adapter:5.4.0.9.0")
-// ==================================================== Pangle ====================================================
-
-// ==================================================== Mintegral ====================================================
-    implementation("com.google.ads.mediation:mintegral:16.5.41.0")
-    implementation("com.applovin.mediation:mintegral-adapter:16.5.11.0")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
+
+    //ads mob
+    implementation ("com.google.android.gms:play-services-ads:23.0.0")
+
+    //gson
+    implementation ("com.google.code.gson:gson:2.10.1")
 }

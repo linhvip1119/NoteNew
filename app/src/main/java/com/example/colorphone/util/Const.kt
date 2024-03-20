@@ -1,5 +1,8 @@
 package com.example.colorphone.util
 
+import android.os.Bundle
+import androidx.core.os.bundleOf
+import com.google.firebase.analytics.FirebaseAnalytics
 import dev.keego.haki.Haki
 
 object Const {
@@ -72,7 +75,11 @@ object Const {
     const val CUTE = 2
     const val DARK = 3
 
-    fun checking(key: String) {
-        Haki.tracker.track(key)
+    var mFirebaseAnalytics: FirebaseAnalytics? = null
+    fun checking(key: String, bundle: Bundle? = bundleOf()) {
+        mFirebaseAnalytics?.logEvent(
+            key,
+            bundle
+        )
     }
 }
