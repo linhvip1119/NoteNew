@@ -339,21 +339,23 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     ) {
         activity?.let {
             if (model.typeItem == TypeItem.TEXT.name) {
-                if (type == TYPE_BACK) {
-                    showAds(interBack, it, call)
-                } else {
-                    showAds(interSave, it, call)
-                }
+                checkTypeAndShowAds(it, type, interBack, interSave, call)
             } else {
-                if (type == TYPE_BACK) {
-                    showAds(interBack, it, call)
-                } else {
-                    showAds(interSave, it, call)
-                }
+                checkTypeAndShowAds(it, type, interBack, interSave, call)
             }
-
         }
+    }
 
+    private fun checkTypeAndShowAds(
+        it: FragmentActivity,
+        type: Int,
+        interBack: InterAdsManager?,
+        interSave: InterAdsManager?,
+        call: () -> Unit,
+    ) = if (type == TYPE_BACK) {
+        showAds(interBack, it, call)
+    } else {
+        showAds(interSave, it, call)
     }
 
     private fun showAds(
