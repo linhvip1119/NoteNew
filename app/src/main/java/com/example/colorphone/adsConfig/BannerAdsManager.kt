@@ -11,7 +11,7 @@ import com.google.android.gms.ads.AdView
 import com.wecan.inote.util.getAdSize
 
 object BannerAdsManager {
-    fun loadBannerAds(
+    fun loadAndShowBannerAds(
         activity: Activity,
         placement: String,
         layoutBanner: FrameLayout,

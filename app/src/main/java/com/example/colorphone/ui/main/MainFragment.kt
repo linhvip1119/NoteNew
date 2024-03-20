@@ -160,12 +160,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private fun loadAdsBanner() {
         activity?.let { ac ->
-            BannerAdsManager.loadBannerAds(
+            BannerAdsManager.loadAndShowBannerAds(
                 ac,
                 PlacementAds.PLACEMENT_MAIN_INLINE_MID,
                 binding.flBannerMid.flBanner
             )
-            BannerAdsManager.loadBannerAds(
+            BannerAdsManager.loadAndShowBannerAds(
                 ac,
                 PlacementAds.PLACEMENT_MAIN_INLINE_BOT,
                 binding.flBannerBot.flBanner,

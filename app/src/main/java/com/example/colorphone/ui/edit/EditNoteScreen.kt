@@ -162,7 +162,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     private fun loadAdsBanner() {
         activity?.let {
-            BannerAdsManager.loadBannerAds(
+            BannerAdsManager.loadAndShowBannerAds(
                 it,
                 PlacementAds.PLACEMENT_EDIT_INLINE_TOP,
                 binding.iclBanner.flBanner,
@@ -291,8 +291,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             activity?.onBackPressedDispatcher?.addCallback(this@EditNoteScreen, true) {
                 showInter(
                     interBackClick,
-                    interBackCheckListClick,
-                    TYPE_BACK
+                    interBackCheckListClick
                 ) {
                     jobAddWidget?.cancel()
                     navController?.popBackStack()
@@ -315,8 +314,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             handleSaveNote {
                 showInter(
                     interSaveClick,
-                    interSaveCheckListClick,
-                    TYPE_SAVE
+                    interSaveCheckListClick
                 ) {
                     jobAddWidget?.cancel()
                     navController?.popBackStack()
@@ -332,30 +330,17 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     }
 
     private fun showInter(
-        interBack: InterAdsManager?,
-        interSave: InterAdsManager?,
-        type: Int,
+        interEdit: InterAdsManager?,
+        interCheckList: InterAdsManager?,
         call: () -> Unit
     ) {
         activity?.let {
             if (model.typeItem == TypeItem.TEXT.name) {
-                checkTypeAndShowAds(it, type, interBack, interSave, call)
+                showAds(interEdit, it, call)
             } else {
-                checkTypeAndShowAds(it, type, interBack, interSave, call)
+                showAds(interCheckList, it, call)
             }
         }
-    }
-
-    private fun checkTypeAndShowAds(
-        it: FragmentActivity,
-        type: Int,
-        interBack: InterAdsManager?,
-        interSave: InterAdsManager?,
-        call: () -> Unit,
-    ) = if (type == TYPE_BACK) {
-        showAds(interBack, it, call)
-    } else {
-        showAds(interSave, it, call)
     }
 
     private fun showAds(
@@ -528,10 +513,5 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         } else {
             binding.iclBanner.flBanner.show()
         }
-    }
-
-    companion object {
-        const val TYPE_BACK = 0
-        const val TYPE_SAVE = 1
     }
 }

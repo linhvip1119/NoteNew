@@ -4,6 +4,7 @@ import android.app.Activity
 import android.util.Log
 import com.example.colorphone.R
 import com.example.colorphone.model.RemoteConfigAds
+import com.example.colorphone.util.Const
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -106,6 +107,7 @@ class InterAdsManager(
             if (remoteConfigAds == null || !isInterstitialLoaded() || AdsConstants.isShowOpenAds) {
                 onActiveWhenNotShowAds.invoke()
             } else {
+                Const.checking(remoteConfigAds.spaceName)
                 if (currentTime - AdsConstants.timeBaseCount >= AdsConstants.TIME_BASE_DEFAULT && remoteConfigAds.isOn) {
                     activity?.let { mActivity ->
                         if (mInterstitialAd != null) {
