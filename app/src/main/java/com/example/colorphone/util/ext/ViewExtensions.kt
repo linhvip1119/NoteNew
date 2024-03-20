@@ -20,6 +20,7 @@ import android.text.format.Formatter
 import android.text.style.ForegroundColorSpan
 import android.util.DisplayMetrics
 import android.util.TypedValue
+import android.view.Display
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -50,6 +51,7 @@ import com.example.colorphone.databinding.ItemToastSyncSuccessBinding
 import com.example.colorphone.util.RepeatType
 import com.example.colorphone.util.SortType
 import com.example.colorphone.util.TypeColorNote
+import com.google.android.gms.ads.AdSize
 import java.util.Locale
 import java.util.TimeZone
 
@@ -743,4 +745,16 @@ fun Context.getDisplayHeight(): Int {
 val Float.px: Float get() = (this * Resources.getSystem().displayMetrics.density)
 
 val Int.px: Int get() = ((this * Resources.getSystem().displayMetrics.density).toInt())
+
+fun Activity.getAdSize(): AdSize {
+
+    val display: Display = windowManager.defaultDisplay
+    val outMetrics = DisplayMetrics()
+    display.getMetrics(outMetrics)
+    val widthPixels = outMetrics.widthPixels.toFloat()
+    val density = outMetrics.density
+    val adWidth = (widthPixels / density).toInt()
+
+    return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth)
+}
 

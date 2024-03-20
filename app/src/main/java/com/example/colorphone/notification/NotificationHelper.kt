@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import android.widget.RemoteViews
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -15,7 +16,6 @@ import androidx.core.app.NotificationManagerCompat
 import com.example.colorphone.R
 import com.example.colorphone.ui.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
-import timber.log.Timber
 
 
 object NotificationHelper {
@@ -35,25 +35,25 @@ object NotificationHelper {
             val notificationLayout = RemoteViews(
                 context.packageName,
                 R.layout.layout_notification
-            ).apply{
+            ).apply {
                 this.setTextViewText(R.id.title, title)
-                this.setTextViewText(R.id.content,message)
+                this.setTextViewText(R.id.content, message)
             }
             val notificationLayoutSmall = RemoteViews(
                 context.packageName,
                 R.layout.layout_notification
-            ).apply{
-                this.setTextViewText(R.id.title,title)
-                this.setTextViewText(R.id.content,message)
+            ).apply {
+                this.setTextViewText(R.id.title, title)
+                this.setTextViewText(R.id.content, message)
             }
             val builder: NotificationCompat.Builder = NotificationCompat.Builder(
                 context, context.getString(R.string.notification_channel_id)
             )
-                    .setCustomBigContentView(notificationLayout)
-                    //.setCustomContentView(notificationLayoutSmall)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentText(message)
-                    .setAutoCancel(true).setOnlyAlertOnce(true).setContentIntent(contentIntent)
+                .setCustomBigContentView(notificationLayout)
+                //.setCustomContentView(notificationLayoutSmall)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentText(message)
+                .setAutoCancel(true).setOnlyAlertOnce(true).setContentIntent(contentIntent)
 
 
             val notificationManager =
@@ -72,13 +72,13 @@ object NotificationHelper {
             with(NotificationManagerCompat.from(context)) {
                 // notificationId is a unique int for each notification that you must define
                 if (ActivityCompat.checkSelfPermission(
-                            context, Manifest.permission.POST_NOTIFICATIONS
-                        ) != PackageManager.PERMISSION_GRANTED
+                        context, Manifest.permission.POST_NOTIFICATIONS
+                    ) != PackageManager.PERMISSION_GRANTED
                 ) {
-                    Timber.d("Notification denied")
+                    Log.d("Notification", "Notification denied")
                     return
                 }
-                Timber.d("Notification sent")
+                Log.d("Notification", "Notification sent")
                 notify(0, builder.build())
             }
         } catch (e: Exception) {

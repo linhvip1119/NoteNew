@@ -6,11 +6,19 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.colorphone.R
+import com.example.colorphone.adsConfig.AdsConstants
+import com.example.colorphone.adsConfig.BannerAdsManager
+import com.example.colorphone.adsConfig.InterAdsManager
+import com.example.colorphone.adsConfig.InterstitialOnLoadCallBack
+import com.example.colorphone.adsConfig.InterstitialOnShowCallBack
+import com.example.colorphone.adsConfig.PlacementAds
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentEditNoteBinding
 import com.example.colorphone.model.Background
@@ -27,16 +35,14 @@ import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.TypeItem
 import com.example.colorphone.util.ext.hideKeyboard
 import com.wecan.inote.util.changeBackgroundColor
+import com.wecan.inote.util.inv
 import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.setOnNextAction
 import com.wecan.inote.util.setPreventDoubleClick
 import com.wecan.inote.util.setPreventDoubleClickScaleView
+import com.wecan.inote.util.show
 import com.wecan.inote.util.showCustomToast
 import dagger.hilt.android.AndroidEntryPoint
-import dev.keego.haki.Haki
-import dev.keego.haki.ads.base.AdResult
-import dev.keego.haki.banner
-import dev.keego.haki.interstitial
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -82,6 +88,15 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     private var jobAddWidget: Job? = null
 
+    private var interBackClick: InterAdsManager? = null
+
+    private var interSaveClick: InterAdsManager? = null
+
+    private var interBackCheckListClick: InterAdsManager? = null
+
+    private var interSaveCheckListClick: InterAdsManager? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         handleArgumentsListener()
@@ -99,6 +114,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     override fun init(view: View) {
         loadAdsBanner()
+        initInterAds()
         handleViewText()
         if (idNoteEdited != -1) {
             viewModelTextNote.getNoteWithIds(idNoteEdited)
@@ -112,8 +128,48 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         checking("EditNote_Show", "EditList_Show")
     }
 
+    private fun initInterAds() {
+        activity?.let {
+            interBackClick = InterAdsManager(
+                it,
+                AdsConstants.mapRemoteConfigAds[PlacementAds.PLACEMENT_EDIT_BACK],
+                false,
+                object : InterstitialOnLoadCallBack {}
+            )
+
+            interSaveClick = InterAdsManager(
+                it,
+                AdsConstants.mapRemoteConfigAds[PlacementAds.PLACEMENT_EDIT_SAVE],
+                false,
+                object : InterstitialOnLoadCallBack {}
+            )
+
+            interBackCheckListClick = InterAdsManager(
+                it,
+                AdsConstants.mapRemoteConfigAds[PlacementAds.PLACEMENT_EDIT_CHECK_BACK],
+                false,
+                object : InterstitialOnLoadCallBack {}
+            )
+
+            interSaveCheckListClick = InterAdsManager(
+                it,
+                AdsConstants.mapRemoteConfigAds[PlacementAds.PLACEMENT_EDIT_CHECK_SAVE],
+                false,
+                object : InterstitialOnLoadCallBack {}
+            )
+        }
+    }
+
     private fun loadAdsBanner() {
-        binding.iclBanner.flBanner.addView(Haki.placement("scEditNote_INLINE_Top").banner().getView(requireActivity()))
+        activity?.let {
+            BannerAdsManager.loadBannerAds(
+                it,
+                PlacementAds.PLACEMENT_EDIT_INLINE_TOP,
+                binding.iclBanner.flBanner,
+                AdsConstants.POSITION_TOP_BANNER
+            )
+
+        }
     }
 
     private fun onListener() {
@@ -223,15 +279,23 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                             clTopBarMenu.setBackgroundResource(if (prefUtil.isDarkMode) R.color.bgEditNoteDark else idColorBody)
                         }
                     }
-
-                    Haki.tracker.track(if (isTypeText) "EditNote_Background_Item_Click" else "EditList_Background_Item_Click") {
-                        param("EditNote_Background_Item_Click", it.name)
-                    }
+                    Const.checking(
+                        if (isTypeText) "EditNote_Background_Item_Click" else "EditList_Background_Item_Click",
+                        bundleOf(
+                            "EditNote_Background_Item_Click" to it.name
+                        )
+                    )
                 }
             }
 
             activity?.onBackPressedDispatcher?.addCallback(this@EditNoteScreen, true) {
-                showInter("EditNote_Back_Click", "EditChecklist_Back_Click") {
+                showInter(
+                    PlacementAds.PLACEMENT_EDIT_BACK,
+                    PlacementAds.PLACEMENT_EDIT_CHECK_BACK,
+                    interBackClick,
+                    interBackCheckListClick,
+                    TYPE_BACK
+                ) {
                     jobAddWidget?.cancel()
                     navController?.popBackStack()
                 }
@@ -251,7 +315,13 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             }
             isBackPress = true
             handleSaveNote {
-                showInter("EditNote_Save_Click", "EditChecklist_Save_Click") {
+                showInter(
+                    PlacementAds.PLACEMENT_EDIT_SAVE,
+                    PlacementAds.PLACEMENT_EDIT_CHECK_SAVE,
+                    interSaveClick,
+                    interSaveCheckListClick,
+                    TYPE_SAVE
+                ) {
                     jobAddWidget?.cancel()
                     navController?.popBackStack()
                 }
@@ -265,15 +335,59 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         }
     }
 
-    private fun showInter(key1: String, key2: String, call: (AdResult) -> Unit) {
-        val k = if (model.typeItem == TypeItem.TEXT.name) key1 else key2
-        Haki.placement(k).interstitial().show(requireActivity(), dialog = null) {
-            call(it)
+    private fun showInter(
+        keyEdit: String,
+        keyCheckList: String,
+        interBack: InterAdsManager?,
+        interSave: InterAdsManager?,
+        type: Int,
+        call: () -> Unit
+    ) {
+        activity?.let {
+            if (model.typeItem == TypeItem.TEXT.name) {
+                if (type == TYPE_BACK) {
+                    showAds(interBack, it, keyEdit, call)
+                } else {
+                    showAds(interSave, it, keyEdit, call)
+                }
+            } else {
+                if (type == TYPE_BACK) {
+                    showAds(interBack, it, keyCheckList, call)
+                } else {
+                    showAds(interSave, it, keyCheckList, call)
+                }
+            }
+
         }
+
     }
 
+    private fun showAds(
+        interAds: InterAdsManager?,
+        it: FragmentActivity,
+        keyEdit: String,
+        call: () -> Unit
+    ) = interAds?.showInterstitialAd(
+        it,
+        AdsConstants.mapRemoteConfigAds[keyEdit],
+        {
+            call.invoke()
+        },
+        object : InterstitialOnShowCallBack {
+            override fun onAdDismissedFullScreenContent() {}
+
+            override fun onAdFailedToShowFullScreenContent() {}
+
+            override fun onAdShowedFullScreenContent() {
+                call.invoke()
+            }
+
+        }
+    )
+
     private fun showBottomSheetBg(currentBg: Int, colorClick: (Background) -> Unit) {
-        val addPhotoBottomDialogFragment: BottomSheetBackground = BottomSheetBackground.newInstance(isTypeText, currentBg, colorClick)
+        val addPhotoBottomDialogFragment: BottomSheetBackground =
+            BottomSheetBackground.newInstance(isTypeText, currentBg, colorClick)
         activity?.supportFragmentManager?.let {
             addPhotoBottomDialogFragment.show(
                 it, "TAG"
@@ -377,39 +491,53 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         val unit = resources.getDimension(R.dimen.dp1)
         val elevation = unit * 2
 
-        adapter = MakeListAdapter(elevation, model.listCheckList ?: arrayListOf(), object : ListItemListener {
+        adapter = MakeListAdapter(
+            elevation,
+            model.listCheckList ?: arrayListOf(),
+            object : ListItemListener {
 
-            override fun delete(position: Int) {
-                adapter.notifyItemRemoved(position)
-                if (position > -1 && position < (model.listCheckList?.size ?: 0)) {
-                    model.listCheckList?.removeAt(position)
+                override fun delete(position: Int) {
+                    adapter.notifyItemRemoved(position)
+                    if (position > -1 && position < (model.listCheckList?.size ?: 0)) {
+                        model.listCheckList?.removeAt(position)
+                    }
                 }
-            }
 
-            override fun moveToNext(position: Int) {
-                this@EditNoteScreen.moveToNext(position)
-            }
-
-            override fun textChanged(position: Int, text: String) {
-                model.listCheckList?.get(position)?.body = text
-            }
-
-            override fun checkedChanged(position: Int, checked: Boolean) {
-                try {
-                    model.listCheckList?.get(position)?.checked = checked
-                } catch (_: Exception) {
+                override fun moveToNext(position: Int) {
+                    this@EditNoteScreen.moveToNext(position)
                 }
-            }
 
-            override fun clickView(viewClick: String) {
+                override fun textChanged(position: Int, text: String) {
+                    model.listCheckList?.get(position)?.body = text
+                }
 
-            }
-        })
+                override fun checkedChanged(position: Int, checked: Boolean) {
+                    try {
+                        model.listCheckList?.get(position)?.checked = checked
+                    } catch (_: Exception) {
+                    }
+                }
+
+                override fun clickView(viewClick: String) {
+
+                }
+            })
 
         binding.rvCheckList.adapter = adapter
     }
 
-    companion object {
+    override fun onResume() {
+        super.onResume()
+        if (AdsConstants.isShowOpenAds) {
+            binding.iclBanner.flBanner.inv()
 
+        } else {
+            binding.iclBanner.flBanner.show()
+        }
+    }
+
+    companion object {
+        const val TYPE_BACK = 0
+        const val TYPE_SAVE = 1
     }
 }

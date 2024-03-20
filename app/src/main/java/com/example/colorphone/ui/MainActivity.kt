@@ -8,8 +8,6 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import com.example.colorphone.R
 import com.example.colorphone.databinding.ActivityMainBinding
 import com.example.colorphone.util.Const
@@ -18,12 +16,11 @@ import com.example.colorphone.util.PrefUtils
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.custom.ContextUtils
 import dagger.hilt.android.AndroidEntryPoint
-import dev.keego.haki.ads.base.HakiNavHost
 import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), HakiNavHost {
+class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var prefUtil: PrefUtil
 
@@ -74,9 +71,5 @@ class MainActivity : AppCompatActivity(), HakiNavHost {
                 else -> 4
             }
         }
-    }
-
-    override fun navController(): NavController {
-        return findNavController(R.id.fragmentContainer)
     }
 }

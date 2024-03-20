@@ -12,6 +12,9 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.colorphone.R
+import com.example.colorphone.adsConfig.AdsConstants
+import com.example.colorphone.adsConfig.BannerAdsManager
+import com.example.colorphone.adsConfig.PlacementAds
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentMainBinding
 import com.example.colorphone.model.ColorItem
@@ -33,13 +36,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.api.services.drive.Drive
 import com.wecan.inote.util.getBgBottomBarMain
+import com.wecan.inote.util.inv
 import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.px
 import com.wecan.inote.util.setOnClickAnim
 import com.wecan.inote.util.setPreventDoubleClick
+import com.wecan.inote.util.show
 import dagger.hilt.android.AndroidEntryPoint
-import dev.keego.haki.Haki
-import dev.keego.haki.banner
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.Locale
 
@@ -109,8 +112,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private fun initFromStickerWidget() {
         if (idFromStickerWidget != -1) {
-            val typeEdit = if (typeItemFromWidget == TypeItem.TEXT.name) Const.TYPE_NOTE else Const.TYPE_CHECKLIST
-            navigationWithAnim(R.id.editFragment, bundleOf(TYPE_ITEM_EDIT to typeEdit, Const.KEY_ID_DATA_NOTE to idFromStickerWidget))
+            val typeEdit =
+                if (typeItemFromWidget == TypeItem.TEXT.name) Const.TYPE_NOTE else Const.TYPE_CHECKLIST
+            navigationWithAnim(
+                R.id.editFragment,
+                bundleOf(TYPE_ITEM_EDIT to typeEdit, Const.KEY_ID_DATA_NOTE to idFromStickerWidget),
+            )
         }
     }
 
@@ -119,12 +126,18 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             when (fromToolsWidget) {
                 Const.TEXT_SCREEN -> {
                     currentNote = TEXT_FM
-                    navigationWithAnim(R.id.editFragment, bundleOf(TYPE_ITEM_EDIT to Const.TYPE_NOTE))
+                    navigationWithAnim(
+                        R.id.editFragment,
+                        bundleOf(TYPE_ITEM_EDIT to Const.TYPE_NOTE)
+                    )
                 }
 
                 Const.CHECK_LIST_SCREEN -> {
                     currentNote = CHECKLIST_FM
-                    navigationWithAnim(R.id.editFragment, bundleOf(TYPE_ITEM_EDIT to Const.TYPE_CHECKLIST))
+                    navigationWithAnim(
+                        R.id.editFragment,
+                        bundleOf(TYPE_ITEM_EDIT to Const.TYPE_CHECKLIST)
+                    )
                 }
 
                 Const.SETTING_SCREEN -> navigationWithAnim(R.id.action_mainFragment_to_settingFragment)
@@ -147,8 +160,17 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private fun loadAdsBanner() {
         activity?.let { ac ->
-            binding.flBanner1.flBanner.addView(Haki.placement("scMain_INLINE_Middle").banner().getView(ac))
-            binding.flBanner2.flBanner.addView(Haki.placement("scMain_INLINE_Bottom", enable = false).banner().getView(ac))
+            BannerAdsManager.loadBannerAds(
+                ac,
+                PlacementAds.PLACEMENT_MAIN_INLINE_MID,
+                binding.flBannerMid.flBanner
+            )
+            BannerAdsManager.loadBannerAds(
+                ac,
+                PlacementAds.PLACEMENT_MAIN_INLINE_BOT,
+                binding.flBannerBot.flBanner,
+                AdsConstants.POSITION_BOTTOM_BANNER
+            )
         }
     }
 
@@ -264,7 +286,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     }
 
     private fun navigateToCreateNote() {
-        val currentType = if (binding.vp2.currentItem == 0) Const.TYPE_NOTE else Const.TYPE_CHECKLIST
+        val currentType =
+            if (binding.vp2.currentItem == 0) Const.TYPE_NOTE else Const.TYPE_CHECKLIST
         navigationWithAnim(R.id.editFragment, bundleOf(TYPE_ITEM_EDIT to currentType))
     }
 
@@ -289,7 +312,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     private fun initViewPager() {
         try {
             val dashBoardAdapter = activity?.let {
-                DashBoardPagerAdapter(it, binding.edtSearch.text.toString().lowercase(Locale.getDefault())) {
+                DashBoardPagerAdapter(
+                    it,
+                    binding.edtSearch.text.toString().lowercase(Locale.getDefault())
+                ) {
                     clearFocusEditText()
                 }
             }
@@ -364,6 +390,17 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             )
             _noteTypeViewModel.addType(NoteType(listColor = listTypeNote))
             prefUtil.isLoggedIn = true
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (AdsConstants.isShowOpenAds) {
+            binding.flBannerMid.flBanner.inv()
+            binding.flBannerBot.flBanner.inv()
+        } else {
+            binding.flBannerMid.flBanner.show()
+            binding.flBannerBot.flBanner.show()
         }
     }
 

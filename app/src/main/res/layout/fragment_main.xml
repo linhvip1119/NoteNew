@@ -117,7 +117,7 @@
     </RelativeLayout>
 
     <include
-        android:id="@+id/flBanner1"
+        android:id="@+id/flBannerMid"
         layout="@layout/item_banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
         android:layout_marginTop="@dimen/dp6"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@+id/llBottomBar"
-        app:layout_constraintTop_toBottomOf="@+id/flBanner1" />
+        app:layout_constraintTop_toBottomOf="@+id/flBannerMid" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llBottomBar"
@@ -143,7 +143,7 @@
         android:paddingHorizontal="@dimen/dp24"
         android:paddingTop="@dimen/dp12"
         android:paddingBottom="@dimen/dp16"
-        app:layout_constraintBottom_toTopOf="@+id/flBanner2">
+        app:layout_constraintBottom_toTopOf="@+id/flBannerBot">
 
         <FrameLayout
             android:id="@+id/flNote"
@@ -200,7 +200,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <include
-        android:id="@+id/flBanner2"
+        android:id="@+id/flBannerBot"
         layout="@layout/item_banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

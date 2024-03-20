@@ -3,7 +3,6 @@ package com.example.colorphone.util
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import com.google.firebase.analytics.FirebaseAnalytics
-import dev.keego.haki.Haki
 
 object Const {
     const val CHANNEL_ID_PERIOD_WORK = "PERIODIC_APP_UPDATES"

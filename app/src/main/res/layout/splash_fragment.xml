@@ -37,6 +37,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="@dimen/dp40"
         android:layout_marginBottom="@dimen/dp40"
-        android:progressDrawable="@drawable/custom_progress_bg"/>
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/custom_progress_bg" />
 
 </RelativeLayout>
