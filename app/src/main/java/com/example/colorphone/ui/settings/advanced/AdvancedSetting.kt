@@ -11,7 +11,6 @@ import com.example.colorphone.databinding.FragmentSettingDetailBinding
 import com.example.colorphone.ui.settings.advanced.bottomLanguage.BottomFragmentLanguage
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.APPLICATION_ID
-import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.PrefUtils
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.ext.getTextLanguage
@@ -19,10 +18,10 @@ import com.example.colorphone.util.ext.showAlertDialogTip
 import com.wecan.inote.util.mapIdColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSettingDetailBinding::inflate) {
+class AdvancedSetting :
+    BaseFragment<FragmentSettingDetailBinding>(FragmentSettingDetailBinding::inflate) {
     override fun init(view: View) {
         initView()
         onListener()
@@ -36,7 +35,9 @@ class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSetti
         binding.apply {
             switchDarkMode.isChecked = isNightMode
             ivColor.isSelected = false
-            tvValueLanguage.text = context?.getTextLanguage(PrefUtils.languageApp(requireContext()) ?: getString(R.string.english))
+            tvValueLanguage.text = context?.getTextLanguage(
+                PrefUtils.languageApp(requireContext()) ?: getString(R.string.english)
+            )
             mapIdColor(nameColor = defaultColor, isGetIcon = true) { icon, _, _, _, _ ->
                 ivColor.setImageResource(icon)
             }
@@ -139,13 +140,13 @@ class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSetti
         if (!isChecked) {
             check("Advanced_TipsReminder_Show")
             context?.showAlertDialogTip(context?.getString(R.string.reminderNotBeInTime).toString(),
-              onBack = {
-                  check("Advanced_TipsReminder_Cancel_Click")
-                binding.switchNotifiBar.isChecked = true
-            }, onContinue = {
-                check("Advanced_TipsReminder_Continue_Click")
-                prefUtil.statusNotificationBar = false
-            })
+                onBack = {
+                    check("Advanced_TipsReminder_Cancel_Click")
+                    binding.switchNotifiBar.isChecked = true
+                }, onContinue = {
+                    check("Advanced_TipsReminder_Continue_Click")
+                    prefUtil.statusNotificationBar = false
+                })
         } else {
             prefUtil.statusNotificationBar = true
         }
@@ -174,7 +175,6 @@ class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSetti
             prefUtil.putValueMode(isChecked)
 
             activity?.apply {
-                prefUtil.isShowOpenAdsWhenChangeMode = false
                 finish()
                 intent?.let { startActivity(it) }
             }

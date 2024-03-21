@@ -14,13 +14,6 @@ constructor(
     private val sharedPreferences: SharedPreferences,
     private val editor: SharedPreferences.Editor
 ) {
-
-    var isShowOpenAdsWhenChangeMode: Boolean
-        get() = sharedPreferences.getBoolean("isShowOpenAdsWhenChangeMode", true)
-        set(value) {
-            editor.putBoolean("isShowOpenAdsWhenChangeMode", value).commit()
-        }
-
     val isDarkThemeLD: MutableLiveData<Boolean> = MutableLiveData()
 
     fun putValueMode(value: Boolean) {

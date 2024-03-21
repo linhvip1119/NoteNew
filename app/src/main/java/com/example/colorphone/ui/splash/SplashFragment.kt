@@ -6,10 +6,8 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import com.example.colorphone.MyApplication
 import com.example.colorphone.R
 import com.example.colorphone.adsConfig.AdsConstants
-import com.example.colorphone.adsConfig.AppOpenManager
 import com.example.colorphone.adsConfig.PlacementAds
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.SplashFragmentBinding
@@ -125,11 +123,7 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
                                     appOpenAd = p0
                                     handler!!.removeCallbacksAndMessages(null)
                                     if (!isPause) {
-                                        if (prefUtil.isShowOpenAdsWhenChangeMode) {
-                                            showAds()
-                                        } else {
-                                            goToHomeScreen()
-                                        }
+                                        showAds()
                                     }
                                 }
                             }
@@ -160,11 +154,7 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
                                 appOpenAd = p0
                                 handler!!.removeCallbacksAndMessages(null)
                                 if (!isPause) {
-                                    if (prefUtil.isShowOpenAdsWhenChangeMode) {
-                                        showAds()
-                                    } else {
-                                        goToHomeScreen()
-                                    }
+                                    showAds()
                                 }
                             }
                         }
@@ -212,9 +202,6 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
 
 
     private fun goToHomeScreen() {
-        if (!prefUtil.isShowOpenAdsWhenChangeMode) {
-            prefUtil.isShowOpenAdsWhenChangeMode = true
-        }
         AdsConstants.isShowAdsInter = false
         navigationWithAnim(R.id.action_splashFragment_to_mainFragment)
     }
@@ -241,11 +228,7 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
                     override fun run() {
                         if (appOpenAd != null) {
                             isTimeOut = false
-                            if (prefUtil.isShowOpenAdsWhenChangeMode) {
-                                showAds()
-                            } else {
-                                goToHomeScreen()
-                            }
+                            showAds()
                         } else {
                             if (countTime >= 12000) {
                                 isTimeOut = true
