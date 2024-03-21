@@ -2,11 +2,13 @@ package com.example.colorphone.ui.splash
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.example.colorphone.R
 import com.example.colorphone.adsConfig.AdsConstants
+import com.example.colorphone.adsConfig.AppOpenManager
 import com.example.colorphone.adsConfig.PlacementAds
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.SplashFragmentBinding
@@ -15,9 +17,12 @@ import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.wecan.inote.util.haveNetworkConnection
-
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.atomic.AtomicBoolean
+@AndroidEntryPoint
 class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding::inflate) {
 
     var handler: Handler? = null
@@ -33,14 +38,48 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
     private var isAdsClose = false
 
     private var appOpenAd: AppOpenAd? = null
+
+    private var appOpenManager: AppOpenManager? = null
+
+    private val isMobileAdsInitializeCalled = AtomicBoolean(false)
     override fun init(view: View) {
         AdsConstants.isShowAdsInter = true
         Const.checking("Splash_Show")
         if(context?.haveNetworkConnection() != true){
             Const.checking("Splash_NoInternet_Show")
         }
-        requestAds()
-        timeOut()
+        initUmp()
+    }
+
+    private fun initUmp() {
+        context?.haveNetworkConnection()?.let{
+            if (it){
+                if (googleMobileAdsConsentManager.canRequestAds) {
+                    activity?.let { MobileAds.initialize(it) {} }
+                    requestAds()
+                }
+                Log.d("TAGVBNHJJSS",googleMobileAdsConsentManager.canRequestAds.toString()+"a")
+                activity?.let {
+                    googleMobileAdsConsentManager.gatherConsent(it) { consentError ->
+
+                        Log.d("TAGVBNHJJJJKL", googleMobileAdsConsentManager.canRequestAds.toString())
+                        Log.d(
+                            "TAGVBNHJJJJKL",
+                            googleMobileAdsConsentManager.isPrivacyOptionsRequired.toString()
+                        )
+                        if (googleMobileAdsConsentManager.canRequestAds) {
+                            Log.d("TAGVBNHJJJJKL", googleMobileAdsConsentManager.canRequestAds.toString())
+                            activity?.let { MobileAds.initialize(it) {} }
+                            requestAds()
+                        }else{
+                            goToHomeScreen()
+                        }
+
+                    }
+                }
+
+            }
+        }
     }
 
     private fun timeOut() {
@@ -62,6 +101,13 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
 
 
     private fun requestAds() {
+        if (isMobileAdsInitializeCalled.getAndSet(true)) {
+            return
+        }
+        activity?.runOnUiThread {
+            appOpenManager = AppOpenManager(activity)
+        }
+        timeOut()
         val request = AdRequest.Builder().build()
         activity?.let {
             val remoteConfigAds = AdsConstants.mapRemoteConfigAds[PlacementAds.PLACEMENT_SPLASH]

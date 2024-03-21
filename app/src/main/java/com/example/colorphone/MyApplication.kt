@@ -25,8 +25,6 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class MyApplication :Application() {
-    private var appOpenManager: AppOpenManager? = null
-
 
     @Inject
     lateinit var prefUtil: PrefUtil
@@ -48,7 +46,6 @@ class MyApplication :Application() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
-        appOpenManager = AppOpenManager(this)
     }
 
     private fun getRemoteConfigAds() {

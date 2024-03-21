@@ -6,9 +6,11 @@ import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentListBackgroundBinding
 import com.example.colorphone.model.Background
 import com.example.colorphone.ui.edit.bottomBackgroundEdit.adapter.BackgroundAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @OptIn(ExperimentalCoroutinesApi::class)
+@AndroidEntryPoint
 class ListBackgroundFragment(
     private var currentBg: Int,
     private var currentCate: Int,

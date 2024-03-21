@@ -25,13 +25,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException
 import com.google.api.services.drive.Drive
 import com.wecan.inote.util.showCustomToast
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
+@AndroidEntryPoint
 class RecyclerBinFragment : BaseFragment<FragmentRecyclerBinBinding>(FragmentRecyclerBinBinding::inflate) {
 
     private val _adapterText by lazy { RecycleBinAdapter(true) }

@@ -12,6 +12,6 @@ object AdsConstants {
     const val POSITION_TOP_BANNER = "top"
     val mapRemoteConfigAds = mutableMapOf<String, RemoteConfigAds>()
 
-
+    var canRequestAds: Boolean? = null
 
 }

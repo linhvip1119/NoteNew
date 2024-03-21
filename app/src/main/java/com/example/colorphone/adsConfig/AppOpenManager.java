@@ -30,13 +30,13 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
     private AppOpenAd.AppOpenAdLoadCallback loadCallback;
     private long loadTime = 0;
     private Context context;
-    private Application myApplication;
+    private Activity myApplication;
     private Activity currentActivity;
 
     /**
      * Constructor
      */
-    public AppOpenManager(Application application) {
+    public AppOpenManager(Activity application) {
         this.myApplication = application;
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         AD_UNIT_ID = application.getString(R.string.no1_app_open_default);
@@ -69,46 +69,48 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         if (isAdAvailable()) {
             return;
         }
-        loadCallback =
-                new AppOpenAd.AppOpenAdLoadCallback() {
-                    /**
-                     * Called when an app open ad has loaded.
-                     *
-                     * @param ad the loaded app open ad.
-                     */
-                    @Override
-                    public void onAdLoaded(AppOpenAd ad) {
-                        AppOpenManager.this.appOpenAd = ad;
-                        AppOpenManager.this.loadTime = (new Date()).getTime();
-                    }
+        if (AdsConstants.INSTANCE.getCanRequestAds() != null && AdsConstants.INSTANCE.getCanRequestAds()) {
+            loadCallback =
+                    new AppOpenAd.AppOpenAdLoadCallback() {
+                        /**
+                         * Called when an app open ad has loaded.
+                         *
+                         * @param ad the loaded app open ad.
+                         */
+                        @Override
+                        public void onAdLoaded(AppOpenAd ad) {
+                            AppOpenManager.this.appOpenAd = ad;
+                            AppOpenManager.this.loadTime = (new Date()).getTime();
+                        }
 
-                    /**
-                     * Called when an app open ad has failed to load.
-                     *
-                     * @param loadAdError the error.
-                     */
-                    @Override
-                    public void onAdFailedToLoad(LoadAdError loadAdError) {
-                        // Handle the error.
+                        /**
+                         * Called when an app open ad has failed to load.
+                         *
+                         * @param loadAdError the error.
+                         */
+                        @Override
+                        public void onAdFailedToLoad(LoadAdError loadAdError) {
+                            // Handle the error.
+                        }
+                    };
+            AdRequest request = getAdRequest();
+            try {
+                if (remoteIdAppReturn != null) {
+                    if (remoteIdAppReturn.isOn()) {
+                        AppOpenAd.load(
+                                myApplication, remoteIdAppReturn.getId(), request,
+                                AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
                     }
-                };
-        AdRequest request = getAdRequest();
-        try {
-            if (remoteIdAppReturn != null) {
-                if (remoteIdAppReturn.isOn()) {
+                } else {
                     AppOpenAd.load(
-                            myApplication, remoteIdAppReturn.getId(), request,
+                            myApplication, AD_UNIT_ID, request,
                             AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
                 }
-            } else {
+            } catch (Exception e) {
                 AppOpenAd.load(
                         myApplication, AD_UNIT_ID, request,
                         AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
             }
-        } catch (Exception e) {
-            AppOpenAd.load(
-                    myApplication, AD_UNIT_ID, request,
-                    AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
         }
 
     }

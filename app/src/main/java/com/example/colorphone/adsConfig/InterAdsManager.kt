@@ -26,7 +26,11 @@ class InterAdsManager(
     private var isInterstitialLoading = false
 
     init {
-        loadInterWhenCreate()
+        if (AdsConstants.canRequestAds != null) {
+            if (AdsConstants.canRequestAds == true) {
+                loadInterWhenCreate()
+            }
+        }
     }
 
     private fun loadInterWhenCreate() {

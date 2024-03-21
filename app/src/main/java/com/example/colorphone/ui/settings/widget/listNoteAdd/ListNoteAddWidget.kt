@@ -20,6 +20,7 @@ import com.example.colorphone.util.TypeView
 import com.wecan.inote.util.gone
 import com.wecan.inote.util.show
 import com.wecan.inote.util.showCustomToast
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
@@ -29,7 +30,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class ListNoteAddWidget : BaseFragment<FragmentListNoteAddWidgetBinding>(FragmentListNoteAddWidgetBinding::inflate) {
 
     private val _adapterText by lazy { RecycleBinAdapter() }

@@ -25,6 +25,8 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.example.colorphone.R
+import com.example.colorphone.adsConfig.AdsConstants
+import com.example.colorphone.adsConfig.GoogleMobileAdsConsentManager
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.room.DataConverter
 import com.example.colorphone.ui.bottomDialogColor.ui.NoteBottomSheetDialog
@@ -46,6 +48,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
+import javax.inject.Inject
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
@@ -62,8 +65,13 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
 
     var repository: GoogleDriveApiDataRepository? = null
 
+
+    @Inject
+    lateinit var googleMobileAdsConsentManager: GoogleMobileAdsConsentManager
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        allowRequestAds()
         init(view)
         onSubscribeObserver(view)
     }
@@ -421,5 +429,11 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
             }
         }
 
+    }
+
+    private fun allowRequestAds(){
+        if (googleMobileAdsConsentManager.canRequestAds){
+            AdsConstants.canRequestAds = true
+        } else AdsConstants.canRequestAds = null
     }
 }

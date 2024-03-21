@@ -16,8 +16,9 @@ import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.ext.getTextLanguage
 import com.example.colorphone.util.ext.showAlertDialogTip
 import com.wecan.inote.util.mapIdColor
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSettingDetailBinding::inflate) {
     override fun init(view: View) {
         initView()

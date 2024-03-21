@@ -32,12 +32,13 @@ import com.wecan.inote.util.mapIdColor
 import com.wecan.inote.util.mapIdColorWidget
 import com.wecan.inote.util.show
 import com.wecan.inote.util.showCustomToast
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class WidgetFragment : BaseFragment<FragmentWidgetBinding>(FragmentWidgetBinding::inflate) {
 
     @OptIn(ExperimentalCoroutinesApi::class)
