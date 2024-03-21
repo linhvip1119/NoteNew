@@ -27,8 +27,8 @@ android {
         applicationId = "dev.note.notebook.notepad.wisenotes"
         minSdk = 24
         targetSdk = 33
-        versionCode = 18
-        versionName = "1.1.8"
+        versionCode = 19
+        versionName = "1.1.9"
         resConfigs("en", "es", "pt", "it", "ms", "fil", "th", "ko", "ja", "hi", "pt", "vi", "ru", "uk", "tr", "dz", "ar",
                    "in", "tl", "de", "zh", "nl", "pl", "sv", "da", "fi", "bn", "mr", "te", "ta", "ur", "cs", "hr", "my", "sw")
 
