@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import com.example.colorphone.MyApplication
 import com.example.colorphone.R
 import com.example.colorphone.adsConfig.AdsConstants
 import com.example.colorphone.adsConfig.AppOpenManager
@@ -22,6 +23,7 @@ import com.google.android.gms.ads.appopen.AppOpenAd
 import com.wecan.inote.util.haveNetworkConnection
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.atomic.AtomicBoolean
+
 @AndroidEntryPoint
 class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding::inflate) {
 
@@ -39,39 +41,43 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
 
     private var appOpenAd: AppOpenAd? = null
 
-    private var appOpenManager: AppOpenManager? = null
-
     private val isMobileAdsInitializeCalled = AtomicBoolean(false)
     override fun init(view: View) {
         AdsConstants.isShowAdsInter = true
         Const.checking("Splash_Show")
-        if(context?.haveNetworkConnection() != true){
+        if (context?.haveNetworkConnection() != true) {
             Const.checking("Splash_NoInternet_Show")
         }
         initUmp()
     }
 
     private fun initUmp() {
-        context?.haveNetworkConnection()?.let{
-            if (it){
+        context?.haveNetworkConnection()?.let {
+            if (it) {
                 if (googleMobileAdsConsentManager.canRequestAds) {
                     activity?.let { MobileAds.initialize(it) {} }
                     requestAds()
                 }
-                Log.d("TAGVBNHJJSS",googleMobileAdsConsentManager.canRequestAds.toString()+"a")
+                Log.d("TAGVBNHJJSS", googleMobileAdsConsentManager.canRequestAds.toString() + "a")
                 activity?.let {
                     googleMobileAdsConsentManager.gatherConsent(it) { consentError ->
 
-                        Log.d("TAGVBNHJJJJKL", googleMobileAdsConsentManager.canRequestAds.toString())
+                        Log.d(
+                            "TAGVBNHJJJJKL",
+                            googleMobileAdsConsentManager.canRequestAds.toString()
+                        )
                         Log.d(
                             "TAGVBNHJJJJKL",
                             googleMobileAdsConsentManager.isPrivacyOptionsRequired.toString()
                         )
                         if (googleMobileAdsConsentManager.canRequestAds) {
-                            Log.d("TAGVBNHJJJJKL", googleMobileAdsConsentManager.canRequestAds.toString())
+                            Log.d(
+                                "TAGVBNHJJJJKL",
+                                googleMobileAdsConsentManager.canRequestAds.toString()
+                            )
                             activity?.let { MobileAds.initialize(it) {} }
                             requestAds()
-                        }else{
+                        } else {
                             goToHomeScreen()
                         }
 
@@ -99,13 +105,9 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
     }
 
 
-
     private fun requestAds() {
         if (isMobileAdsInitializeCalled.getAndSet(true)) {
             return
-        }
-        activity?.runOnUiThread {
-            appOpenManager = AppOpenManager(activity)
         }
         timeOut()
         val request = AdRequest.Builder().build()
@@ -123,7 +125,11 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
                                     appOpenAd = p0
                                     handler!!.removeCallbacksAndMessages(null)
                                     if (!isPause) {
-                                        showAds()
+                                        if (prefUtil.isShowOpenAdsWhenChangeMode) {
+                                            showAds()
+                                        } else {
+                                            goToHomeScreen()
+                                        }
                                     }
                                 }
                             }
@@ -154,7 +160,11 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
                                 appOpenAd = p0
                                 handler!!.removeCallbacksAndMessages(null)
                                 if (!isPause) {
-                                    showAds()
+                                    if (prefUtil.isShowOpenAdsWhenChangeMode) {
+                                        showAds()
+                                    } else {
+                                        goToHomeScreen()
+                                    }
                                 }
                             }
                         }
@@ -202,9 +212,13 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
 
 
     private fun goToHomeScreen() {
+        if (!prefUtil.isShowOpenAdsWhenChangeMode) {
+            prefUtil.isShowOpenAdsWhenChangeMode = true
+        }
         AdsConstants.isShowAdsInter = false
         navigationWithAnim(R.id.action_splashFragment_to_mainFragment)
     }
+
     private fun gotoLoginOnResume() {
         lifecycle.addObserver(LifecycleEventObserver { _, event ->
             when (event) {
@@ -227,7 +241,11 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
                     override fun run() {
                         if (appOpenAd != null) {
                             isTimeOut = false
-                            showAds()
+                            if (prefUtil.isShowOpenAdsWhenChangeMode) {
+                                showAds()
+                            } else {
+                                goToHomeScreen()
+                            }
                         } else {
                             if (countTime >= 12000) {
                                 isTimeOut = true

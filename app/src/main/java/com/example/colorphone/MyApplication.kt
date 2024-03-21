@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.colorphone.adsConfig.AdsConstants
+import com.example.colorphone.adsConfig.AppOpenManager
 import com.example.colorphone.model.RemoteConfigAds
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.CHANNEL_ID_ONE_TIME_WORK
@@ -29,6 +30,8 @@ import javax.inject.Inject
 @HiltAndroidApp
 class MyApplication : Application() {
 
+    private var appOpenManager: AppOpenManager? = null
+
     @Inject
     lateinit var prefUtil: PrefUtil
     override fun onCreate() {
@@ -49,6 +52,7 @@ class MyApplication : Application() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
+        appOpenManager = AppOpenManager(this)
     }
 
     private fun getRemoteConfigAds() {

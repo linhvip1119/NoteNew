@@ -20,7 +20,6 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 
-
 import java.util.Date;
 
 public class AppOpenManager implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
@@ -30,13 +29,13 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
     private AppOpenAd.AppOpenAdLoadCallback loadCallback;
     private long loadTime = 0;
     private Context context;
-    private Activity myApplication;
+    private Application myApplication;
     private Activity currentActivity;
 
     /**
      * Constructor
      */
-    public AppOpenManager(Activity application) {
+    public AppOpenManager(Application application) {
         this.myApplication = application;
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         AD_UNIT_ID = application.getString(R.string.no1_app_open_default);

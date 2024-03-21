@@ -11,6 +11,7 @@ import com.example.colorphone.databinding.FragmentSettingDetailBinding
 import com.example.colorphone.ui.settings.advanced.bottomLanguage.BottomFragmentLanguage
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.APPLICATION_ID
+import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.PrefUtils
 import com.example.colorphone.util.TypeColorNote
 import com.example.colorphone.util.ext.getTextLanguage
@@ -18,6 +19,8 @@ import com.example.colorphone.util.ext.showAlertDialogTip
 import com.wecan.inote.util.mapIdColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+
 @AndroidEntryPoint
 class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSettingDetailBinding::inflate) {
     override fun init(view: View) {
@@ -171,6 +174,7 @@ class AdvancedSetting : BaseFragment<FragmentSettingDetailBinding>(FragmentSetti
             prefUtil.putValueMode(isChecked)
 
             activity?.apply {
+                prefUtil.isShowOpenAdsWhenChangeMode = false
                 finish()
                 intent?.let { startActivity(it) }
             }

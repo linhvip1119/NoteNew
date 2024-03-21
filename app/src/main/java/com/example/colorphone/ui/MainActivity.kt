@@ -28,6 +28,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        if (!isTaskRoot) {
+            finish()
+            return
+        }
         window.requestFeature(Window.FEATURE_ACTION_BAR)
         supportActionBar?.hide()
         themeIndex = getIndexTheme(prefUtil.themeColor)

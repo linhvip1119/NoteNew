@@ -108,10 +108,10 @@ class InterAdsManager(
     ) {
         try {
             val currentTime = System.currentTimeMillis()
+            remoteConfigAds?.let {  Const.checking(it.spaceName) }
             if (remoteConfigAds == null || !isInterstitialLoaded() || AdsConstants.isShowOpenAds) {
                 onActiveWhenNotShowAds.invoke()
             } else {
-                Const.checking(remoteConfigAds.spaceName)
                 if (currentTime - AdsConstants.timeBaseCount >= AdsConstants.TIME_BASE_DEFAULT && remoteConfigAds.isOn) {
                     activity?.let { mActivity ->
                         if (mInterstitialAd != null) {
