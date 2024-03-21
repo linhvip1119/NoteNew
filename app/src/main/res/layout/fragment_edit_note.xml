@@ -170,7 +170,7 @@
                     android:layout_below="@+id/ivReadMode"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/poppins_regular"
-                    android:gravity="top|end"
+                    android:gravity="top"
                     android:minHeight="180dp"
                     android:overScrollMode="always"
                     android:paddingHorizontal="@dimen/dp16"
