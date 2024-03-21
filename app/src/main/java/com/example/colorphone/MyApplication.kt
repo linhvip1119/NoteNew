@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.colorphone.adsConfig.AdsConstants
-import com.example.colorphone.adsConfig.AppOpenManager
 import com.example.colorphone.model.RemoteConfigAds
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.CHANNEL_ID_ONE_TIME_WORK
@@ -14,8 +13,12 @@ import com.example.colorphone.util.Const.CHANNEL_ID_PERIOD_WORK
 import com.example.colorphone.util.PrefUtil
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ConfigUpdate
+import com.google.firebase.remoteconfig.ConfigUpdateListener
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigException
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.google.gson.Gson
@@ -24,7 +27,7 @@ import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 @HiltAndroidApp
-class MyApplication :Application() {
+class MyApplication : Application() {
 
     @Inject
     lateinit var prefUtil: PrefUtil
@@ -50,20 +53,42 @@ class MyApplication :Application() {
 
     private fun getRemoteConfigAds() {
         val remoteConfig = Firebase.remoteConfig
+
         val configSettings = remoteConfigSettings {
             minimumFetchIntervalInSeconds = 3600
         }
         remoteConfig.setConfigSettingsAsync(configSettings)
+
         remoteConfig.fetchAndActivate()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     try {
                         getListRemoteConfigAds(remoteConfig)
                         getTimeBase(remoteConfig)
-                    } catch (_: Exception) {
+                    } catch (e: Exception) {
+                        FirebaseCrashlytics.getInstance().recordException(e)
                     }
                 }
             }
+
+        remoteConfig.addOnConfigUpdateListener(object : ConfigUpdateListener {
+            override fun onUpdate(configUpdate: ConfigUpdate) {
+                try {
+                    remoteConfig.activate().addOnCompleteListener {
+                        getListRemoteConfigAds(remoteConfig)
+                        getTimeBase(remoteConfig)
+                    }
+
+                } catch (e: Exception) {
+                    FirebaseCrashlytics.getInstance().recordException(e)
+                }
+            }
+
+            override fun onError(error: FirebaseRemoteConfigException) {
+                FirebaseCrashlytics.getInstance().recordException(error)
+            }
+
+        })
     }
 
     private fun getTimeBase(remoteConfig: FirebaseRemoteConfig) {
@@ -76,7 +101,10 @@ class MyApplication :Application() {
     private fun getListRemoteConfigAds(remoteConfig: FirebaseRemoteConfig) {
         val result = remoteConfig.getString("ads_state")
         val gson = Gson()
-        val jsonRemoteConfigs = gson.fromJson<List<RemoteConfigAds>>(result, object : TypeToken<List<RemoteConfigAds>>() {}.type)
+        val jsonRemoteConfigs = gson.fromJson<List<RemoteConfigAds>>(
+            result,
+            object : TypeToken<List<RemoteConfigAds>>() {}.type
+        )
         jsonRemoteConfigs?.let {
             it.forEach { remoteConfigAds ->
                 AdsConstants.mapRemoteConfigAds[remoteConfigAds.spaceName] = remoteConfigAds

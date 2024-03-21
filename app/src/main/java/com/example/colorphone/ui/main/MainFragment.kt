@@ -163,13 +163,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             BannerAdsManager.loadAndShowBannerAds(
                 ac,
                 PlacementAds.PLACEMENT_MAIN_INLINE_MID,
-                binding.flBannerMid.flBanner
+                binding.flBannerMid.flBanner,
+                layoutLoading = binding.flBannerMid.veilLoading.veilLayout
             )
             BannerAdsManager.loadAndShowBannerAds(
                 ac,
                 PlacementAds.PLACEMENT_MAIN_INLINE_BOT,
                 binding.flBannerBot.flBanner,
-                AdsConstants.POSITION_BOTTOM_BANNER
+                AdsConstants.POSITION_BOTTOM_BANNER,
+                layoutLoading = binding.flBannerBot.veilLoading.veilLayout
             )
         }
     }
@@ -395,7 +397,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     override fun onResume() {
         super.onResume()
-        if (AdsConstants.isShowOpenAds) {
+        if (AdsConstants.isShowOpenAds || AdsConstants.isClickAds) {
+            if (AdsConstants.isClickAds){
+                AdsConstants.isClickAds = false
+            }
             binding.flBannerMid.flBanner.inv()
             binding.flBannerBot.flBanner.inv()
         } else {

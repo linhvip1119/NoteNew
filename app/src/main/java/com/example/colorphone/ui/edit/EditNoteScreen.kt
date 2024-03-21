@@ -166,7 +166,8 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                 it,
                 PlacementAds.PLACEMENT_EDIT_INLINE_TOP,
                 binding.iclBanner.flBanner,
-                AdsConstants.POSITION_TOP_BANNER
+                AdsConstants.POSITION_TOP_BANNER,
+                layoutLoading = binding.iclBanner.veilLoading.veilLayout
             )
 
         }
@@ -507,7 +508,10 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     override fun onResume() {
         super.onResume()
-        if (AdsConstants.isShowOpenAds) {
+        if (AdsConstants.isShowOpenAds || AdsConstants.isClickAds) {
+            if (AdsConstants.isClickAds){
+                AdsConstants.isClickAds = false
+            }
             binding.iclBanner.flBanner.inv()
 
         } else {

@@ -27,8 +27,8 @@ android {
         applicationId = "dev.note.notebook.notepad.wisenotes"
         minSdk = 24
         targetSdk = 33
-        versionCode = 15
-        versionName = "1.1.5"
+        versionCode = 16
+        versionName = "1.1.6"
         resConfigs("en", "es", "pt", "it", "ms", "fil", "th", "ko", "ja", "hi", "pt", "vi", "ru", "uk", "tr", "dz", "ar",
                    "in", "tl", "de", "zh", "nl", "pl", "sv", "da", "fi", "bn", "mr", "te", "ta", "ur", "cs", "hr", "my", "sw")
 
@@ -186,4 +186,6 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
 
     implementation ("com.google.android.ump:user-messaging-platform:2.2.0")
+
+    implementation ("com.github.skydoves:androidveil:1.1.3")
 }

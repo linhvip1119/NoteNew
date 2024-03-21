@@ -123,6 +123,7 @@ class InterAdsManager(
                                             "admob Interstitial onAdDismissedFullScreenContent"
                                         )
                                         AdsConstants.isShowAdsInter = false
+                                        AdsConstants.isClickAds = false
                                         AdsConstants.timeBaseCount = System.currentTimeMillis()
                                         mListener.onAdDismissedFullScreenContent()
                                         mInterstitialAd = null

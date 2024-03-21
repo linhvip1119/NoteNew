@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.skydoves.androidveil.VeilLayout android:id="@+id/veil_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:veilLayout_radius="6dp"
+    app:veilLayout_shimmerEnable="true"
+    app:veilLayout_veiled="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/ad_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="5dp"
+            android:background="#dddddd" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#dddddd" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#dddddd" />
+        </LinearLayout>
+    </LinearLayout>
+</com.skydoves.androidveil.VeilLayout>
