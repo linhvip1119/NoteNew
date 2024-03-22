@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.colorphone.R
 import com.example.colorphone.adsConfig.AdsConstants
 import com.example.colorphone.adsConfig.BannerAdsManager
+import com.example.colorphone.adsConfig.InterAdsManagers
 import com.example.colorphone.adsConfig.PlacementAds
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentMainBinding
@@ -148,6 +149,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     override fun init(view: View) {
         check("Main_Show")
+        InterAdsManagers.loadInterAds(activity)
         loadAdsBanner()
         initView()
         addListColorType()
@@ -398,7 +400,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     override fun onResume() {
         super.onResume()
         if (AdsConstants.isShowOpenAds || AdsConstants.isClickAds) {
-            if (AdsConstants.isClickAds){
+            if (AdsConstants.isClickAds) {
                 AdsConstants.isClickAds = false
             }
             binding.flBannerMid.flBanner.inv()

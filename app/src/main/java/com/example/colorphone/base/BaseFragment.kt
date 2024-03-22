@@ -88,7 +88,8 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
 //                return viewPreview
 //            }
 //        }
-        navBuilder.setEnterAnim(android.R.anim.fade_in).setExitAnim(android.R.anim.fade_out).setPopEnterAnim(android.R.anim.fade_in).setPopExitAnim(android.R.anim.fade_out)
+        navBuilder.setEnterAnim(android.R.anim.fade_in).setExitAnim(android.R.anim.fade_out)
+            .setPopEnterAnim(android.R.anim.fade_in).setPopExitAnim(android.R.anim.fade_out)
         return binding.root
     }
 
@@ -101,7 +102,10 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
     }
 
     fun getFragmentListener(key: String, callback: (Bundle) -> Unit) {
-        activity?.supportFragmentManager?.setFragmentResultListener(key, viewLifecycleOwner) { _, result ->
+        activity?.supportFragmentManager?.setFragmentResultListener(
+            key,
+            viewLifecycleOwner
+        ) { _, result ->
             callback(result)
         }
     }
@@ -114,7 +118,8 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
     }
 
     fun isConnectedViaWifi(): Boolean {
-        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val mWifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
         val mMobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
         return mWifi!!.isConnected || mMobile!!.isConnected
@@ -122,8 +127,8 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
 
     open fun setUpGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestScopes(Scope(Scopes.DRIVE_FILE)).requestEmail().build()
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestScopes(Scope(Scopes.DRIVE_FILE)).requestEmail().build()
 
         googleSignInClient = activity?.let { GoogleSignIn.getClient(it, gso) }
     }
@@ -131,7 +136,8 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
     fun showBottomSheet(
         currentColor: String? = null, fromScreen: String, colorClick: (String) -> Unit
     ) {
-        val addPhotoBottomDialogFragment: NoteBottomSheetDialog = NoteBottomSheetDialog.newInstance(currentColor, fromScreen, colorClick)
+        val addPhotoBottomDialogFragment: NoteBottomSheetDialog =
+            NoteBottomSheetDialog.newInstance(currentColor, fromScreen, colorClick)
         activity?.supportFragmentManager?.let {
             addPhotoBottomDialogFragment.show(
                 it, "TAG"
@@ -139,7 +145,7 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
         }
     }
 
-    fun check(key : String){
+    fun check(key: String) {
         Const.checking(key)
     }
 
@@ -169,7 +175,10 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                     intent.putExtra(Const.ACTION_UPDATE_WIDGET_EDIT, Const.ADD_NOTE_WIDGET)
                     intent.putExtra(Const.POST_ID_NOTE_UPDATE_WIDGET, note.ids)
                     val successCallback = PendingIntent.getBroadcast(
-                        context, 1, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                        context,
+                        1,
+                        intent,
+                        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
                     )
                     appWidgetManager.requestPinAppWidget(myProvider, null, successCallback)
                     callSuccess.invoke(true)
@@ -205,8 +214,9 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
         if (idsWidget != -1 || (idWidgetConfig != null && idWidgetConfig != 0)) {
             lifecycleScope.launch {
                 val intent = Intent(activity, NoteProvider::class.java)
-                val actionUpdate = if (model.title.isEmpty() && model.content.isEmpty() && model.listCheckList.isNullOrEmpty()) Const.DELETE_NOTE_WIDGET
-                else Const.UPDATE_NOTE_WIDGET
+                val actionUpdate =
+                    if (model.title.isEmpty() && model.content.isEmpty() && model.listCheckList.isNullOrEmpty()) Const.DELETE_NOTE_WIDGET
+                    else Const.UPDATE_NOTE_WIDGET
                 intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
                 intent.putExtra(Const.ACTION_UPDATE_WIDGET_EDIT, actionUpdate)
                 intent.putExtra(Const.POST_ID_NOTE_UPDATE_WIDGET, model.ids)
@@ -271,7 +281,11 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                         if (model == null) {
                                             if (listNoteLocal[i].isUpdate != "0") {
                                                 Log.d("TGBMMMM", "a")
-                                                listNoteLocal[i].ids?.let { viewModelTextNote.delete(it) {} }
+                                                listNoteLocal[i].ids?.let {
+                                                    viewModelTextNote.delete(
+                                                        it
+                                                    ) {}
+                                                }
                                                 listNoteLocal.removeAt(i)
                                             }
                                         }
@@ -331,13 +345,15 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                 } else {
                                                     item.listCheckList?.let {
                                                         for (itemCheck in it) {
-                                                            val modelCheck = model.listCheckList?.find { it.token == itemCheck.token }
+                                                            val modelCheck =
+                                                                model.listCheckList?.find { it.token == itemCheck.token }
                                                             if (modelCheck == null) {
                                                                 model.listCheckList?.add(itemCheck)
                                                             } else {
                                                                 if (!modelCheck.isUpdate) {
                                                                     modelCheck.body = itemCheck.body
-                                                                    modelCheck.checked = itemCheck.checked
+                                                                    modelCheck.checked =
+                                                                        itemCheck.checked
                                                                 }
                                                             }
                                                             countUpdate++
@@ -363,13 +379,16 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                     lifecycleScope.launch(Dispatchers.IO) {
                                                         try {
                                                             viewModelTextNote.getAllData { listNoteAdded ->
-                                                                noteData = DataConverter().fromListNote(
-                                                                    ArrayList(listNoteAdded)
-                                                                )
+                                                                noteData =
+                                                                    DataConverter().fromListNote(
+                                                                        ArrayList(listNoteAdded)
+                                                                    )
                                                                 lifecycleScope.launch(Dispatchers.IO) {
                                                                     try {
                                                                         repository?.uploadFile(
-                                                                            id, "iNote", noteData.toString()
+                                                                            id,
+                                                                            "iNote",
+                                                                            noteData.toString()
                                                                         )
                                                                         withContext(Dispatchers.Main) {
                                                                             if (count > 0) {
@@ -379,7 +398,9 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                                                     )
                                                                                 )
                                                                             } else {
-                                                                                showMessage(getString(R.string.synced_successfully))
+                                                                                showMessage(
+                                                                                    getString(R.string.synced_successfully)
+                                                                                )
                                                                             }
                                                                             dialogProgress.dismiss()
                                                                             onComplete()
@@ -387,7 +408,8 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
                                                                                 item.isUpdate = "-1"
                                                                                 item.listCheckList?.let {
                                                                                     for (checkList in it) {
-                                                                                        checkList.isUpdate = false
+                                                                                        checkList.isUpdate =
+                                                                                            false
                                                                                     }
                                                                                 }
                                                                                 viewModelTextNote.updateNote(
@@ -431,8 +453,8 @@ abstract class BaseFragment<B : ViewBinding>(val inflate: Inflate<B>) : GoogleSi
 
     }
 
-    private fun allowRequestAds(){
-        if (googleMobileAdsConsentManager.canRequestAds){
+    private fun allowRequestAds() {
+        if (googleMobileAdsConsentManager.canRequestAds) {
             AdsConstants.canRequestAds = true
         } else AdsConstants.canRequestAds = null
     }

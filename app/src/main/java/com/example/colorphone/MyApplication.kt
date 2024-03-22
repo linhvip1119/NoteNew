@@ -4,9 +4,11 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.colorphone.adsConfig.AdsConstants
 import com.example.colorphone.adsConfig.AppOpenManager
+import com.example.colorphone.adsConfig.InterAdsManagers
 import com.example.colorphone.model.RemoteConfigAds
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.CHANNEL_ID_ONE_TIME_WORK
@@ -95,6 +97,15 @@ class MyApplication : Application() {
         })
     }
 
+    private fun setIdInterAdsUnit() {
+        for ((_, value) in AdsConstants.mapRemoteConfigAds) {
+            if (value.adsType == InterAdsManagers.TYPE) {
+                InterAdsManagers.idInterAdsUnit = value.id
+                break
+            }
+        }
+    }
+
     private fun getTimeBase(remoteConfig: FirebaseRemoteConfig) {
         val timebase = remoteConfig.getLong("ads_timebase")
         if (timebase > 0) {
@@ -113,6 +124,7 @@ class MyApplication : Application() {
             it.forEach { remoteConfigAds ->
                 AdsConstants.mapRemoteConfigAds[remoteConfigAds.spaceName] = remoteConfigAds
             }
+            setIdInterAdsUnit()
         }
     }
 

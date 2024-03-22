@@ -1,5 +1,6 @@
 package com.example.colorphone.ui.edit
 
+import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -8,16 +9,13 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.colorphone.R
 import com.example.colorphone.adsConfig.AdsConstants
 import com.example.colorphone.adsConfig.BannerAdsManager
-import com.example.colorphone.adsConfig.InterAdsManager
-import com.example.colorphone.adsConfig.InterstitialOnLoadCallBack
-import com.example.colorphone.adsConfig.InterstitialOnShowCallBack
+import com.example.colorphone.adsConfig.InterAdsManagers
 import com.example.colorphone.adsConfig.PlacementAds
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.FragmentEditNoteBinding
@@ -88,14 +86,6 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     private var jobAddWidget: Job? = null
 
-    private var interBackClick: InterAdsManager? = null
-
-    private var interSaveClick: InterAdsManager? = null
-
-    private var interBackCheckListClick: InterAdsManager? = null
-
-    private var interSaveCheckListClick: InterAdsManager? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,7 +104,6 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     override fun init(view: View) {
         loadAdsBanner()
-        initInterAds()
         handleViewText()
         if (idNoteEdited != -1) {
             viewModelTextNote.getNoteWithIds(idNoteEdited)
@@ -126,38 +115,6 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
         handleRedoUndo()
         handleEnableIconDo()
         checking("EditNote_Show", "EditList_Show")
-    }
-
-    private fun initInterAds() {
-        activity?.let {
-            interBackClick = InterAdsManager(
-                it,
-                AdsConstants.mapRemoteConfigAds[PlacementAds.PLACEMENT_EDIT_BACK],
-                false,
-                object : InterstitialOnLoadCallBack {}
-            )
-
-            interSaveClick = InterAdsManager(
-                it,
-                AdsConstants.mapRemoteConfigAds[PlacementAds.PLACEMENT_EDIT_SAVE],
-                false,
-                object : InterstitialOnLoadCallBack {}
-            )
-
-            interBackCheckListClick = InterAdsManager(
-                it,
-                AdsConstants.mapRemoteConfigAds[PlacementAds.PLACEMENT_EDIT_CHECK_BACK],
-                false,
-                object : InterstitialOnLoadCallBack {}
-            )
-
-            interSaveCheckListClick = InterAdsManager(
-                it,
-                AdsConstants.mapRemoteConfigAds[PlacementAds.PLACEMENT_EDIT_CHECK_SAVE],
-                false,
-                object : InterstitialOnLoadCallBack {}
-            )
-        }
     }
 
     private fun loadAdsBanner() {
@@ -291,8 +248,8 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
             activity?.onBackPressedDispatcher?.addCallback(this@EditNoteScreen, true) {
                 showInter(
-                    interBackClick,
-                    interBackCheckListClick
+                    PlacementAds.PLACEMENT_EDIT_BACK,
+                    PlacementAds.PLACEMENT_EDIT_CHECK_BACK
                 ) {
                     jobAddWidget?.cancel()
                     navController?.popBackStack()
@@ -314,8 +271,8 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             isBackPress = true
             handleSaveNote {
                 showInter(
-                    interSaveClick,
-                    interSaveCheckListClick
+                    PlacementAds.PLACEMENT_EDIT_SAVE,
+                    PlacementAds.PLACEMENT_EDIT_CHECK_SAVE
                 ) {
                     jobAddWidget?.cancel()
                     navController?.popBackStack()
@@ -331,39 +288,37 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     }
 
     private fun showInter(
-        interEdit: InterAdsManager?,
-        interCheckList: InterAdsManager?,
-        call: () -> Unit
+        keyEdit: String,
+        keyCheckList: String,
+        actionAfterShowAds: () -> Unit
     ) {
-        activity?.let {
-            if (model.typeItem == TypeItem.TEXT.name) {
-                showAds(interEdit, it, call)
-            } else {
-                showAds(interCheckList, it, call)
-            }
+        if (model.typeItem == TypeItem.TEXT.name) {
+            showAds(
+                activity,
+                keyEdit,
+                actionAfterShowAds
+            )
+        } else {
+            showAds(
+                activity,
+                keyCheckList,
+                actionAfterShowAds
+            )
         }
+
     }
 
     private fun showAds(
-        interAds: InterAdsManager?,
-        it: FragmentActivity,
+        activity: Activity?,
+        placement: String,
         call: () -> Unit
-    ) = interAds?.showInterstitialAd(
-        it,
-        {
-            call.invoke()
-        },
-        object : InterstitialOnShowCallBack {
-            override fun onAdDismissedFullScreenContent() {}
-
-            override fun onAdFailedToShowFullScreenContent() {}
-
-            override fun onAdShowedFullScreenContent() {
-                call.invoke()
-            }
-
-        }
-    )
+    ) {
+        InterAdsManagers.showAndReloadInterAds(
+            activity,
+            placement,
+            call
+        )
+    }
 
     private fun showBottomSheetBg(currentBg: Int, colorClick: (Background) -> Unit) {
         val addPhotoBottomDialogFragment: BottomSheetBackground =
@@ -509,7 +464,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
     override fun onResume() {
         super.onResume()
         if (AdsConstants.isShowOpenAds || AdsConstants.isClickAds) {
-            if (AdsConstants.isClickAds){
+            if (AdsConstants.isClickAds) {
                 AdsConstants.isClickAds = false
             }
             binding.iclBanner.flBanner.inv()

@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.example.colorphone.R
 import com.example.colorphone.adsConfig.AdsConstants
+import com.example.colorphone.adsConfig.InterAdsManagers
 import com.example.colorphone.adsConfig.PlacementAds
 import com.example.colorphone.base.BaseFragment
 import com.example.colorphone.databinding.SplashFragmentBinding
@@ -53,7 +54,9 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
         context?.haveNetworkConnection()?.let {
             if (it) {
                 if (googleMobileAdsConsentManager.canRequestAds) {
-                    activity?.let { MobileAds.initialize(it) {} }
+                    activity?.let { activity ->
+                        MobileAds.initialize(activity) {}
+                    }
                     requestAds()
                 }
                 Log.d("TAGVBNHJJSS", googleMobileAdsConsentManager.canRequestAds.toString() + "a")
@@ -82,15 +85,17 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
                     }
                 }
 
+            } else {
+                timeOut(timeOut = 1000)
             }
         }
     }
 
-    private fun timeOut() {
+    private fun timeOut(timeOut: Int) {
         handler = Handler(Looper.getMainLooper())
         handler!!.postDelayed(object : Runnable {
             override fun run() {
-                if (countTime >= 12000 && !isShowAds) {
+                if (countTime >= timeOut && !isShowAds) {
                     isTimeOut = true
                     appOpenAd = null
                     goToHomeScreen()
@@ -107,7 +112,7 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
         if (isMobileAdsInitializeCalled.getAndSet(true)) {
             return
         }
-        timeOut()
+        timeOut(timeOut = 15000)
         val request = AdRequest.Builder().build()
         activity?.let {
             val remoteConfigAds = AdsConstants.mapRemoteConfigAds[PlacementAds.PLACEMENT_SPLASH]
