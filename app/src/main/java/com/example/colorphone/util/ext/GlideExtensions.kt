@@ -221,6 +221,13 @@ fun AppCompatImageView.loadUrl(url: Any, radius: Int) {
                         .transform(RoundedCorners(radius))
             )
             .into(this)
+            .waitForLayout()
+}
+
+fun AppCompatImageView.loadUrl(url: Any) {
+    Glide.with(this)
+            .load(url)
+            .into(this)
 }
 
 fun RoundedImageView.loadUrl(url: Int) {

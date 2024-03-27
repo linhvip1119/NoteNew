@@ -1,7 +1,6 @@
 package com.example.colorphone.ui.main.listNote.adapter
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +46,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
 
     private var isLockNote: Boolean = false
 
-    private var listLocal = mutableListOf<NoteModel>()
+    var listLocal = mutableListOf<NoteModel>()
 
     fun setLockNote(isLock: Boolean) {
         isLockNote = isLock
@@ -55,69 +54,6 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
 
     fun getListSelected(): ArrayList<NoteModel> = ArrayList(currentList.filter { it.isSelected })
 
-    fun updateListAfterArchive() {
-        listLocal.apply {
-            clear()
-            addAll(currentList)
-        }
-        submitList(currentList.filter { it.isArchive == false })
-        notifyDataSetChanged()
-        onSelectItem?.invoke(0, null)
-    }
-
-    fun updateListAfterDelete() {
-        listLocal.apply {
-            clear()
-            addAll(currentList)
-        }
-        submitList(currentList.filter { it.isDelete == false })
-        notifyDataSetChanged()
-        onSelectItem?.invoke(0, null)
-    }
-
-    fun updateListAfterChangeColor(typeColor: String, listBefore: List<NoteModel>) {
-        listLocal.apply {
-            clear()
-            addAll(listBefore)
-        }
-        val list = arrayListOf<NoteModel>()
-        currentList.forEach {
-            val model =
-                if (getListSelected().contains(it)) it.apply { this.typeColor = typeColor } else it
-            list.add(model?.apply { it.isSelected = false } ?: NoteModel(dateCreateNote = 0))
-        }
-        submitList(list)
-        notifyDataSetChanged()
-        onSelectItem?.invoke(0, null)
-    }
-
-    fun revertListArchive() {
-        val list = arrayListOf<NoteModel>()
-        listLocal.forEach {
-            list.add(it.apply { it.isSelected = false })
-        }
-        onSelectItem?.invoke(0, null)
-        submitList(list)
-    }
-
-    fun revertListChangeColor() {
-        val list = arrayListOf<NoteModel>()
-        listLocal.forEach {
-            list.add(it.apply { it.isSelected = false })
-        }
-        onSelectItem?.invoke(0, null)
-        submitList(list)
-    }
-
-    fun selectAllItem(isSelectAll: Boolean) {
-        val list = arrayListOf<NoteModel>()
-        currentList.forEach {
-            list.add(it.apply { it.isSelected = isSelectAll })
-        }
-        submitList(list)
-        notifyDataSetChanged()
-        onSelectItem?.invoke(if (isSelectAll) currentList.size else 0, null)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
@@ -160,7 +96,10 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                         if (item.background == null) {
                             llBody.changeBackgroundColor(idColorBody)
                         } else {
-                            llBody.setBackgroundResource(item.background!!)
+                            try {
+                                llBody.setBackgroundResource(item.background!!)
+                            } catch (_: Exception) {
+                            }
                         }
                         ivPinned.compoundDrawableTintList =
                             ContextCompat.getColorStateList(root.context, idColor)
@@ -325,7 +264,7 @@ class TextAdapter(var isStatusSelected: Boolean? = false) :
                             ivBg.gone()
                         } else {
                             try {
-                                ivBg.loadUrl(item.background!!)
+                                ivBg.loadUrl(item.background!!, 16.px)
                                 llBody.setBackgroundColor(Color.TRANSPARENT)
                             } catch (_: Exception) {
                                 ivBg.gone()

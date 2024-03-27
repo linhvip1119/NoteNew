@@ -208,7 +208,15 @@ class SplashFragment : BaseFragment<SplashFragmentBinding>(SplashFragmentBinding
 
     private fun goToHomeScreen() {
         AdsConstants.isShowAdsInter = false
-        navigationWithAnim(R.id.action_splashFragment_to_mainFragment)
+        try {
+            if (navController?.currentDestination?.id == R.id.splashFragment){
+                navigationWithAnim(R.id.action_splashFragment_to_mainFragment)
+            } else {
+                navigationWithAnim(R.id.mainFragment)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun gotoLoginOnResume() {

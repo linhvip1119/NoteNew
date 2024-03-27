@@ -9,7 +9,7 @@ class FragmentPagerAdapter(fragment: Fragment, private var currentBg: Int, priva
 
     override fun getItemCount(): Int = 4
 
-    override fun createFragment(position: Int): Fragment = ListBackgroundFragment(currentBg = currentBg, currentCate = position) {
+    override fun createFragment(position: Int): Fragment = ListBackgroundFragment.getInstance(currentBg, position) {
         bgClick(it)
     }
 

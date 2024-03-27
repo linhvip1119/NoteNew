@@ -30,4 +30,10 @@ class ListShareViewModel : ViewModel() {
     fun setSortText(text: String) {
         sortLiveData.postValue(text)
     }
+
+    val changeBgLiveData: MutableLiveData<Int> = MutableLiveData()
+
+    fun changeBgLiveData(color: Int) {
+        changeBgLiveData.postValue(color)
+    }
 }

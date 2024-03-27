@@ -115,14 +115,26 @@
         tools:background="@color/neutral0"
         tools:context=".ui.main.listNote.ListNoteScreen">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_marginHorizontal="@dimen/dp8"
-            android:layout_marginTop="8dp"
-            android:clipToPadding="false" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:clipToPadding="false" />
+            </FrameLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
         <RelativeLayout
             android:id="@+id/clNoData"

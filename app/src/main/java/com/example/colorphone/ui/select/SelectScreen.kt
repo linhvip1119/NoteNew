@@ -25,6 +25,12 @@ import com.example.colorphone.databinding.FragmentSelectScreenBinding
 import com.example.colorphone.databinding.PopupExtendSelectedBinding
 import com.example.colorphone.model.NoteModel
 import com.example.colorphone.ui.main.listNote.adapter.TextAdapter
+import com.example.colorphone.ui.main.listNote.adapter.revertListArchive
+import com.example.colorphone.ui.main.listNote.adapter.revertListChangeColor
+import com.example.colorphone.ui.main.listNote.adapter.selectAllItem
+import com.example.colorphone.ui.main.listNote.adapter.updateListAfterArchive
+import com.example.colorphone.ui.main.listNote.adapter.updateListAfterChangeColor
+import com.example.colorphone.ui.main.listNote.adapter.updateListAfterDelete
 import com.example.colorphone.util.Const
 import com.example.colorphone.util.Const.CURRENT_TYPE_ITEM
 import com.example.colorphone.util.Const.NOTE_FROM_LONG_CLICK

@@ -28,7 +28,6 @@ class BottomSheetViewModel @Inject constructor(private val noteRepository: NoteT
 
     val languageModelLiveData: MutableLiveData<List<LanguageModel>> = MutableLiveData()
 
-
     fun getColorType() {
         viewModelScope.launch {
             noteRepository.getAllType().collect {

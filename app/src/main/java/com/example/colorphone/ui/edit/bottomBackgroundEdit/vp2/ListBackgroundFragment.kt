@@ -12,10 +12,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
 class ListBackgroundFragment(
-    private var currentBg: Int,
-    private var currentCate: Int,
-    private var bgClick: (Background) -> Unit
 ) : BaseFragment<FragmentListBackgroundBinding>(FragmentListBackgroundBinding::inflate) {
+
+
+    private var currentBg: Int = -1
+    private var currentCate: Int = -1
+    private var bgClick: ((Background) -> Unit)? = null
 
     private lateinit var adapterBackground: BackgroundAdapter
 
@@ -31,16 +33,21 @@ class ListBackgroundFragment(
             listBg = ArrayList(it)
             filterBackground()
         }
+        shareViewModel.changeBgLiveData.observe(viewLifecycleOwner) {
+            adapterBackground.currentBackgroundId = it
+            adapterBackground.notifyDataSetChanged()
+        }
     }
 
     private fun initRecyclerBackground() {
         adapterBackground = BackgroundAdapter {
-            bgClick(it)
+            bgClick?.invoke(it)
         }
-//        adapterBackground.currentBackgroundId = currentBg
+        adapterBackground.currentBackgroundId = currentBg
         binding.rvBg.apply {
             layoutManager = GridLayoutManager(context, 4)
             adapter = adapterBackground
+            isSaveFromParentEnabled = false
         }
     }
 
@@ -52,8 +59,12 @@ class ListBackgroundFragment(
     }
 
     companion object {
-//        fun getInstance(category: Int, bgClick: (Background) -> Unit): ListBackgroundFragment {
-//            return ListBackgroundFragment(category, bgClick)
-//        }
+        fun getInstance(idBg: Int, category: Int, bgClick: (Background) -> Unit): ListBackgroundFragment {
+            return ListBackgroundFragment().apply {
+                currentBg = idBg
+                currentCate = category
+                this.bgClick = bgClick
+            }
+        }
     }
 }

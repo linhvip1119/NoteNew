@@ -1,5 +1,6 @@
 package com.example.colorphone.ui.edit.bottomBackgroundEdit.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.example.colorphone.databinding.ItemBackgroundBinding
 import com.example.colorphone.model.Background
 import com.example.colorphone.util.ext.loadUrl
 import com.wecan.inote.util.getDisplayWidth
+import com.wecan.inote.util.gone
 import com.wecan.inote.util.px
 
 class BackgroundAdapter(val onClick: (Background) -> Unit) :
@@ -50,15 +52,17 @@ class BackgroundAdapter(val onClick: (Background) -> Unit) :
 
             }
             binding.apply {
-//                ivBg.isSelected = item.url == currentBackgroundId
                 if (item.url != -1) {
-                    ivBg.loadUrl(item.url)
-//                    ivBg.setBackgroundResource(0)
+                    ivBg.loadUrl(item.url, 9.px)
                 } else {
                     ivBg.loadUrl(R.drawable.bg_default)
+                    ivBg.isSelected = true
+                    viewSelected.gone()
                 }
-                flBg.visibility = if (item.isSelected) View.INVISIBLE else View.VISIBLE
+                viewSelected.isSelected = item.url == currentBackgroundId
+//                flBg.visibility = if (item.isSelected) View.INVISIBLE else View.VISIBLE
                 root.setOnClickListener {
+                    currentBackgroundId = item.url
                     onClick(item)
                 }
             }

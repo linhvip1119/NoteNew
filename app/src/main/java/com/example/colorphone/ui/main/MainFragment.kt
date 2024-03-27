@@ -302,14 +302,17 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private fun initBottomBar() {
         binding.apply {
-            val isSelectNote = currentNote == TEXT_FM
-            flNote.setBackgroundResource(if (isSelectNote) bgSelected else Color.TRANSPARENT)
-            flChecklist.setBackgroundResource(if (!isSelectNote) bgSelected else Color.TRANSPARENT)
-            tvNote.isSelected = isSelectNote
-            tvNote.text = if (isSelectNote) getString(R.string.note) else ""
-            tvChecklist.isSelected = !isSelectNote
-            tvChecklist.text = if (!isSelectNote) getString(R.string.checklistLabel) else ""
-            binding.vp2.currentItem = if (isSelectNote) 0 else 1
+            try {
+                val isSelectNote = currentNote == TEXT_FM
+                flNote.setBackgroundResource(if (isSelectNote) bgSelected else Color.TRANSPARENT)
+                flChecklist.setBackgroundResource(if (!isSelectNote) bgSelected else Color.TRANSPARENT)
+                tvNote.isSelected = isSelectNote
+                tvNote.text = if (isSelectNote) getString(R.string.note) else ""
+                tvChecklist.isSelected = !isSelectNote
+                tvChecklist.text = if (!isSelectNote) getString(R.string.checklistLabel) else ""
+                binding.vp2.currentItem = if (isSelectNote) 0 else 1
+            } catch (e: Exception) {
+            }
         }
     }
 

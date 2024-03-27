@@ -29,11 +29,11 @@ import java.util.Locale
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
-class ListNoteScreen(type: String) : BaseFragment<FragmentBaseListBinding>(FragmentBaseListBinding::inflate) {
+class ListNoteScreen() : BaseFragment<FragmentBaseListBinding>(FragmentBaseListBinding::inflate) {
 
     private lateinit var mAdapterText: TextAdapter
 
-    private var isNoteType = type == Const.TYPE_NOTE
+    private var isNoteType = true
 
     private var mListLocal: List<NoteModel>? = null
 
@@ -43,7 +43,8 @@ class ListNoteScreen(type: String) : BaseFragment<FragmentBaseListBinding>(Fragm
 
     companion object {
         fun newInstance(type: String, text: String, callback: () -> Unit): ListNoteScreen {
-            return ListNoteScreen(type).apply {
+            return ListNoteScreen().apply {
+                isNoteType = type == Const.TYPE_NOTE
                 textSearch = text
                 call = callback
             }

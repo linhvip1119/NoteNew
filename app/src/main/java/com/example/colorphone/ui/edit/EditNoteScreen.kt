@@ -1,8 +1,10 @@
 package com.example.colorphone.ui.edit
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -12,6 +14,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colorphone.R
 import com.example.colorphone.adsConfig.AdsConstants
 import com.example.colorphone.adsConfig.BannerAdsManager
@@ -48,6 +51,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
@@ -459,6 +463,7 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
             })
 
         binding.rvCheckList.adapter = adapter
+        binding.rvCheckList.itemAnimator = null
     }
 
     override fun onResume() {

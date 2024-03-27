@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.colorphone.databinding.BottomSheetBackgroundEditBinding
 import com.example.colorphone.model.Background
 import com.example.colorphone.ui.bottomDialogColor.viewmodel.BottomSheetViewModel
 import com.example.colorphone.ui.edit.bottomBackgroundEdit.adapter.FragmentPagerAdapter
+import com.example.colorphone.ui.main.viewmodel.ListShareViewModel
 import com.example.colorphone.util.Const
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
@@ -34,6 +36,10 @@ class BottomSheetBackground(
 
     private val bottomViewModel: BottomSheetViewModel by viewModels()
 
+    val shareViewModel: ListShareViewModel by activityViewModels()
+
+    private var adapterVp: FragmentPagerAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,10 +59,12 @@ class BottomSheetBackground(
             context?.getDisplayWidth()?.div(2)?.let { height = it + 60.px }
         }
 
-        val adapter = FragmentPagerAdapter(this, currentBg) {
+        adapterVp = FragmentPagerAdapter(this, currentBg) {
+            shareViewModel.changeBgLiveData(it.url)
+//            adapterVp.res
             bgClick(it)
         }
-        _binding?.viewPager?.adapter = adapter
+        _binding?.viewPager?.adapter = adapterVp
 
         context?.let {
             bottomViewModel.getCategoryBg(it) {

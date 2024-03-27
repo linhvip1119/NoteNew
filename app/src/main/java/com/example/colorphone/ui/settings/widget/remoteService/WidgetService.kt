@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.colorphone.R
 import com.example.colorphone.model.CheckList
 import com.example.colorphone.model.NoteModel
@@ -34,7 +35,7 @@ class WidgetService : RemoteViewsService() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         mIntentListener = listenerChangeWindowManager
-        registerReceiver(
+        LocalBroadcastManager.getInstance(applicationContext).registerReceiver(
             listenerChangeWindowManager, IntentFilter(Const.UPDATE_REMOTE_CHECK_LIST)
         )
 
