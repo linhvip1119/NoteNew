@@ -1,10 +1,8 @@
 package com.example.colorphone.ui.edit
 
 import android.app.Activity
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -14,7 +12,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.colorphone.R
 import com.example.colorphone.adsConfig.AdsConstants
 import com.example.colorphone.adsConfig.BannerAdsManager
@@ -93,6 +90,9 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //add listener lifecycle ads
+        isListenAds = true
+
         handleArgumentsListener()
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
@@ -128,7 +128,8 @@ class EditNoteScreen : BaseFragment<FragmentEditNoteBinding>(FragmentEditNoteBin
                 PlacementAds.PLACEMENT_EDIT_INLINE_TOP,
                 binding.iclBanner.flBanner,
                 AdsConstants.POSITION_TOP_BANNER,
-                layoutLoading = binding.iclBanner.veilLoading.veilLayout
+                layoutLoading = binding.iclBanner.veilLoading.veilLayout,
+                fragment = this@EditNoteScreen
             )
 
         }

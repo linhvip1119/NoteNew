@@ -45,6 +45,7 @@ import com.wecan.inote.util.setPreventDoubleClick
 import com.wecan.inote.util.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import timber.log.Timber
 import java.util.Locale
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -98,6 +99,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //add listener lifecycle ads
+        isListenAds = true
         arguments?.getString(Const.KEY_CREATE_NOTE_TOOLS_WIDGET)?.let {
             fromToolsWidget = it
         }
@@ -166,14 +169,16 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                 ac,
                 PlacementAds.PLACEMENT_MAIN_INLINE_MID,
                 binding.flBannerMid.flBanner,
-                layoutLoading = binding.flBannerMid.veilLoading.veilLayout
+                layoutLoading = binding.flBannerMid.veilLoading.veilLayout,
+                fragment = this@MainFragment
             )
             BannerAdsManager.loadAndShowBannerAds(
                 ac,
                 PlacementAds.PLACEMENT_MAIN_INLINE_BOT,
                 binding.flBannerBot.flBanner,
                 AdsConstants.POSITION_BOTTOM_BANNER,
-                layoutLoading = binding.flBannerBot.veilLoading.veilLayout
+                layoutLoading = binding.flBannerBot.veilLoading.veilLayout,
+                fragment = this@MainFragment
             )
         }
     }
@@ -406,11 +411,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             if (AdsConstants.isClickAds) {
                 AdsConstants.isClickAds = false
             }
-            binding.flBannerMid.flBanner.inv()
-            binding.flBannerBot.flBanner.inv()
+//            binding.flBannerMid.flBanner.inv()
+//            binding.flBannerBot.flBanner.inv()
+            Timber.d("3422342234...onFragmentResumed: flBanner.inv")
         } else {
             binding.flBannerMid.flBanner.show()
             binding.flBannerBot.flBanner.show()
+            Timber.d("3422342234...onFragmentResumed: flBanner.show")
         }
     }
 

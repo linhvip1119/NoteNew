@@ -7,6 +7,7 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.colorphone.R
+import com.example.colorphone.adsConfig.FragmentLifecycleListener
 import com.example.colorphone.model.EmailUser
 import com.example.colorphone.util.PrefUtil
 import com.example.colorphone.util.ext.showDialogLoginSuccess
@@ -31,6 +32,24 @@ abstract class GoogleSignInFragment : Fragment() {
 
     @Inject
     lateinit var prefUtil: PrefUtil
+
+    var lifecycleListener: FragmentLifecycleListener? = null
+
+    var isListenAds = false
+
+    override fun onPause() {
+        super.onPause()
+        if (isListenAds) {
+            lifecycleListener?.onFragmentPause(this)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isListenAds) {
+            lifecycleListener?.onFragmentResumed(this)
+        }
+    }
 
     open fun onGoogleDriveSignedInSuccess(driveApi: Drive?) {}
 

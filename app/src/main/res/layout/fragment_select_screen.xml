@@ -119,6 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
+            android:fillViewport="true"
             android:layout_marginHorizontal="@dimen/dp8"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -131,7 +132,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
-                    android:clipToPadding="false" />
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_text" />
             </FrameLayout>
 
         </androidx.core.widget.NestedScrollView>
